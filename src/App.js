@@ -28,13 +28,13 @@ function App() {
     const newHabit = {
       id: nanoid(),
       body: "Type your new habit here",
+      counter: 1,
     };
     // set the new Habit to be first in the array
     setHabits((prevHabits) => [newHabit, ...prevHabits]);
-
-    // ! may not need this as we don't need to gain focus on the habit itself
-    setCurrentHabitId(newHabit.id);
   }
+
+  console.log(currentHabitId);
 
   // when a change is made, it will map through the habits array, if the id matches the current ID
   // then it will modify the body of our habit with the new text
@@ -58,6 +58,17 @@ function App() {
     );
   }
 
+  // makes it so that each habit has an key for the counter, this will increment the counter by 1
+  function plusCounter() {
+    setHabits((prevHabits) =>
+      prevHabits.map((prevHabit) => {
+        return prevHabit.id === currentHabitId
+          ? { ...prevHabit, counter: prevHabit.counter + 1 }
+          : prevHabit;
+      })
+    );
+  }
+
   return (
     <div>
       <main>
@@ -67,10 +78,15 @@ function App() {
           <Add
             newHabit={createNewHabit}
             setCurrentHabitId={setCurrentHabitId}
-            currentId={findCurrentId}
+            currentId={findCurrentId()}
           />
-          <Habit value="value" />
-          <Habit value="value" />
+          <Habit
+            value="value"
+            habits={habits}
+            plusCounter={plusCounter}
+            setCurrentHabitId={setCurrentHabitId}
+            currentId={findCurrentId()}
+          />
         </div>
       </main>
     </div>

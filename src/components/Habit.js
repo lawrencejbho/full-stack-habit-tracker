@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 import Plus from "./Plus.js";
 import Minus from "./Minus.js";
+import { Note } from "@mui/icons-material";
 
-function Habit() {
-  const [counter, setCounter] = useState(0);
-
-  function plusClick() {
-    setCounter((prevValue) => prevValue + 1);
-  }
-
-  console.log(counter);
-
-  return (
-    <div className="habit-container">
-      <Plus className="plus" plusClick={plusClick} />
-      <div className="habit">{counter}</div>
+function Habit(props) {
+  // map through the habits to create each one with its unique habit keys
+  const habitElements = props.habits.map((habit, index) => (
+    <div key={habit.id} className="habit-container">
+      <Plus
+        className="plus"
+        // Anytime we mouseOver, we will modify the currentHabitID so that we can update the counter when it is clicked
+        // it looks like you need to an arrow function anytime you are passing a parameter to an event handler or callback
+        // this is equivalent to using a .bind
+        mouseOver={() => props.setCurrentHabitId(habit.id)}
+        plusClick={props.plusCounter}
+      />
+      <div className="habit">
+        {habit.counter}
+        {habit.body}
+      </div>
       <Minus className="minus" />
     </div>
-  );
+  ));
+
+  // honestly not show what this habit group does or if I even need it
+  return <div className="habit-group">{habitElements}</div>;
 }
 
 export default Habit;

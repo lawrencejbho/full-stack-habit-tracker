@@ -28,11 +28,20 @@ main {
   align-content: flex-start;
 }
 
+.habit-group {
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
 .habit-container {
   display: flex;
   gap: 5px;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .habit {
