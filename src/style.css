@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  background-color: white;
   padding: 20px;
+  overflow:auto;
 }
 
 * {
@@ -159,3 +159,11 @@ main {
   top: -7px;
   left: -2px
 } 
+
+.plus-icon { 
+  width:20px;
+}
+
+.minus-icon {
+  width: 20px;
+}

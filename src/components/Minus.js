@@ -1,7 +1,16 @@
 import React from "react";
+import minusIcon from "../images/minus.png";
 
-function Minus() {
-  return <div className="minus">1</div>;
+function Minus(props) {
+  return (
+    <div
+      className="minus"
+      onClick={props.minusClick}
+      onMouseOver={props.mouseOver}
+    >
+      <img className="minus-icon" src={minusIcon} />
+    </div>
+  );
 }
 
 export default Minus;

@@ -22,7 +22,11 @@ function Habit(props) {
           <i className="gg-trash trash-icon"></i>
         </button>
       </div>
-      <Minus className="minus" />
+      <Minus
+        className="minus"
+        mouseOver={() => props.setCurrentHabitId(habit.id)}
+        minusClick={props.minusCounter}
+      />
     </div>
   ));
 

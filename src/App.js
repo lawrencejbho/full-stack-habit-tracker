@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Habit from "./components/Habit.js";
 import Add from "./components/Add.js";
 import { nanoid } from "nanoid";
+import Cafe from "./images/cafe.jpg";
 
 function App() {
   // need to define localStorage here to grab the key habits
@@ -31,6 +32,16 @@ function App() {
     );
   }
 
+  function minusCounter() {
+    setHabits((prevHabits) =>
+      prevHabits.map((prevHabit) => {
+        return prevHabit.id === currentHabitId
+          ? { ...prevHabit, counter: prevHabit.counter - 1 }
+          : prevHabit;
+      })
+    );
+  }
+
   console.log(habits);
 
   // Pass this function to Add, it will pass us back the specific Habit so we can add the new habit into our Habits array
@@ -47,14 +58,22 @@ function App() {
     );
   }
 
+  const backgroundStyle = {
+    backgroundImage: `url(${Cafe})`,
+    width: "200vh",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
-    <div>
+    <div style={backgroundStyle}>
       <main>
         <div className="card-container">
           <Add onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
           <Habit
             habits={habits}
             plusCounter={plusCounter}
+            minusCounter={minusCounter}
             setCurrentHabitId={setCurrentHabitId}
             // deleteHabit={deleteHabit}
           />

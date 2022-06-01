@@ -1,4 +1,5 @@
 import React from "react";
+import plusIcon from "../images/plus.png";
 
 function Plus(props) {
   return (
@@ -7,7 +8,7 @@ function Plus(props) {
       onClick={props.plusClick}
       onMouseOver={props.mouseOver}
     >
-      1
+      <img className="plus-icon" src={plusIcon} />
     </div>
   );
 }
