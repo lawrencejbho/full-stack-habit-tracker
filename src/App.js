@@ -58,6 +58,7 @@ function App() {
     );
   }
 
+  // not sure if this is the best way to apply the background image by doing it directly through style
   const backgroundStyle = {
     backgroundImage: `url(${Cafe})`,
     width: "200vh",
