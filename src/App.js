@@ -3,6 +3,7 @@ import Habit from "./components/Habit.js";
 import Add from "./components/Add.js";
 import { nanoid } from "nanoid";
 import Cafe from "./images/cafe.jpg";
+import TodayDate from "./components/TodayDate.js";
 
 function App() {
   // need to define localStorage here to grab the key habits
@@ -42,7 +43,7 @@ function App() {
     );
   }
 
-  console.log(habits);
+  // console.log(habits);
 
   // Pass this function to Add, it will pass us back the specific Habit so we can add the new habit into our Habits array
   function addHabit(newHabit) {
@@ -61,7 +62,6 @@ function App() {
   // not sure if this is the best way to apply the background image by doing it directly through style
   const backgroundStyle = {
     backgroundImage: `url(${Cafe})`,
-    width: "200vh",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
@@ -78,6 +78,7 @@ function App() {
             setCurrentHabitId={setCurrentHabitId}
             // deleteHabit={deleteHabit}
           />
+          <TodayDate />
         </div>
       </main>
     </div>
