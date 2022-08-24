@@ -6,7 +6,7 @@ function Add(props) {
   const [habit, setHabit] = useState({
     id: nanoid(),
     body: "",
-    counter: 1,
+    counter: 0,
   });
 
   // this helps us update the habit's body when a change is made to input

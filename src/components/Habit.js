@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Plus from "./Plus.js";
 import Minus from "./Minus.js";
+import Delete from "./Delete.js";
 
 function Habit(props) {
   // map through the habits to create each one with its unique habit keys
@@ -16,11 +17,13 @@ function Habit(props) {
       />
 
       <div className="habit">
-        {habit.counter}
-        {habit.body}
-        <button className="delete-btn">
-          <i className="gg-trash trash-icon"></i>
-        </button>
+        {habit.counter} {habit.body}
+        <Delete
+          mouseOver={() => props.setCurrentHabitId(habit.id)}
+          deleteClick={props.deleteHabit}
+          contributions="5"
+        />
+        <button className="delete-btn"></button>
       </div>
       <Minus
         className="minus"

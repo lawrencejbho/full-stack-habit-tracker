@@ -9,7 +9,7 @@ body {
 }
 
 main {
-  background-color: #F5F5F5;
+  background-color: rgba(192, 192, 192, 0.4);  /*rgba - much easier to use this versus using opacity because it only affects the specific element */
   height: 600px;
   width: 400px;
   border-radius: 5px;
@@ -168,4 +168,23 @@ main {
 
 .minus-icon {
   width: 20px;
+}
+
+.delete-icon { 
+  width: 20px;
+}
+
+.box { 
+  background-color: #ebedf0;
+  width: 11px;
+  height: 11px;
+  border: 1px solid;
+}
+
+.box-container{ 
+  width: 100px;
+  display: grid;
+  grid-template-columns: repeat(52, 1fr);
+  column-gap: 4px;
+  row-gap: 4px;
 }

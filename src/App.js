@@ -4,6 +4,7 @@ import Add from "./components/Add.js";
 import { nanoid } from "nanoid";
 import Cafe from "./images/cafe.jpg";
 import TodayDate from "./components/TodayDate.js";
+import ContributionGraph from "./components/ContributionGraph.js";
 
 function App() {
   // need to define localStorage here to grab the key habits
@@ -12,7 +13,7 @@ function App() {
   // our habits array that saves our habits to be displayed later, will use the localStorage if it exists
   const [habits, setHabits] = useState(() => JSON.parse(savedHabit) || []);
 
-  // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID
+  // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID when we use things like mouseOver
   const [currentHabitId, setCurrentHabitId] = useState(
     (habits[0] && habits[0].id) || ""
   );
@@ -52,8 +53,8 @@ function App() {
     });
   }
 
-  // Use filter to keep everything but the currentHabitId
-  function deleteHabit(newHabit) {
+  // Use filter to keep everything but the currentHabitId which comes when we mouseOver
+  function deleteHabit() {
     setHabits((prevHabits) =>
       prevHabits.filter((habit) => habit.id !== currentHabitId)
     );
@@ -75,10 +76,11 @@ function App() {
             habits={habits}
             plusCounter={plusCounter}
             minusCounter={minusCounter}
+            deleteHabit={deleteHabit}
             setCurrentHabitId={setCurrentHabitId}
-            // deleteHabit={deleteHabit}
           />
           <TodayDate />
+          <ContributionGraph />
         </div>
       </main>
     </div>
