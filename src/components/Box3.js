@@ -1,5 +1,4 @@
 import React from "react";
-import Tooltip from "@mui/material/Tooltip";
 
 function Box(props) {
   function changeColor() {
@@ -24,10 +23,7 @@ function Box(props) {
 
   return (
     <div>
-      <Tooltip
-        title={`${props.contributions} contributions on ${props.date}`}
-        placement="top"
-      >
+      <Tooltip title="tooltip" placement="top">
         <div className="box" style={styles} onClick={mouseOver}></div>
       </Tooltip>
     </div>

@@ -181,10 +181,21 @@ main {
   border: 1px solid;
 }
 
+.outer-box-box-container { 
+  border: 1px solid;
+  width: 820px;
+  height: 145px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(192, 192, 192, 0.8);
+}
+
 .box-container{ 
   width: 100px;
   display: grid;
   grid-template-columns: repeat(52, 1fr);
   column-gap: 4px;
   row-gap: 4px;
+  padding: 20px 20px;
 }
+

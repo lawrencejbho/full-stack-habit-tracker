@@ -23,7 +23,9 @@ function Box(props) {
 
   return (
     <div>
-      <div className="box" style={styles} onClick={mouseOver}></div>
+      <Tooltip title="tooltip" placement="top">
+        <div className="box" style={styles} onClick={mouseOver}></div>
+      </Tooltip>
     </div>
   );
 }

@@ -15,11 +15,11 @@ const FakeData = [
   },
   {
     date: "Nov 16, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Feb 8, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Sep 27, 2021",
@@ -47,7 +47,7 @@ const FakeData = [
   },
   {
     date: "Sep 21, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jul 30, 2022",
@@ -55,7 +55,7 @@ const FakeData = [
   },
   {
     date: "Nov 6, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Aug 28, 2021",
@@ -123,7 +123,7 @@ const FakeData = [
   },
   {
     date: "Feb 4, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Nov 1, 2021",
@@ -167,7 +167,7 @@ const FakeData = [
   },
   {
     date: "Oct 31, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Aug 25, 2021",
@@ -235,7 +235,7 @@ const FakeData = [
   },
   {
     date: "Aug 2, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Mar 24, 2022",
@@ -255,7 +255,7 @@ const FakeData = [
   },
   {
     date: "Apr 17, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Nov 20, 2021",
@@ -267,11 +267,11 @@ const FakeData = [
   },
   {
     date: "Jul 21, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Apr 24, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Dec 2, 2021",
@@ -287,7 +287,7 @@ const FakeData = [
   },
   {
     date: "Feb 26, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "May 13, 2022",
@@ -347,7 +347,7 @@ const FakeData = [
   },
   {
     date: "Sep 3, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Jul 17, 2022",
@@ -367,7 +367,7 @@ const FakeData = [
   },
   {
     date: "Oct 15, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Jan 19, 2022",
@@ -379,7 +379,7 @@ const FakeData = [
   },
   {
     date: "Sep 30, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Aug 25, 2021",
@@ -391,7 +391,7 @@ const FakeData = [
   },
   {
     date: "Jan 19, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Feb 17, 2022",
@@ -431,7 +431,7 @@ const FakeData = [
   },
   {
     date: "May 4, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Dec 10, 2021",
@@ -447,7 +447,7 @@ const FakeData = [
   },
   {
     date: "Jun 12, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jan 27, 2022",
@@ -463,7 +463,7 @@ const FakeData = [
   },
   {
     date: "Feb 15, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Mar 26, 2022",
@@ -475,11 +475,11 @@ const FakeData = [
   },
   {
     date: "Oct 17, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Feb 25, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "May 6, 2022",
@@ -519,7 +519,7 @@ const FakeData = [
   },
   {
     date: "Jul 1, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jan 14, 2022",
@@ -531,7 +531,7 @@ const FakeData = [
   },
   {
     date: "Jul 12, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Sep 15, 2021",
@@ -543,7 +543,7 @@ const FakeData = [
   },
   {
     date: "Sep 29, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Feb 25, 2022",
@@ -563,7 +563,7 @@ const FakeData = [
   },
   {
     date: "Oct 9, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Feb 22, 2022",
@@ -571,7 +571,7 @@ const FakeData = [
   },
   {
     date: "Feb 12, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Oct 23, 2021",
@@ -583,7 +583,7 @@ const FakeData = [
   },
   {
     date: "Nov 12, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Apr 13, 2022",
@@ -595,7 +595,7 @@ const FakeData = [
   },
   {
     date: "Nov 2, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jun 27, 2022",
@@ -615,7 +615,7 @@ const FakeData = [
   },
   {
     date: "Oct 22, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jul 26, 2022",
@@ -623,7 +623,7 @@ const FakeData = [
   },
   {
     date: "Mar 16, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Sep 16, 2021",
@@ -639,15 +639,15 @@ const FakeData = [
   },
   {
     date: "Oct 19, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jun 11, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Mar 29, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Apr 13, 2022",
@@ -695,11 +695,11 @@ const FakeData = [
   },
   {
     date: "Aug 8, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Oct 11, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Aug 24, 2021",
@@ -755,7 +755,7 @@ const FakeData = [
   },
   {
     date: "Mar 4, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Mar 4, 2022",
@@ -811,11 +811,11 @@ const FakeData = [
   },
   {
     date: "May 24, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Oct 6, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Dec 15, 2021",
@@ -831,7 +831,7 @@ const FakeData = [
   },
   {
     date: "Jul 23, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jul 6, 2022",
@@ -971,7 +971,7 @@ const FakeData = [
   },
   {
     date: "Jan 1, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "May 22, 2022",
@@ -1031,7 +1031,7 @@ const FakeData = [
   },
   {
     date: "Sep 13, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Dec 20, 2021",
@@ -1059,7 +1059,7 @@ const FakeData = [
   },
   {
     date: "Nov 26, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Jan 11, 2022",
@@ -1139,7 +1139,7 @@ const FakeData = [
   },
   {
     date: "Apr 30, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Dec 5, 2021",
@@ -1147,7 +1147,7 @@ const FakeData = [
   },
   {
     date: "Apr 18, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Mar 7, 2022",
@@ -1187,7 +1187,7 @@ const FakeData = [
   },
   {
     date: "Jul 17, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Apr 5, 2022",
@@ -1211,7 +1211,7 @@ const FakeData = [
   },
   {
     date: "Jun 5, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Apr 18, 2022",
@@ -1219,11 +1219,11 @@ const FakeData = [
   },
   {
     date: "Feb 22, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Dec 5, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Dec 31, 2021",
@@ -1239,7 +1239,7 @@ const FakeData = [
   },
   {
     date: "May 1, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Oct 9, 2021",
@@ -1251,7 +1251,7 @@ const FakeData = [
   },
   {
     date: "Apr 15, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Feb 18, 2022",
@@ -1271,7 +1271,7 @@ const FakeData = [
   },
   {
     date: "Sep 21, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Jul 29, 2022",
@@ -1291,11 +1291,11 @@ const FakeData = [
   },
   {
     date: "Apr 24, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Aug 14, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Aug 25, 2021",
@@ -1303,7 +1303,7 @@ const FakeData = [
   },
   {
     date: "Feb 21, 2022",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "May 9, 2022",
@@ -1327,7 +1327,7 @@ const FakeData = [
   },
   {
     date: "Sep 29, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Jun 8, 2022",
@@ -1335,7 +1335,7 @@ const FakeData = [
   },
   {
     date: "Nov 7, 2021",
-    contributions: 10,
+    contributions: 0,
   },
   {
     date: "Feb 12, 2022",
@@ -1387,7 +1387,7 @@ const FakeData = [
   },
   {
     date: "Feb 20, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jul 10, 2022",
@@ -1411,7 +1411,7 @@ const FakeData = [
   },
   {
     date: "Mar 4, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jun 6, 2022",
@@ -1431,7 +1431,7 @@ const FakeData = [
   },
   {
     date: "Sep 8, 2021",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Jan 9, 2022",
@@ -1447,7 +1447,7 @@ const FakeData = [
   },
   {
     date: "Mar 4, 2022",
-    contributions: 9,
+    contributions: 0,
   },
   {
     date: "Sep 1, 2021",

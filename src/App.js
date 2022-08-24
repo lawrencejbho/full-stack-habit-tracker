@@ -80,9 +80,9 @@ function App() {
             setCurrentHabitId={setCurrentHabitId}
           />
           <TodayDate />
-          <ContributionGraph />
         </div>
       </main>
+      <ContributionGraph />
     </div>
   );
 }
