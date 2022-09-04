@@ -6,6 +6,10 @@ import Cafe from "./images/cafe.jpg";
 import TodayDate from "./components/TodayDate.js";
 import ContributionGraph from "./components/ContributionGraph.js";
 
+// using React for Routing - Pomdoro
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Timer from "./pages/Timer.js";
+
 function App() {
   // need to define localStorage here to grab the key habits
   const savedHabit = localStorage.getItem("habits");
