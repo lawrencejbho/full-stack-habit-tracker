@@ -72,22 +72,27 @@ function App() {
   };
 
   return (
-    <div style={backgroundStyle}>
-      <main>
-        <div className="card-container">
-          <Add onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
-          <Habit
-            habits={habits}
-            plusCounter={plusCounter}
-            minusCounter={minusCounter}
-            deleteHabit={deleteHabit}
-            setCurrentHabitId={setCurrentHabitId}
-          />
-          <TodayDate />
-        </div>
-      </main>
-      <ContributionGraph />
-    </div>
+    <Router>
+      <div style={backgroundStyle}>
+        <main>
+          <div className="card-container">
+            <Add onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
+            <Habit
+              habits={habits}
+              plusCounter={plusCounter}
+              minusCounter={minusCounter}
+              deleteHabit={deleteHabit}
+              setCurrentHabitId={setCurrentHabitId}
+            />
+            <TodayDate />
+          </div>
+        </main>
+        <ContributionGraph />
+      </div>
+      <Routes>
+        <Route path="/timer" element={<Timer />} />
+      </Routes>
+    </Router>
   );
 }
 
