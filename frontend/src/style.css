@@ -199,3 +199,23 @@ main {
   padding: 20px 20px;
 }
 
+
+/* Timer CSS */
+
+
+/* General Text */
+
+.white-text { 
+  color: white;
+}
+
+
+/* NavBar  */
+
+.navbar-line { 
+  width: 80%;
+}
+
+.app-line { 
+  width: 95%;
+}

@@ -1,17 +1,5 @@
-import React from "react"
-import { useTimer } from 'react-timer-hook';
+import React from "react";
 
+function Pomodoro() {}
 
-function Pomodoro() { 
-
-
-
-    return ( 
-
-
-
-        )
-}
-
-export default Pomodoro
-
+export default Pomodoro;
