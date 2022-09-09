@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./timer.css";
+import "./firebase";
+import requestPermission from "./firebase";
 
 function Timer() {
   const [seconds, setSeconds] = useState(2);
@@ -67,6 +69,7 @@ function Timer() {
 
   function timerFinished() {
     console.log("it's over");
+    requestPermission();
     isPomodoro = true;
   }
 
