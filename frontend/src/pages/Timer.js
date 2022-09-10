@@ -29,26 +29,6 @@ function Timer() {
     return time;
   }
 
-  // subtract a second every 1000 milliseconds
-  // useEffect(() => {
-  //   let interval = null;
-  //   if (isActive) {
-  //     interval = setInterval(() => {
-  //       setSeconds((seconds) => {
-  //         if (seconds > 0) {
-  //           return seconds - 1;
-  //         } else {
-  //           timerFinished();
-  //           return seconds;
-  //         }
-  //       });
-  //     }, 1000);
-  //   } else if (!isActive && seconds !== 0) {
-  //     clearInterval(interval);
-  //   }
-  //   return () => clearInterval(interval); // return clearInterval for clean up
-  // }, [isActive, seconds]);
-
   useEffect(() => {
     let interval = null;
     if (isActive && seconds !== 0) {
