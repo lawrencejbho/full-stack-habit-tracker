@@ -6,8 +6,12 @@ function ContributionGraph() {
   return (
     <div className="outer-box-box-container">
       <div className="box-container">
-        {FakeData.map((entry) => (
-          <Box contributions={entry.contributions} date={entry.date} />
+        {FakeData.map((entry, index) => (
+          <Box
+            key={index}
+            contributions={entry.contributions}
+            date={entry.date}
+          />
         ))}
       </div>
     </div>

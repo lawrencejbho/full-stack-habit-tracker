@@ -31,6 +31,13 @@ function Timer() {
 
   useEffect(() => {
     let interval = null;
+
+    function timerFinished() {
+      console.log("it's over");
+      requestPermission();
+      isPomodoro = true;
+    }
+
     if (isActive && seconds !== 0) {
       interval = setInterval(() => {
         setSeconds((seconds) => seconds - 1);
@@ -45,12 +52,6 @@ function Timer() {
 
   function toggle() {
     setIsActive((prev) => !prev);
-  }
-
-  function timerFinished() {
-    console.log("it's over");
-    requestPermission();
-    isPomodoro = true;
   }
 
   function reset() {
