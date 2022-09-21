@@ -11,3 +11,13 @@
   border: 1px solid #152684;
   color: white;
 }
+
+.pomdoro-container {
+  display: flex;
+}
+
+.timer-container{ 
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+}

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
+import Pomodoro from "./Pomodoro.js";
 import "./timer.css";
-import "./firebase";
-import requestPermission from "./firebase";
 
 function Timer() {
-  const [seconds, setSeconds] = useState(2);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(11);
+  const [secondsBreak, setSecondsBreak] = useState(10);
   const [isActive, setIsActive] = useState(false);
-  const timeDisplay = timeConversion();
+  const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
+  const breakTimeDisplay = timeConversion(secondsBreak);
+
   let isPomodoro = false;
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
-  function timeConversion() {
+  function timeConversion(seconds) {
     let time = {};
     if (seconds > 0) {
       time = {
@@ -18,7 +20,7 @@ function Timer() {
           Math.floor(seconds / 60) > 10
             ? Math.floor(seconds / 60)
             : `0${Math.floor(seconds / 60)}`,
-        seconds: seconds % 60 > 10 ? seconds % 60 : `0${seconds % 60}`,
+        seconds: seconds % 60 >= 10 ? seconds % 60 : `0${seconds % 60}`,
       };
     } else if (seconds === 0) {
       time = {
@@ -34,35 +36,55 @@ function Timer() {
 
     function timerFinished() {
       console.log("it's over");
-      requestPermission();
+      notificationPermission();
       isPomodoro = true;
     }
 
-    if (isActive && seconds !== 0) {
+    if (isActive && secondsPomodoro !== 0) {
       interval = setInterval(() => {
-        setSeconds((seconds) => seconds - 1);
+        setSecondsPomodoro((seconds) => seconds - 1);
       }, 1000);
-    } else if (!isActive && seconds !== 0) {
+    } else if (!isActive && secondsPomodoro !== 0) {
       clearInterval(interval);
-    } else if (seconds === 0) {
+    } else if (secondsPomodoro === 0) {
       timerFinished();
     }
     return () => clearInterval(interval); // return clearInterval for clean up
-  }, [isActive, seconds]);
+  }, [isActive, secondsPomodoro]);
+
+  // local notifications
+
+  function notificationPermission() {
+    Notification.requestPermission().then((perm) => {
+      if (perm === "granted") {
+        const notification = new Notification("Pomodoro Finished", {
+          body: "Start Break?",
+          data: { test: "Data" },
+          icon: "mango.png",
+        });
+        // click the notification to immediately start break
+        notification.addEventListener("click", (e) => {
+          // console.log(e);
+          startBreak();
+        });
+      }
+    });
+  }
 
   function toggle() {
     setIsActive((prev) => !prev);
   }
 
   function reset() {
-    setSeconds(1500);
+    setSecondsPomodoro(1500);
+    setSecondsBreak(300);
     setIsActive(false);
     isPomodoro = false;
   }
 
   // this seems to work for which one to display, I also tried checking for isActive but it didn't work as intended
   function startOrResume() {
-    if (seconds === 1500) {
+    if (secondsPomodoro === 1500) {
       return "Start";
     } else {
       return "Resume";
@@ -70,7 +92,7 @@ function Timer() {
   }
 
   function startBreak() {
-    setSeconds(300);
+    setSecondsPomodoro(300);
     setIsActive(true);
   }
 
@@ -78,19 +100,25 @@ function Timer() {
     <div>
       <h1 className="white-text">Pomodoro</h1>
       <hr className="app-line"></hr>
-      <div>
-        <h1 className="white-text">
-          {`${timeDisplay.minutes}:${timeDisplay.seconds}`}
-        </h1>
-        <button
-          className={`timer-button-status-${isActive ? "active" : "inactive"}`}
-          onClick={toggle}
-        >
-          {isActive ? "Pause" : startOrResume()}
-        </button>
-        <button className="timer-button" onClick={reset}>
-          Reset
-        </button>
+      <div className="timer-container">
+        <Pomodoro
+          minutes={pomodoroTimeDisplay.minutes}
+          seconds={pomodoroTimeDisplay.seconds}
+          active={isActive}
+          toggle={toggle}
+          reset={reset}
+          startOrResume={startOrResume}
+          type="pomodoro"
+        />
+        <Pomodoro
+          minutes={breakTimeDisplay.minutes}
+          seconds={breakTimeDisplay.seconds}
+          active={isActive}
+          toggle={toggle}
+          reset={reset}
+          startOrResume={startOrResume}
+          type="break"
+        />
       </div>
     </div>
   );
