@@ -8,7 +8,7 @@ function Delete(props) {
       onClick={props.deleteClick}
       onMouseOver={props.mouseOver}
     >
-      <img className="delete-icon" src={deleteIcon} />
+      <img className="delete-icon" src={deleteIcon} alt="delete button" />
     </div>
   );
 }

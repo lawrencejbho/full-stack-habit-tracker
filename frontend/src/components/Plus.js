@@ -8,7 +8,7 @@ function Plus(props) {
       onClick={props.plusClick}
       onMouseOver={props.mouseOver}
     >
-      <img className="plus-icon" src={plusIcon} />
+      <img className="plus-icon" src={plusIcon} alt="plus icon" />
     </div>
   );
 }
