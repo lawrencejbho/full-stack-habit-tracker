@@ -3,13 +3,14 @@ import PomodoroTimer from "./PomodoroTimer.js";
 import "./pomodoro.css";
 
 function Pomodoro() {
-  const [secondsPomodoro, setSecondsPomodoro] = useState(11);
-  const [secondsBreak, setSecondsBreak] = useState(10);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(2);
+  const [secondsBreak, setSecondsBreak] = useState(2);
   const [isActive, setIsActive] = useState(false);
+  const [isBreakActive, setIsBreakActive] = useState(false);
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
   const breakTimeDisplay = timeConversion(secondsBreak);
 
-  let isPomodoro = false;
+  // let isPomodoro = false;
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
   function timeConversion(seconds) {
@@ -31,13 +32,14 @@ function Pomodoro() {
     return time;
   }
 
+  // first useEffect for the pomdoro timer
   useEffect(() => {
     let interval = null;
 
     function timerFinished() {
-      console.log("it's over");
-      notificationPermission();
-      isPomodoro = true;
+      // console.log("pomodoro over");
+      // notificationPermissionPomodoro();
+      // isPomodoro = true;
     }
 
     if (isActive && secondsPomodoro !== 0) {
@@ -52,9 +54,30 @@ function Pomodoro() {
     return () => clearInterval(interval); // return clearInterval for clean up
   }, [isActive, secondsPomodoro]);
 
-  // local notifications
+  // second useEffect for the break timer
+  useEffect(() => {
+    let interval = null;
 
-  function notificationPermission() {
+    function timerFinished() {
+      // console.log("break over");
+      notificationPermissionBreak();
+    }
+
+    if (isBreakActive && secondsBreak !== 0) {
+      interval = setInterval(() => {
+        setSecondsBreak((seconds) => seconds - 1);
+      }, 1000);
+    } else if (!isBreakActive && secondsBreak !== 0) {
+      clearInterval(interval);
+    } else if (secondsBreak === 0) {
+      timerFinished();
+    }
+    return () => clearInterval(interval); // return clearInterval for clean up
+  }, [isBreakActive, secondsBreak]);
+
+  // local notifications for Pomodoro finished
+
+  function notificationPermissionPomodoro() {
     Notification.requestPermission().then((perm) => {
       if (perm === "granted") {
         const notification = new Notification("Pomodoro Finished", {
@@ -71,20 +94,56 @@ function Pomodoro() {
     });
   }
 
-  function toggle() {
+  // local notifications for Break finished
+  function notificationPermissionBreak() {
+    Notification.requestPermission().then((perm) => {
+      if (perm === "granted") {
+        const notification = new Notification("Break Finished", {
+          body: "Start Focusing?",
+          data: { test: "Data" },
+          icon: "mango.png",
+        });
+        // click the notification to immediately start break
+        notification.addEventListener("click", (e) => {
+          // console.log(e);
+          resetPomodoro();
+          togglePomodoro();
+        });
+      }
+    });
+  }
+
+  function togglePomodoro() {
     setIsActive((prev) => !prev);
   }
 
-  function reset() {
+  function toggleBreak() {
+    setIsBreakActive((prev) => !prev);
+  }
+
+  function resetPomodoro() {
     setSecondsPomodoro(1500);
     setSecondsBreak(300);
     setIsActive(false);
-    isPomodoro = false;
+    // isPomodoro = false;
+  }
+
+  function resetBreak() {
+    setSecondsBreak(300);
+    setIsActive(false);
+    setIsBreakActive(true);
   }
 
   // this seems to work for which one to display, I also tried checking for isActive but it didn't work as intended
-  function startOrResume() {
+  function startOrResumePomodoro() {
     if (secondsPomodoro === 1500) {
+      return "Start";
+    } else {
+      return "Resume";
+    }
+  }
+  function startOrResumeBreak() {
+    if (secondsPomodoro === 300) {
       return "Start";
     } else {
       return "Resume";
@@ -104,19 +163,21 @@ function Pomodoro() {
         <PomodoroTimer
           minutes={pomodoroTimeDisplay.minutes}
           seconds={pomodoroTimeDisplay.seconds}
-          active={isActive}
-          toggle={toggle}
-          reset={reset}
-          startOrResume={startOrResume}
+          activePomodoro={isActive}
+          activeBreak={isBreakActive}
+          toggle={togglePomodoro}
+          reset={resetPomodoro}
+          startOrResume={startOrResumePomodoro}
           type="pomodoro"
         />
         <PomodoroTimer
           minutes={breakTimeDisplay.minutes}
           seconds={breakTimeDisplay.seconds}
-          active={isActive}
-          toggle={toggle}
-          reset={reset}
-          startOrResume={startOrResume}
+          activePomodoro={isActive}
+          activeBreak={isBreakActive}
+          toggle={toggleBreak}
+          reset={resetBreak}
+          startOrResume={startOrResumeBreak}
           type="break"
         />
       </div>
