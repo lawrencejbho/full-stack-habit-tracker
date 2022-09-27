@@ -26,7 +26,7 @@ function TodayDate() {
 
   return (
     <div>
-      <h5> {todayDateString}</h5>
+      <h4 className="white-text"> {todayDateString}</h4>
     </div>
   );
 }

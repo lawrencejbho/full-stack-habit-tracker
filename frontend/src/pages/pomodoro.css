@@ -1,0 +1,23 @@
+
+
+.timer-button-status-active { 
+  background-color: #4d70e4;
+  border: 1px solid #152684;
+  color: white;
+}
+
+.timer-button-status-inactive { 
+  background-color: #118754;
+  border: 1px solid #152684;
+  color: white;
+}
+
+.pomdoro-container {
+  display: flex;
+}
+
+.timer-container{ 
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+}

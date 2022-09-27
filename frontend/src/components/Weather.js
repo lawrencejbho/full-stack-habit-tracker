@@ -2,25 +2,26 @@ import React, { useState, useEffect } from "react";
 
 function Weather() {
   // this API needs to start as an object
+  // I'm currently using the not one by one call API, so will change it when I get back to this
+  // currently missing the uv index
+  // TODO - might want to have different images based on the weather itself - like if it's windy it has a jacket
   const [weatherData, setWeatherData] = useState({});
-  const [ready, setReady] = useState(false);
-  const url =
-    "https://api.openweathermap.org/data/2.5/weather?lat=37.7621407&lon=-122.4745359&appid=6d794b4b65ee6ae6ad174f26bb0daf29&units=imperial";
+  const weatherAPI = "1f26b815276c4010e51ed75d74cce405";
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=37.7621407&lon=-122.4745359&appid=${weatherAPI}&units=imperial`;
 
   useEffect(() => {
+    async function getWeather() {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          return setWeatherData(data);
+        });
+    }
     getWeather();
   }, []);
 
-  async function getWeather() {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        return setWeatherData(data);
-      });
-  }
-
-  // wind logic
+  // basic wind logic
   let wind = "not windy";
   if (weatherData.wind > 15 && weatherData.wind < 25) {
     wind = "kinda windy";

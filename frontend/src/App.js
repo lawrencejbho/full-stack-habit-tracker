@@ -5,7 +5,7 @@ import Navbar from "./pages/Navbar.js";
 // using React for Routing - Pomdoro
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HabitTracker from "./pages/HabitTracker.js";
-import Timer from "./pages/Timer.js";
+import Pomodoro from "./pages/Pomodoro.js";
 import Home from "./pages/Home.js";
 import NotFound from "./pages/NotFound.js";
 
@@ -24,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/productivity">
-            <Route path="timer" element={<Timer />} />
+            <Route path="pomodoro" element={<Pomodoro />} />
             <Route path="habit" element={<HabitTracker />} />
           </Route>
           <Route path="*" element={<NotFound />} />
