@@ -32,14 +32,27 @@ function Pomodoro() {
     return time;
   }
 
-  // first useEffect for the pomdoro timer
+  // first useEffect for the Pomodoro timer
   useEffect(() => {
     let interval = null;
 
-    function timerFinished() {
-      // console.log("pomodoro over");
-      // notificationPermissionPomodoro();
-      // isPomodoro = true;
+    // local notification
+    function notificationPermissionPomodoro() {
+      Notification.requestPermission().then((perm) => {
+        if (perm === "granted") {
+          const notification = new Notification("Pomodoro Finished", {
+            body: "Start Break?",
+            data: { test: "Data" },
+            icon: "mango.png",
+          });
+          // click the notification to immediately start break
+          notification.addEventListener("click", (e) => {
+            // console.log(e);
+            resetBreak();
+            toggleBreak();
+          });
+        }
+      });
     }
 
     if (isActive && secondsPomodoro !== 0) {
@@ -48,19 +61,36 @@ function Pomodoro() {
       }, 1000);
     } else if (!isActive && secondsPomodoro !== 0) {
       clearInterval(interval);
-    } else if (secondsPomodoro === 0) {
-      timerFinished();
+    } else if (isActive && secondsPomodoro === 0) {
+      // need to check isActive here or you'll get two notifications
+      setIsActive(false);
+      notificationPermissionPomodoro();
     }
     return () => clearInterval(interval); // return clearInterval for clean up
-  }, [isActive, secondsPomodoro]);
+  }, [isActive, secondsPomodoro]); // need isActive here in the dependency array to start the useEffect or secondsPomodoro will never go down
 
-  // second useEffect for the break timer
+  // second useEffect for the Break timer, almost exactly the same
   useEffect(() => {
     let interval = null;
 
-    function timerFinished() {
-      // console.log("break over");
-      notificationPermissionBreak();
+    // local notifications for Break finished
+    function notificationPermissionBreak() {
+      Notification.requestPermission().then((perm) => {
+        if (perm === "granted") {
+          const notification = new Notification("Break Finished", {
+            body: "Start Focusing?",
+            data: { test: "Data" },
+            icon: "mango.png",
+          });
+          // click the notification to immediately start break
+          notification.addEventListener("click", (e) => {
+            // console.log(e);
+            resetPomodoro();
+            resetBreak();
+            togglePomodoro();
+          });
+        }
+      });
     }
 
     if (isBreakActive && secondsBreak !== 0) {
@@ -69,49 +99,12 @@ function Pomodoro() {
       }, 1000);
     } else if (!isBreakActive && secondsBreak !== 0) {
       clearInterval(interval);
-    } else if (secondsBreak === 0) {
-      timerFinished();
+    } else if (isBreakActive && secondsBreak === 0) {
+      setIsBreakActive(false);
+      notificationPermissionBreak();
     }
     return () => clearInterval(interval); // return clearInterval for clean up
   }, [isBreakActive, secondsBreak]);
-
-  // local notifications for Pomodoro finished
-
-  function notificationPermissionPomodoro() {
-    Notification.requestPermission().then((perm) => {
-      if (perm === "granted") {
-        const notification = new Notification("Pomodoro Finished", {
-          body: "Start Break?",
-          data: { test: "Data" },
-          icon: "mango.png",
-        });
-        // click the notification to immediately start break
-        notification.addEventListener("click", (e) => {
-          // console.log(e);
-          startBreak();
-        });
-      }
-    });
-  }
-
-  // local notifications for Break finished
-  function notificationPermissionBreak() {
-    Notification.requestPermission().then((perm) => {
-      if (perm === "granted") {
-        const notification = new Notification("Break Finished", {
-          body: "Start Focusing?",
-          data: { test: "Data" },
-          icon: "mango.png",
-        });
-        // click the notification to immediately start break
-        notification.addEventListener("click", (e) => {
-          // console.log(e);
-          resetPomodoro();
-          togglePomodoro();
-        });
-      }
-    });
-  }
 
   function togglePomodoro() {
     setIsActive((prev) => !prev);
@@ -123,36 +116,34 @@ function Pomodoro() {
 
   function resetPomodoro() {
     setSecondsPomodoro(1500);
-    setSecondsBreak(300);
+    if (!isBreakActive) setSecondsBreak(300);
     setIsActive(false);
     // isPomodoro = false;
   }
 
   function resetBreak() {
     setSecondsBreak(300);
-    setIsActive(false);
-    setIsBreakActive(true);
+    setIsBreakActive(false);
   }
 
   // this seems to work for which one to display, I also tried checking for isActive but it didn't work as intended
   function startOrResumePomodoro() {
     if (secondsPomodoro === 1500) {
       return "Start";
+    } else if (secondsPomodoro === 0) {
+      return "Reset";
     } else {
       return "Resume";
     }
   }
   function startOrResumeBreak() {
-    if (secondsPomodoro === 300) {
+    if (secondsBreak === 300) {
       return "Start";
+    } else if (secondsBreak === 0) {
+      return "Reset";
     } else {
       return "Resume";
     }
-  }
-
-  function startBreak() {
-    setSecondsPomodoro(300);
-    setIsActive(true);
   }
 
   return (
@@ -165,6 +156,7 @@ function Pomodoro() {
           seconds={pomodoroTimeDisplay.seconds}
           activePomodoro={isActive}
           activeBreak={isBreakActive}
+          active={isActive}
           toggle={togglePomodoro}
           reset={resetPomodoro}
           startOrResume={startOrResumePomodoro}
@@ -175,6 +167,7 @@ function Pomodoro() {
           seconds={breakTimeDisplay.seconds}
           activePomodoro={isActive}
           activeBreak={isBreakActive}
+          active={isBreakActive}
           toggle={toggleBreak}
           reset={resetBreak}
           startOrResume={startOrResumeBreak}

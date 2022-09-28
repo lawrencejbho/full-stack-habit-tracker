@@ -2,20 +2,27 @@ import React from "react";
 
 function PomodoroTimer(props) {
   function pomodoroActive() {
-    if (props.activePomodoro) {
-      if (props.type === "pomodoro") {
+    if (props.type === "pomodoro") {
+      if (props.activePomodoro) {
         return "Pause";
-      } else if (props.type === "break") {
+      } else {
         return props.startOrResume();
       }
-    } else {
-      return props.startOrResume();
+    }
+
+    if (props.type === "break") {
+      if (props.activeBreak) {
+        return "Pause";
+      } else {
+        return props.startOrResume();
+      }
     }
   }
 
   function separateLogic() {
     if (props.type === "pomodoro") return props.activePomodoro;
     if (props.type === "break") return props.activeBreak;
+    console.log(props.seconds);
   }
 
   return (
@@ -25,7 +32,11 @@ function PomodoroTimer(props) {
         className={`timer-button-status-${
           separateLogic() ? "active" : "inactive"
         }`}
-        onClick={props.toggle}
+        onClick={
+          props.minutes === "00" && props.seconds === "00"
+            ? props.reset
+            : props.toggle
+        }
       >
         {pomodoroActive()}
       </button>
