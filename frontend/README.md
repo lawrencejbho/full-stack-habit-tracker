@@ -1,23 +1,32 @@
-# Habit Tracker #
+# HaTr
+
+## Background
+
+Habit trackers are valuable tools to increase productivity for any individual and can also be useful for teams.  Currently, most habit trackers gatekeep their users from basic features preventing them from knowing whether or not a habit tracker will be beneficial for them.  HaTr is meant to be full servicing while also providing robust analytics as users can review this information quickly to provide deep insights into their habits.  
+
+## Description
+![title]()
+
+[HaTr]
+
+## Project Design
+HaTr
+
+## Technologies
+HaTr was built using a MongoDB database with Express.js framework for the backend.  Axios requests were used to communicate with the backend and all responses render JSON back to the frontend which uses React.  
 
 
+Additional Sources:
+* [MERN Stack](http://mern.io/)
 
-### Changelog: ###
-  - added in the ability to use onMouseOver on the + symbol so that it'll select the currentHabitID and then it will increment the specific counter on Click
-  - previously had a problem when trying to run both functions at the same time where the first click wouldn't increment the counter but would just change the currentHabitId
-  - Input button's text now gets saved to the body of the object and is also stored in localStorage
-  - Added in the background image, plus and minus icons, minusCounter function 
+## Key Features
+* O-Auth, which allows sign in via Google, Facebook, or LinkedIn
 
----
+### OAuth
+User Authorization utilizes Google passport to incorporate different methods of logging in. 
 
-### To do: ###
-* [x] Add a header
-* [x] Delete function
-* [ ] Task 3
+![login]
 
----
 
-### Future Plans: ###
-- Fullstack
-- Authentication 
-- Better way to save the data versus using localStorage
+## Future Plans
+* 

@@ -10,7 +10,7 @@ function Home() {
   return (
     <>
       <h1 className="white-text"> This is Home</h1>
-      <TodayDate className="white-text" />
+      <TodayDate />
       <Weather />
     </>
   );
