@@ -8,15 +8,16 @@ const axios = require("axios");
 require("dotenv").config();
 
 const habitRoutes = require("./routes/habit-routes.js");
-const otherRoutes = require("./routes/habit-routes.js");
+const router = require("./routes/habit-routes.js");
+// const otherRoutes = require("./routes/other-routes.js");
+// const weatherRoutes = require("./routes/weather.js");
 
 const app = express();
 
-// mongoose for weather
-mongoose.connect("mongodb://localhost:27017/habitTrackerDB");
+mongoose.connect(process.env.MONGOOSE);
 
 const weatherSchema = new mongoose.Schema({
-  day: Number,
+  time: Number,
   feels_like: String,
   description: String,
   wind: Number,
@@ -31,24 +32,53 @@ const url = `https://api.openweathermap.org/data/2.5/weather?lat=37.7621407&lon=
 
 const newWeather = async () => {
   const weatherResponse = await axios.get(url).then((response) => {
-    console.log(response.data.dt);
+    // console.log(response.data);
     const weather = new WeatherHour({
-      day: response.data.dt,
-      feels_like: response.data.main[0],
-      description: "test2",
-      wind: 1,
-      sunrise: 1,
-      sunset: 1,
+      time: response.data.dt,
+      feels_like: response.data.main.feels_like,
+      description: response.data.weather[0].description,
+      wind: response.data.wind.speed,
+      sunrise: response.data.sys.sunrise,
+      sunset: response.data.sys.sunset,
     });
     weather.save();
   });
   return weatherResponse;
 };
 
-newWeather();
+// get current unix time and convert to seconds
+const currentTime = () => {
+  const currentTime = new Date().getTime();
+  return currentTime / 1000;
+};
+
+// this will give us the newest/latest record
+WeatherHour.find({})
+  .sort({ _id: -1 })
+  .limit(1)
+  .then((weather) => {
+    // compare currentTime with the latest record, if the difference is more than an hour we'll get a new record
+    let difference = currentTime() - weather[0].time;
+    if (difference > 3600) {
+      console.log("getting new weather");
+      newWeather();
+    }
+  });
 
 app.use("/habit", habitRoutes);
-app.use("/other", otherRoutes);
+// app.use("/other", otherRoutes);
+// app.use("/weather", weatherRoutes);
+
+// weather API, queries our database and returns the latest
+app.get("/api/weather", function (req, res) {
+  WeatherHour.find({})
+    .sort({ _id: -1 })
+    .limit(1)
+    .then((weather) => {
+      // compare currentTime with the latest record, if the difference is more than an hour we'll get a new record
+      res.json(weather);
+    });
+});
 
 // error handling middle ware
 app.use((error, req, res, next) => {
