@@ -1,5 +1,4 @@
 const express = require("express");
-const { appendFile } = require("fs");
 
 const habitController = require("../controllers/habit-controller");
 

@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 function Weather() {
-  // this API needs to start as an object
   // I'm currently using the not one by one call API, so will change it when I get back to this
   // currently missing the uv index
   // TODO - might want to have different images based on the weather itself - like if it's windy it has a jacket
-  const [weatherData, setWeatherData] = useState({});
-  const weatherAPI = "1f26b815276c4010e51ed75d74cce405";
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=37.7621407&lon=-122.4745359&appid=${weatherAPI}&units=imperial`;
+  const [weatherData, setWeatherData] = useState([{}]);
+  const api = "/api/weather";
 
   useEffect(() => {
     async function getWeather() {
-      fetch(url)
+      fetch(api)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -19,15 +17,20 @@ function Weather() {
         });
     }
     getWeather();
+    // console.log(weatherData[0].time);
   }, []);
 
   // basic wind logic
-  let wind = "not windy";
-  if (weatherData.wind > 15 && weatherData.wind < 25) {
-    wind = "kinda windy";
-  } else if (weatherData.wind > 25) {
-    wind = "very windy";
-  } else {
+  function windLogic(windData) {
+    if (windData > 15 && windData < 25) {
+      return "pretty windy";
+    } else if (windData > 25) {
+      return "very windy";
+    } else if (windData > 10 && windData < 15) {
+      return "kinda windy";
+    } else {
+      return "not windy";
+    }
   }
 
   //convert from unix to date
@@ -53,19 +56,11 @@ function Weather() {
 
   return (
     <>
-      <p className="white-text">
-        {weatherData.timezone && weatherData.main.feels_like}
-      </p>
-      <p className="white-text">
-        {weatherData.timezone && weatherData.weather[0].description}
-      </p>
-      <p className="white-text">{wind}</p>
-      <p className="white-text">
-        {weatherData.timezone && convertToTime(weatherData.sys.sunrise)}
-      </p>
-      <p className="white-text">
-        {weatherData.timezone && convertToTime(weatherData.sys.sunset)}
-      </p>
+      <p className="white-text">{weatherData[0].feels_like}</p>
+      <p className="white-text">{weatherData[0].description}</p>
+      <p className="white-text">{windLogic(weatherData[0].wind)}</p>
+      <p className="white-text">{convertToTime(weatherData[0].sunrise)}</p>
+      <p className="white-text">{convertToTime(weatherData[0].sunset)}</p>
     </>
   );
 }
