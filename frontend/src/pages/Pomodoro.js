@@ -10,6 +10,9 @@ function Pomodoro() {
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
   const breakTimeDisplay = timeConversion(secondsBreak);
 
+  // submitting
+  const [pomodoroData, setPomodoroData] = useState({});
+
   // let isPomodoro = false;
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
@@ -146,10 +149,56 @@ function Pomodoro() {
     }
   }
 
+  // database
+  async function handleSubmit(event) {
+    console.log(pomodoroData);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pomodoroData),
+    };
+
+    fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
+      console.log(response);
+      return response.json();
+    });
+  }
+
+  function handleChangeUsername(event) {
+    setPomodoroData({ ...pomodoroData, username: event.target.value });
+  }
+
+  function handleChangePomodoro(event) {
+    setPomodoroData({ ...pomodoroData, pomodoro: event.target.value });
+  }
+
   return (
     <div>
       <h1 className="white-text">Pomodoro</h1>
       <hr className="app-line"></hr>
+      <div>
+        <form className="white-text" onSubmit={handleSubmit}>
+          <label>
+            username
+            <input
+              type="text"
+              name="username"
+              onChange={handleChangeUsername}
+              value={pomodoroData.username || ""}
+            />
+          </label>
+          <label>
+            pomodoro
+            <input
+              type="text"
+              name="pomodoro"
+              onChange={handleChangePomodoro}
+              value={pomodoroData.pomodoro || ""}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
       <div className="timer-container">
         <PomodoroTimer
           minutes={pomodoroTimeDisplay.minutes}

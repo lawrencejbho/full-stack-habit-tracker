@@ -1,7 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const bodyParser = require("body-parser");
+
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -11,6 +12,15 @@ const router = require("./routes/habit-routes.js");
 const apiRoutes = require("./routes/api-routes.js");
 
 const app = express();
+
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.post("/test", (req, res) => {
+  console.log(req.body);
+  // res.status(error.code || 504);
+  res.send("thank you");
+});
 
 app.use("/habit", habitRoutes);
 // app.use("/other", otherRoutes);
