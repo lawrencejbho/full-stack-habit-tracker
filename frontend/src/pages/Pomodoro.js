@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PomodoroTimer from "./PomodoroTimer.js";
 import "./pomodoro.css";
+import ContributionGraph from "../components/ContributionGraph";
 
 function Pomodoro() {
   const [secondsPomodoro, setSecondsPomodoro] = useState(2);
@@ -11,7 +12,7 @@ function Pomodoro() {
   const breakTimeDisplay = timeConversion(secondsBreak);
 
   // submitting
-  const [pomodoroData, setPomodoroData] = useState({});
+  const [pomodoroFormData, setPomodoroFormData] = useState({});
 
   // let isPomodoro = false;
 
@@ -149,13 +150,13 @@ function Pomodoro() {
     }
   }
 
-  // database
+  // create pomodoros and store in database
   async function handleSubmit(event) {
-    console.log(pomodoroData);
+    console.log(pomodoroFormData);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pomodoroData),
+      body: JSON.stringify(pomodoroFormData),
     };
 
     fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
@@ -165,11 +166,11 @@ function Pomodoro() {
   }
 
   function handleChangeUsername(event) {
-    setPomodoroData({ ...pomodoroData, username: event.target.value });
+    setPomodoroFormData({ ...pomodoroFormData, username: event.target.value });
   }
 
   function handleChangePomodoro(event) {
-    setPomodoroData({ ...pomodoroData, pomodoro: event.target.value });
+    setPomodoroFormData({ ...pomodoroFormData, pomodoro: event.target.value });
   }
 
   return (
@@ -184,7 +185,7 @@ function Pomodoro() {
               type="text"
               name="username"
               onChange={handleChangeUsername}
-              value={pomodoroData.username || ""}
+              value={pomodoroFormData.username || ""}
             />
           </label>
           <label>
@@ -193,7 +194,7 @@ function Pomodoro() {
               type="text"
               name="pomodoro"
               onChange={handleChangePomodoro}
-              value={pomodoroData.pomodoro || ""}
+              value={pomodoroFormData.pomodoro || ""}
             />
           </label>
           <input type="submit" value="Submit" />
@@ -223,6 +224,7 @@ function Pomodoro() {
           type="break"
         />
       </div>
+      <ContributionGraph />
     </div>
   );
 }

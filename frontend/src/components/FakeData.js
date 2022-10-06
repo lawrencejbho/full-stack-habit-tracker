@@ -1,10 +1,7 @@
 // 52 * 7 = 364 items
 
 const FakeData = [
-  {
-    date: "Jun 27, 2022",
-    contributions: 4,
-  },
+  { date: "Jun 27, 2022", contributions: 4 },
   {
     date: "Dec 29, 2021",
     contributions: 5,

@@ -12,13 +12,13 @@ const newUser = () => {
   const pomodoro = new PomodoroModel({
     user: "test-user",
     timezone: 10,
-    pomodoros: [1, 2],
+    pomodoros: [1664906719, 1664996419],
   });
   pomodoro.save();
 };
 
 const getPomodoros = (req, res) => {
-  PomodoroModel.find({ user: "test-user1" }).then((entry) => {
+  PomodoroModel.find({ user: "test-user" }).then((entry) => {
     console.log(entry);
     res.json(entry);
   });
