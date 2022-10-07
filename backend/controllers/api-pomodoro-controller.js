@@ -28,7 +28,7 @@ const addPomodoros = (req, res, next) => {
   console.log(req.body);
 
   PomodoroModel.findOneAndUpdate(
-    { user: "test-user1" },
+    { user: "test-user" },
     { $push: { pomodoros: req.body.pomodoro } },
     function (error, success) {
       if (error) {

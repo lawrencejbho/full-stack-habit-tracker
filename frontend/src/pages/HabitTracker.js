@@ -74,7 +74,6 @@ function HabitTracker() {
           <TodayDate />
         </div>
       </main>
-      <ContributionGraph />
     </>
   );
 }

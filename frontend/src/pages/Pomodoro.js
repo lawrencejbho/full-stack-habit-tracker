@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PomodoroTimer from "./PomodoroTimer.js";
 import "./pomodoro.css";
 import ContributionGraph from "../components/ContributionGraph";
+import mango from "../images/mango.png";
 
 function Pomodoro() {
   const [secondsPomodoro, setSecondsPomodoro] = useState(2);
@@ -13,6 +14,8 @@ function Pomodoro() {
 
   // submitting
   const [pomodoroFormData, setPomodoroFormData] = useState({});
+
+  const [pomodoroDatabase, setPomodoroDatabase] = useState([]);
 
   // let isPomodoro = false;
 
@@ -36,6 +39,12 @@ function Pomodoro() {
     return time;
   }
 
+  // get the current time in seconds
+  const currentTime = () => {
+    const currentTime = new Date().getTime();
+    return Math.floor(currentTime / 1000);
+  };
+
   // first useEffect for the Pomodoro timer
   useEffect(() => {
     let interval = null;
@@ -47,7 +56,7 @@ function Pomodoro() {
           const notification = new Notification("Pomodoro Finished", {
             body: "Start Break?",
             data: { test: "Data" },
-            icon: "mango.png",
+            icon: mango,
           });
           // click the notification to immediately start break
           notification.addEventListener("click", (e) => {
@@ -69,6 +78,7 @@ function Pomodoro() {
       // need to check isActive here or you'll get two notifications
       setIsActive(false);
       notificationPermissionPomodoro();
+      updatePomodorosArray();
     }
     return () => clearInterval(interval); // return clearInterval for clean up
   }, [isActive, secondsPomodoro]); // need isActive here in the dependency array to start the useEffect or secondsPomodoro will never go down
@@ -84,7 +94,7 @@ function Pomodoro() {
           const notification = new Notification("Break Finished", {
             body: "Start Focusing?",
             data: { test: "Data" },
-            icon: "mango.png",
+            icon: mango,
           });
           // click the notification to immediately start break
           notification.addEventListener("click", (e) => {
@@ -150,7 +160,23 @@ function Pomodoro() {
     }
   }
 
-  // create pomodoros and store in database
+  // add to the pomodoros array on the database when a pomodor is complete
+  async function updatePomodorosArray(event) {
+    let data = { username: "test-user", pomodoro: currentTime() };
+    console.log(data);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+
+    fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
+      console.log(response);
+      return response.json();
+    });
+  }
+
+  // add to the pomodoros array on the database
   async function handleSubmit(event) {
     console.log(pomodoroFormData);
     const requestOptions = {
@@ -172,6 +198,19 @@ function Pomodoro() {
   function handleChangePomodoro(event) {
     setPomodoroFormData({ ...pomodoroFormData, pomodoro: event.target.value });
   }
+
+  // get pomodoros from database and save to state to be passed down
+  // probably better to do it here versus within the contribution graph component
+  useEffect(() => {
+    const getPomodoros = async () => {
+      const data = await fetch("/api/pomodoro-get");
+      const posts_data = await data.json();
+      setPomodoroDatabase(posts_data[0].pomodoros);
+    };
+    if (pomodoroDatabase.length == 0) {
+      getPomodoros();
+    }
+  }, []);
 
   return (
     <div>
@@ -224,7 +263,7 @@ function Pomodoro() {
           type="break"
         />
       </div>
-      <ContributionGraph />
+      <ContributionGraph pomodoros={pomodoroDatabase} />
     </div>
   );
 }

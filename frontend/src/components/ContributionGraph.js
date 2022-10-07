@@ -3,65 +3,40 @@ import Box from "./Box.js";
 // import FakeData from "./FakeData.js";
 import FakeChronologicalData from "./FakeChronologicalData.js";
 
-function ContributionGraph() {
-  const [pomodoroDatabase, setPomodoroDatabase] = useState([]);
+function ContributionGraph(props) {
   const [pomodoroData, setPomodoroData] = useState([{}]);
-
-  // return (
-  //   <div className="outer-box-box-container">
-  //     <div className="box-container">
-  //       {FakeData.map((entry, index) => (
-  //         <Box
-  //           key={index}
-  //           contributions={entry.contributions}
-  //           date={entry.date}
-  //         />
-  //       ))}
-  //     </div>
-  //   </div>
-  // );
-
-  // get pomodoros
+  const [isPropsReady, setIsPropsReady] = useState(false);
 
   useEffect(() => {
     setPomodoroData(FakeChronologicalData);
   }, []);
 
   useEffect(() => {
-    async function getPomodoros() {
-      fetch("/api/pomodoro-get")
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data[0].pomodoros);
-          setPomodoroDatabase(data[0].pomodoros);
-          console.log(pomodoroDatabase);
-        })
-        .then(determineDateByPomodoro());
+    if (props.pomodoros != null) {
+      if (props.pomodoros.length != 0) {
+        determineDateByPomodoro();
+        setIsPropsReady(true); // need to use state here so that we can force a rerender or else the graph won't show anything initially
+      }
     }
-    getPomodoros();
-  }, []);
+  }, [props.pomodoros]);
 
   // go through each pomodoro in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
   function determineDateByPomodoro() {
-    console.log("test" + pomodoroDatabase);
-    if (pomodoroDatabase.length) {
-      console.log("hit");
-      pomodoroDatabase.forEach((value) => {
-        const date = new Date(value * 1000).toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-
-        // console.log(date);
-        const searchObjectIndex = pomodoroData.findIndex(
-          (day) => day.date == date
-        );
-        console.log(searchObjectIndex);
-        pomodoroData[searchObjectIndex].count++;
-        console.log(pomodoroData[searchObjectIndex].count);
+    props.pomodoros.forEach((value) => {
+      const date = new Date(value * 1000).toLocaleDateString("en-us", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       });
-    }
+
+      // console.log(date);
+      const searchObjectIndex = pomodoroData.findIndex(
+        (day) => day.date == date
+      );
+      console.log(searchObjectIndex);
+      pomodoroData[searchObjectIndex].count++;
+      console.log(pomodoroData[searchObjectIndex].count);
+    });
   }
 
   return (
