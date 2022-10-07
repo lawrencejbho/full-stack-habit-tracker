@@ -9,8 +9,10 @@ router.get("/weather", apiWeatherController.getLatestWeather);
 
 router.get("/pomodoro-get", apiPomodoroController.getPomodoros);
 
-router.post("/pomodoro-new-user", apiPomodoroController.newUser);
+router.post("/pomodoro-create-user", apiPomodoroController.createUser);
 
 router.post("/pomodoro-add-pomodoros", apiPomodoroController.addPomodoros);
+
+router.post("/calendar-create", apiPomodoroController.createCalendar);
 
 module.exports = router;

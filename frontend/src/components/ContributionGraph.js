@@ -33,15 +33,15 @@ function ContributionGraph(props) {
       const searchObjectIndex = pomodoroData.findIndex(
         (day) => day.date == date
       );
-      console.log(searchObjectIndex);
+      // console.log(searchObjectIndex);
       pomodoroData[searchObjectIndex].count++;
-      console.log(pomodoroData[searchObjectIndex].count);
+      // console.log(pomodoroData[searchObjectIndex].count);
     });
   }
 
   return (
-    <div className="outer-box-box-container">
-      <div className="box-container">
+    <div className="contribution-graph-box-container">
+      <div className="box2-container">
         {pomodoroData.map((entry, index) => (
           <Box key={index} date={entry.date} contributions={entry.count} />
         ))}

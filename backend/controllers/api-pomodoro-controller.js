@@ -1,5 +1,6 @@
 const HttpError = require("../models/http-error");
 const bodyParser = require("body-parser");
+// const FakeData = require("./FakeChronologicalData");
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -7,14 +8,21 @@ const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGOOSE);
 const pomodoroSchema = require("../models/pomodoroSchema");
 const PomodoroModel = mongoose.model("PomodoroModel", pomodoroSchema);
+const calendarSchema = require("../models/calendarSchema");
+const CalendarModel = mongoose.model("CalendarModel", calendarSchema);
 
-const newUser = () => {
+const createUser = () => {
   const pomodoro = new PomodoroModel({
-    user: "test-user",
+    date: "test-user",
     timezone: 10,
     pomodoros: [1664906719, 1664996419],
   });
   pomodoro.save();
+};
+
+const createCalendar = () => {
+  const calendar = new CalendarModel({ date: "October 2, 2021", count: 0 });
+  calendar.save();
 };
 
 const getPomodoros = (req, res) => {
@@ -40,6 +48,8 @@ const addPomodoros = (req, res, next) => {
   );
 };
 
-exports.newUser = newUser;
+exports.createUser = createUser;
 exports.addPomodoros = addPomodoros;
 exports.getPomodoros = getPomodoros;
+
+exports.createCalendar = createCalendar;

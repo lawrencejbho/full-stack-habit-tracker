@@ -12,12 +12,10 @@ function Pomodoro() {
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
   const breakTimeDisplay = timeConversion(secondsBreak);
 
-  // submitting
+  // for submitting pomodoros
   const [pomodoroFormData, setPomodoroFormData] = useState({});
-
+  // for pulling pomodoros from the db
   const [pomodoroDatabase, setPomodoroDatabase] = useState([]);
-
-  // let isPomodoro = false;
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
   function timeConversion(seconds) {
@@ -39,12 +37,6 @@ function Pomodoro() {
     return time;
   }
 
-  // get the current time in seconds
-  const currentTime = () => {
-    const currentTime = new Date().getTime();
-    return Math.floor(currentTime / 1000);
-  };
-
   // first useEffect for the Pomodoro timer
   useEffect(() => {
     let interval = null;
@@ -65,6 +57,22 @@ function Pomodoro() {
             toggleBreak();
           });
         }
+      });
+    }
+
+    // add to the pomodoros array on the database when a pomodoro is complete
+    async function updatePomodorosArray(event) {
+      let data = { username: "test-user", pomodoro: currentTime() };
+      console.log(data);
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      };
+
+      fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
+        console.log(response);
+        return response.json();
       });
     }
 
@@ -160,21 +168,11 @@ function Pomodoro() {
     }
   }
 
-  // add to the pomodoros array on the database when a pomodor is complete
-  async function updatePomodorosArray(event) {
-    let data = { username: "test-user", pomodoro: currentTime() };
-    console.log(data);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-
-    fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
-      console.log(response);
-      return response.json();
-    });
-  }
+  // get the current time in seconds
+  const currentTime = () => {
+    const currentTime = new Date().getTime();
+    return Math.floor(currentTime / 1000);
+  };
 
   // add to the pomodoros array on the database
   async function handleSubmit(event) {
@@ -207,9 +205,7 @@ function Pomodoro() {
       const posts_data = await data.json();
       setPomodoroDatabase(posts_data[0].pomodoros);
     };
-    if (pomodoroDatabase.length == 0) {
-      getPomodoros();
-    }
+    getPomodoros();
   }, []);
 
   return (
