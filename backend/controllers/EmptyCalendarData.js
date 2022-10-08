@@ -1,5 +1,4 @@
-const FakeChronologicalData = [
-  { date: "October 1, 2021", count: 0 },
+const FakeData = [
   { date: "October 2, 2021", count: 0 },
   { date: "October 3, 2021", count: 0 },
   { date: "October 4, 2021", count: 0 },
@@ -397,4 +396,4 @@ const FakeChronologicalData = [
   { date: "October 31, 2022", count: 0 },
 ];
 
-export default FakeChronologicalData;
+exports.FakeData = FakeData;

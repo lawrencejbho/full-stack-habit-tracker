@@ -15,4 +15,8 @@ router.post("/pomodoro-add-pomodoros", apiPomodoroController.addPomodoros);
 
 router.post("/calendar-create", apiPomodoroController.createCalendar);
 
+router.post("/calendar-update", apiPomodoroController.updateCalendar);
+
+router.get("/calendar-get", apiPomodoroController.getCalendar);
+
 module.exports = router;

@@ -1,6 +1,6 @@
 const HttpError = require("../models/http-error");
 const bodyParser = require("body-parser");
-// const FakeData = require("./FakeChronologicalData");
+// const EmptyCalendar = require("./EmptyCalendarData");
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -18,11 +18,6 @@ const createUser = () => {
     pomodoros: [1664906719, 1664996419],
   });
   pomodoro.save();
-};
-
-const createCalendar = () => {
-  const calendar = new CalendarModel({ date: "October 2, 2021", count: 0 });
-  calendar.save();
 };
 
 const getPomodoros = (req, res) => {
@@ -48,8 +43,25 @@ const addPomodoros = (req, res, next) => {
   );
 };
 
+// create the blank calendar collection with one entry
+const createCalendar = () => {
+  const calendar = new CalendarModel({ date: "October 1, 2021", count: 0 });
+  calendar.save();
+};
+
+// had to copy paste the array in EmptyCalendar into this insertMany function for it to update my collection
+const updateCalendar = () => {
+  CalendarModel.insertMany();
+};
+
+const getCalendar = (req, res, next) => {
+  CalendarModel.find().then((entry) => res.json(entry));
+};
+
 exports.createUser = createUser;
 exports.addPomodoros = addPomodoros;
 exports.getPomodoros = getPomodoros;
 
 exports.createCalendar = createCalendar;
+exports.updateCalendar = updateCalendar;
+exports.getCalendar = getCalendar;
