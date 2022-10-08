@@ -33,7 +33,7 @@ const newWeather = async () => {
 // get current unix time and convert to seconds
 const currentTime = () => {
   const currentTime = new Date().getTime();
-  return currentTime / 1000;
+  return Math.floor(currentTime / 1000);
 };
 
 // compare currentTime with the latest record, if the difference is more than an hour we'll get a new record
