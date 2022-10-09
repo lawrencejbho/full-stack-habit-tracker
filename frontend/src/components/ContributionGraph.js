@@ -4,7 +4,7 @@ import Box from "./Box.js";
 function ContributionGraph(props) {
   const [pomodoroData, setPomodoroData] = useState([{}]);
   const [isPropsReady, setIsPropsReady] = useState(false);
-  const [offset, setOffset] = useState(0);
+  const [timeOffset, setTimeOffset] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
   // pull the calendar from database
@@ -63,8 +63,8 @@ function ContributionGraph(props) {
   // this will grab the current day and then create a time offset for our calculation later that will make it so that the graph always starts on Sunday
   useMemo(() => {
     const currentDayInteger = new Date().getDay();
-    for (let i = 1; i < currentDayInteger; i++) {
-      setOffset((offset) => (offset += 86400));
+    for (let i = 0; i < currentDayInteger; i++) {
+      setTimeOffset((offset) => (offset += 86400));
     }
   }, []);
 
@@ -74,7 +74,10 @@ function ContributionGraph(props) {
         {pomodoroData.length > 1 &&
           pomodoroData.map((entry, index) => {
             const date = convertDateToUnixTime(entry.date);
-            if (currentTime - date > 31622400 + offset || date > currentTime) {
+            if (
+              currentTime - date > 31536000 + timeOffset ||
+              date > currentTime
+            ) {
               return;
             }
             return (
