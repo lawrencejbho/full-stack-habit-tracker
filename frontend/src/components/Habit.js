@@ -21,7 +21,6 @@ function Habit(props) {
         <Delete
           mouseOver={() => props.setCurrentHabitId(habit.id)}
           deleteClick={props.deleteHabit}
-          contributions="5"
         />
         <button className="delete-btn"></button>
       </div>
