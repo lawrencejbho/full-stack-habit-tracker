@@ -64,6 +64,7 @@ const updateCalendar = () => {
 
 // calculate the offset and if it's greater than a day, then we'll add the additional days into an array
 const calculateOffset = (timeOfLastEntry) => {
+  console.log("checking calendar");
   let unixTimeOfLastEntry = convertDateToUnixTime(timeOfLastEntry);
   let timeOffset = currentTime() - unixTimeOfLastEntry;
   let dateArray = [];

@@ -60,7 +60,7 @@ function Pomodoro() {
       });
     }
 
-    // add to the pomodoros array on the database when a pomodoro is complete
+    // add to the pomodoros array in the database when a pomodoro is complete
     async function updatePomodorosArray(event) {
       let data = { username: "test-user", pomodoro: currentTime() };
       console.log(data);
@@ -206,6 +206,18 @@ function Pomodoro() {
       setPomodoroDatabase(posts_data[0].pomodoros);
     };
     getPomodoros();
+  }, []);
+
+  // update the calendar Schema in case it's older than today's date
+  // when I put this in ContributionGraph it was double counting pomodoros
+
+  useEffect(() => {
+    const updateCalendar = async () => {
+      const data = await fetch("/api/calendar-update");
+      const get_data = await data.json();
+      console.log(get_data);
+    };
+    updateCalendar();
   }, []);
 
   return (

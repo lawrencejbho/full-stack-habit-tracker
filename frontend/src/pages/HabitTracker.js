@@ -59,6 +59,44 @@ function HabitTracker() {
     );
   }
 
+  // async function createHabit(event) {
+  //   let data = {
+  //     username: "test-user",
+  //     habit_name: event.target.habit_name,
+  //     description: event.target.description,
+  //     timezone: "PST",
+  //   };
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   };
+
+  //   fetch("/api/habit-create", requestOptions).then((response) => {
+  //     console.log(response)
+  //     return response.json()
+  //   })
+  // }
+
+  // async function createHabit(event) {
+  //   let data = {
+  //     username: "test-user",
+  //     habit_name: "test",
+  //     description: "test",
+  //     timezone: "PST",
+  //   };
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   };
+
+  //   fetch("/api/habit-create", requestOptions).then((response) => {
+  //     console.log(response);
+  //     return response.json();
+  //   });
+  // }
+
   return (
     <>
       <main>

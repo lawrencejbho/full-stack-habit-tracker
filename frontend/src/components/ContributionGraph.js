@@ -7,6 +7,17 @@ function ContributionGraph(props) {
   const [timeOffset, setTimeOffset] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
+  // update the calendar Schema in case it's older than today's date
+
+  useEffect(() => {
+    const updateCalendar = async () => {
+      const data = await fetch("/api/calendar-update");
+      const get_data = await data.json();
+      console.log(get_data);
+    };
+    updateCalendar();
+  }, []);
+
   // pull the calendar from database
   useEffect(() => {
     fetch("/api/calendar-get")

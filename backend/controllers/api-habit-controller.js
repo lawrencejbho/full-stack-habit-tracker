@@ -15,11 +15,17 @@ const createHabit = (req, res) => {
   const habit = new HabitModel({
     username: req.body.username,
     habit_name: req.body.habit_name,
-    description: " ",
+    id: req.body.id,
+    description: req.body.description,
     timezone: req.body.timezone,
     timestamps: [],
   });
   habit.save();
 };
 
+const getHabit = (req, res) => {
+  CalendarModel.find().then((entry) => res.json(entry));
+};
+
 exports.createHabit = createHabit;
+exports.getHabit = getHabit;
