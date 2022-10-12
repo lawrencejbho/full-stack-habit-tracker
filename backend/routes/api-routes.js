@@ -30,6 +30,6 @@ router.post("/habit-create", apiHabitController.createHabit);
 
 // router.post("/habit-update", apiHabitController.updateHabit);
 
-// router.post("/habit-delete", apiHabitController.deleteHabit);
+router.post("/habit-delete", apiHabitController.deleteHabit);
 
 module.exports = router;

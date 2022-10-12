@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Habit from "../components/Habit.js";
-import Add from "../components/Add.js";
-import { nanoid } from "nanoid";
+import HabitAdd from "../components/Habit-Add.js";
 import TodayDate from "../components/TodayDate.js";
 import ContributionGraph from "../components/ContributionGraph.js";
 
@@ -57,51 +56,30 @@ function HabitTracker() {
     setHabits((prevHabits) =>
       prevHabits.filter((habit) => habit.id !== currentHabitId)
     );
+
+    async function deleteHabit() {
+      let data = {
+        id: currentHabitId,
+      };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      };
+
+      // don't really need this promise for anything, but will leave it here for now
+      fetch("/api/habit-delete", requestOptions).then((response) => {
+        return response.json();
+      });
+    }
+    deleteHabit();
   }
-
-  // async function createHabit(event) {
-  //   let data = {
-  //     username: "test-user",
-  //     habit_name: event.target.habit_name,
-  //     description: event.target.description,
-  //     timezone: "PST",
-  //   };
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(data),
-  //   };
-
-  //   fetch("/api/habit-create", requestOptions).then((response) => {
-  //     console.log(response)
-  //     return response.json()
-  //   })
-  // }
-
-  // async function createHabit(event) {
-  //   let data = {
-  //     username: "test-user",
-  //     habit_name: "test",
-  //     description: "test",
-  //     timezone: "PST",
-  //   };
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(data),
-  //   };
-
-  //   fetch("/api/habit-create", requestOptions).then((response) => {
-  //     console.log(response);
-  //     return response.json();
-  //   });
-  // }
 
   return (
     <>
       <main>
         <div className="card-container">
-          <Add onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
+          <HabitAdd onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
           <Habit
             habits={habits}
             plusCounter={plusCounter}

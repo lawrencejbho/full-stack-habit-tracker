@@ -1,7 +1,7 @@
 import React from "react";
 import Plus from "./Plus.js";
 import Minus from "./Minus.js";
-import Delete from "./Delete.js";
+import HabitDelete from "./Habit-Delete.js";
 
 function Habit(props) {
   // map through the habits to create each one with its unique habit keys
@@ -17,8 +17,8 @@ function Habit(props) {
       />
 
       <div className="habit">
-        {habit.counter} {habit.body}
-        <Delete
+        {habit.counter} {habit.habit_name}
+        <HabitDelete
           mouseOver={() => props.setCurrentHabitId(habit.id)}
           deleteClick={props.deleteHabit}
         />

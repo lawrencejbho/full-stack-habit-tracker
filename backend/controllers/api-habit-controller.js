@@ -16,7 +16,7 @@ const createHabit = (req, res) => {
     username: req.body.username,
     habit_name: req.body.habit_name,
     id: req.body.id,
-    description: req.body.description,
+    notes: req.body.notes,
     timezone: req.body.timezone,
     timestamps: [],
   });
@@ -24,8 +24,19 @@ const createHabit = (req, res) => {
 };
 
 const getHabit = (req, res) => {
-  CalendarModel.find().then((entry) => res.json(entry));
+  HabitModel.find().then((entry) => res.json(entry));
+};
+
+const deleteHabit = (req, res) => {
+  HabitModel.findOneAndDelete({ id: req.body.id }, (error, success) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("deleted: " + success);
+    }
+  });
 };
 
 exports.createHabit = createHabit;
 exports.getHabit = getHabit;
+exports.deleteHabit = deleteHabit;

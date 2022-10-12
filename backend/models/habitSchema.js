@@ -4,7 +4,7 @@ const habitSchema = new mongoose.Schema({
   username: String,
   habit_name: String,
   id: String,
-  description: String,
+  notes: String,
   timezone: String,
   timestamps: [Number],
 });
