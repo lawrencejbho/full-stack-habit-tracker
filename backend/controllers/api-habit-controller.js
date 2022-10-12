@@ -24,7 +24,8 @@ const createHabit = (req, res) => {
 };
 
 const createMany = (req, res) => {
-  HabitModel.insertMany(req.body.habitAddArray)
+  console.log(req.body);
+  HabitModel.insertMany(req.body)
     .then(() => {
       console.log("added habits");
     })
@@ -52,9 +53,9 @@ const deleteHabit = (req, res) => {
 
 const deleteMany = (req, res) => {
   console.log(req.body);
-  HabitModel.deleteMany(req.body.habitDeleteArray)
+  HabitModel.deleteMany({ id: { $in: req.body } })
     .then(() => {
-      console.log("added habits");
+      console.log("deleted habits");
     })
     .catch((error) => {
       console.log(error);

@@ -5,10 +5,8 @@ import TodayDate from "../components/TodayDate.js";
 // import ContributionGraph from "../components/ContributionGraph.js";
 
 function HabitTracker() {
-  // need to define localStorage here to grab the key habits
-  // const savedHabit = localStorage.getItem("habits");
-
-  const [habitDatabase, setHabitDatabase] = useState([{}]);
+  const [habitsAddArray, setHabitsAddArray] = useState([]);
+  const [habitsDeleteArray, setHabitsDeleteArray] = useState([]);
 
   // our habits array that saves our habits to be displayed later, will use the localStorage if it exists
   const [habits, setHabits] = useState([]);
@@ -19,11 +17,6 @@ function HabitTracker() {
   );
 
   // const [isReady, setIsReady] = useState(false);
-
-  // useEffect will track any changes to habits array and modify the value in localStorage
-  // useEffect(() => {
-  //   localStorage.setItem("habits", JSON.stringify(habits));
-  // }, [habits]);
 
   // checks for the proper ID and will increment it's counter value by 1
   function plusCounter() {
@@ -46,12 +39,15 @@ function HabitTracker() {
     );
   }
 
-  // console.log(habits);
-
   // this only needs to help with a render now and then we'll call our database again to update our habits
   function addHabit(newHabit) {
     setHabits((prevHabits) => {
       return [...prevHabits, newHabit];
+    });
+    // add the new Habit into the habits Array to be bulk pushed into database
+
+    setHabitsAddArray((prevValue) => {
+      return [...prevValue, newHabit];
     });
   }
 
@@ -62,20 +58,10 @@ function HabitTracker() {
       prevHabits.filter((habit) => habit.id !== currentHabitId)
     );
 
-    async function deleteHabitInDatabase() {
-      let data = {
-        id: currentHabitId,
-      };
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      };
-
-      // don't really need this promise for anything, but will leave it here for now
-      fetch("/api/habit-delete", requestOptions);
-    }
-    deleteHabitInDatabase();
+    // add in the id into delete array to be bulk deleted in database
+    setHabitsDeleteArray((prevValue) => {
+      return [...prevValue, currentHabitId];
+    });
   }
 
   // setHabits initially to be what's in the database
@@ -83,11 +69,56 @@ function HabitTracker() {
     const getHabits = async () => {
       const data = await fetch("/api/habit-get");
       const get_data = await data.json();
-      console.log(get_data);
+      // console.log(get_data);
       setHabits(get_data);
     };
     getHabits();
   }, []);
+
+  useEffect(() => {
+    async function createManyHabits() {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(habitsAddArray),
+      };
+
+      fetch("/api/habit-create-many", requestOptions).then(
+        setHabitsAddArray(() => {
+          return [];
+        })
+      );
+      console.log("creating");
+    }
+
+    async function deleteManyHabits() {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(habitsDeleteArray),
+      };
+      fetch("/api/habit-delete-many", requestOptions).then(
+        setHabitsDeleteArray(() => {
+          return [];
+        })
+      );
+      console.log("deleting");
+    }
+
+    function checkAfterFiveMinutes() {
+      console.log("habitAddArray" + habitsAddArray);
+      console.log("habitDeleteArray" + habitsDeleteArray);
+
+      if (habitsAddArray.length > 0) {
+        createManyHabits();
+      }
+      if (habitsDeleteArray.length > 0) {
+        deleteManyHabits();
+      }
+    }
+    const timer = setInterval(() => checkAfterFiveMinutes(), 10000);
+    return () => clearInterval(timer);
+  }, [habitsAddArray, habitsDeleteArray]);
 
   return (
     <>

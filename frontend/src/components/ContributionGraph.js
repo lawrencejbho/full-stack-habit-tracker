@@ -18,6 +18,27 @@ function ContributionGraph(props) {
   }, []);
 
   useEffect(() => {
+    // go through each pomodoro in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
+    function determineDateByPomodoro() {
+      props.pomodoros.forEach((value) => {
+        const date = new Date(value * 1000).toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        // console.log(date);
+
+        // need this because of the async, or it'll sometimes break the app if pomodoroData isn't ready
+        if (pomodoroData.length > 1) {
+          const searchObjectIndex = pomodoroData.findIndex(
+            (day) => day.date === date
+          );
+          // console.log(pomodoroData[searchObjectIndex]);
+          pomodoroData[searchObjectIndex].count++;
+        }
+      });
+    }
+
     if (props.pomodoros !== null) {
       if (props.pomodoros.length !== 0) {
         determineDateByPomodoro();
@@ -25,27 +46,6 @@ function ContributionGraph(props) {
       }
     }
   }, [props.pomodoros, pomodoroData]);
-
-  // go through each pomodoro in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
-  function determineDateByPomodoro() {
-    props.pomodoros.forEach((value) => {
-      const date = new Date(value * 1000).toLocaleDateString("en-us", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-      // console.log(date);
-
-      // need this because of the async, or it'll sometimes break the app if pomodoroData isn't ready
-      if (pomodoroData.length > 1) {
-        const searchObjectIndex = pomodoroData.findIndex(
-          (day) => day.date == date
-        );
-        // console.log(pomodoroData[searchObjectIndex]);
-        pomodoroData[searchObjectIndex].count++;
-      }
-    });
-  }
 
   // convert our dates in string format back into unix time
   const convertDateToUnixTime = (dateString) => {
@@ -78,7 +78,7 @@ function ContributionGraph(props) {
               currentTime - date > 31536000 + timeOffset ||
               date > currentTime
             ) {
-              return;
+              return false;
             }
             return (
               <Box key={index} date={entry.date} contributions={entry.count} />

@@ -21,33 +21,21 @@ function Add(props) {
   // when submitting, we add the current habit to the habits array with a new id
   // prevent Default to prevent refreshing the page when submitting
   function createNewHabit(event) {
-    // save habit to database using our value store in the habit state variable
     // keep in mind that there is only 1 object in the habit variable for this component
 
     const newID = nanoid();
-    async function createHabit() {
-      let data = {
-        username: "test-user",
-        habit_name: habit.habit_name,
-        id: newID,
-        notes: "test",
-        timezone: "PST",
-      };
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      };
 
-      // don't really need this promise for anything, but will leave it here for now
-      fetch("/api/habit-create", requestOptions);
-      console.log("create");
-    }
-
-    createHabit();
     event.preventDefault();
     // we need to add the object in this way to make the website more snappy
-    props.onAdd({ id: newID, habit_name: habit.habit_name, counter: 0 });
+    props.onAdd({
+      username: "test-user",
+      habit_name: habit.habit_name,
+      id: newID,
+      notes: "notes",
+      timezone: "PST",
+      timestamps: [],
+      counter: 0,
+    });
   }
 
   return (
