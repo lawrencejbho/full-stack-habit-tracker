@@ -46,7 +46,8 @@ function Add(props) {
     }
     createHabit();
     event.preventDefault();
-    props.onAdd({ ...habit, id: newID });
+    // we need to add the object in this way to make the website more snappy
+    props.onAdd({ id: newID, habit_name: habit.habit_name, counter: 0 });
   }
 
   return (

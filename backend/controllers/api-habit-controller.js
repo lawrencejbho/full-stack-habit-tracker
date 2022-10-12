@@ -24,7 +24,9 @@ const createHabit = (req, res) => {
 };
 
 const getHabit = (req, res) => {
-  HabitModel.find().then((entry) => res.json(entry));
+  HabitModel.find().then((entry) => {
+    res.json(entry);
+  });
 };
 
 const deleteHabit = (req, res) => {

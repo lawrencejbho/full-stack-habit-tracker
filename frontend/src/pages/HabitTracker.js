@@ -6,20 +6,24 @@ import ContributionGraph from "../components/ContributionGraph.js";
 
 function HabitTracker() {
   // need to define localStorage here to grab the key habits
-  const savedHabit = localStorage.getItem("habits");
+  // const savedHabit = localStorage.getItem("habits");
+
+  const [habitDatabase, setHabitDatabase] = useState([{}]);
 
   // our habits array that saves our habits to be displayed later, will use the localStorage if it exists
-  const [habits, setHabits] = useState(() => JSON.parse(savedHabit) || []);
+  const [habits, setHabits] = useState([]);
 
   // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID when we use things like mouseOver
   const [currentHabitId, setCurrentHabitId] = useState(
     (habits[0] && habits[0].id) || ""
   );
 
+  const [isReady, setIsReady] = useState(false);
+
   // useEffect will track any changes to habits array and modify the value in localStorage
-  useEffect(() => {
-    localStorage.setItem("habits", JSON.stringify(habits));
-  }, [habits]);
+  // useEffect(() => {
+  //   localStorage.setItem("habits", JSON.stringify(habits));
+  // }, [habits]);
 
   // checks for the proper ID and will increment it's counter value by 1
   function plusCounter() {
@@ -44,20 +48,22 @@ function HabitTracker() {
 
   // console.log(habits);
 
-  // Pass this function to Add, it will pass us back the specific Habit so we can add the new habit into our Habits array
+  // this only needs to help with a render now and then we'll call our database again to update our habits
   function addHabit(newHabit) {
-    setHabits((prevHabits) => {
+    setHabitDatabase((prevHabits) => {
       return [...prevHabits, newHabit];
     });
+    setIsReady((prevValue) => !prevValue);
   }
 
   // Use filter to keep everything but the currentHabitId which comes when we mouseOver
   function deleteHabit() {
-    setHabits((prevHabits) =>
+    // remove the habit in state first then remove in database, this will make the website look a lot more snappy
+    setHabitDatabase((prevHabits) =>
       prevHabits.filter((habit) => habit.id !== currentHabitId)
     );
 
-    async function deleteHabit() {
+    async function deleteHabitInDatabase() {
       let data = {
         id: currentHabitId,
       };
@@ -72,8 +78,21 @@ function HabitTracker() {
         return response.json();
       });
     }
-    deleteHabit();
+    deleteHabitInDatabase();
+    // helps with a render
+    setIsReady((prevValue) => !prevValue);
   }
+
+  // query habits from database
+  useEffect(() => {
+    const getHabits = async () => {
+      const data = await fetch("/api/habit-get");
+      const get_data = await data.json();
+      console.log(get_data);
+      setHabitDatabase(get_data);
+    };
+    getHabits();
+  }, [isReady]);
 
   return (
     <>
@@ -81,7 +100,7 @@ function HabitTracker() {
         <div className="card-container">
           <HabitAdd onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
           <Habit
-            habits={habits}
+            habits={habitDatabase}
             plusCounter={plusCounter}
             minusCounter={minusCounter}
             deleteHabit={deleteHabit}

@@ -24,7 +24,7 @@ router.get("/calendar-update", apiPomodoroController.updateCalendar);
 router.get("/calendar-get", apiPomodoroController.getCalendar);
 
 // habit tracker
-// router.get("/habit-get", apiHabitController.getHabit);
+router.get("/habit-get", apiHabitController.getHabit);
 
 router.post("/habit-create", apiHabitController.createHabit);
 
