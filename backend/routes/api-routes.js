@@ -28,8 +28,12 @@ router.get("/habit-get", apiHabitController.getHabit);
 
 router.post("/habit-create", apiHabitController.createHabit);
 
+router.post("/habit-create-many", apiHabitController.createMany);
+
 // router.post("/habit-update", apiHabitController.updateHabit);
 
 router.post("/habit-delete", apiHabitController.deleteHabit);
+
+router.post("/habit-delete-many", apiHabitController.deleteMany);
 
 module.exports = router;

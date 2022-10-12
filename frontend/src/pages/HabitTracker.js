@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Habit from "../components/Habit.js";
 import HabitAdd from "../components/Habit-Add.js";
 import TodayDate from "../components/TodayDate.js";
-import ContributionGraph from "../components/ContributionGraph.js";
+// import ContributionGraph from "../components/ContributionGraph.js";
 
 function HabitTracker() {
   // need to define localStorage here to grab the key habits
@@ -18,7 +18,7 @@ function HabitTracker() {
     (habits[0] && habits[0].id) || ""
   );
 
-  const [isReady, setIsReady] = useState(false);
+  // const [isReady, setIsReady] = useState(false);
 
   // useEffect will track any changes to habits array and modify the value in localStorage
   // useEffect(() => {
@@ -50,16 +50,15 @@ function HabitTracker() {
 
   // this only needs to help with a render now and then we'll call our database again to update our habits
   function addHabit(newHabit) {
-    setHabitDatabase((prevHabits) => {
+    setHabits((prevHabits) => {
       return [...prevHabits, newHabit];
     });
-    setIsReady((prevValue) => !prevValue);
   }
 
   // Use filter to keep everything but the currentHabitId which comes when we mouseOver
   function deleteHabit() {
     // remove the habit in state first then remove in database, this will make the website look a lot more snappy
-    setHabitDatabase((prevHabits) =>
+    setHabits((prevHabits) =>
       prevHabits.filter((habit) => habit.id !== currentHabitId)
     );
 
@@ -74,25 +73,21 @@ function HabitTracker() {
       };
 
       // don't really need this promise for anything, but will leave it here for now
-      fetch("/api/habit-delete", requestOptions).then((response) => {
-        return response.json();
-      });
+      fetch("/api/habit-delete", requestOptions);
     }
     deleteHabitInDatabase();
-    // helps with a render
-    setIsReady((prevValue) => !prevValue);
   }
 
-  // query habits from database
+  // setHabits initially to be what's in the database
   useEffect(() => {
     const getHabits = async () => {
       const data = await fetch("/api/habit-get");
       const get_data = await data.json();
       console.log(get_data);
-      setHabitDatabase(get_data);
+      setHabits(get_data);
     };
     getHabits();
-  }, [isReady]);
+  }, []);
 
   return (
     <>
@@ -100,7 +95,7 @@ function HabitTracker() {
         <div className="card-container">
           <HabitAdd onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
           <Habit
-            habits={habitDatabase}
+            habits={habits}
             plusCounter={plusCounter}
             minusCounter={minusCounter}
             deleteHabit={deleteHabit}

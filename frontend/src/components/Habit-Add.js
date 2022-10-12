@@ -40,10 +40,10 @@ function Add(props) {
       };
 
       // don't really need this promise for anything, but will leave it here for now
-      fetch("/api/habit-create", requestOptions).then((response) => {
-        return response.json();
-      });
+      fetch("/api/habit-create", requestOptions);
+      console.log("create");
     }
+
     createHabit();
     event.preventDefault();
     // we need to add the object in this way to make the website more snappy
