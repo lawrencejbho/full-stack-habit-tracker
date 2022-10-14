@@ -33,10 +33,15 @@ function Add(props) {
       id: newID,
       notes: "notes",
       timezone: "PST",
-      timestamps: [],
+      timestamps: [currentTime()],
       counter: 0,
     });
   }
+
+  const currentTime = () => {
+    const currentTime = new Date().getTime();
+    return Math.floor(currentTime / 1000);
+  };
 
   return (
     <div className="add">

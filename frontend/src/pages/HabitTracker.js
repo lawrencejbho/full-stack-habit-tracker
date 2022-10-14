@@ -16,27 +16,43 @@ function HabitTracker() {
     (habits[0] && habits[0].id) || ""
   );
 
-  // const [isReady, setIsReady] = useState(false);
+  const currentTime = () => {
+    const currentTime = new Date().getTime();
+    return Math.floor(currentTime / 1000);
+  };
 
   // checks for the proper ID and will increment it's counter value by 1
   function plusCounter() {
     setHabits((prevHabits) =>
       prevHabits.map((prevHabit) => {
         return prevHabit.id === currentHabitId
-          ? { ...prevHabit, counter: prevHabit.counter + 1 }
+          ? {
+              ...prevHabit,
+              timestamps: [...prevHabit.timestamps, currentTime()], // use spread here instead of push works better for state
+            }
           : prevHabit;
       })
     );
+    console.log(habits[2]);
   }
 
   function minusCounter() {
     setHabits((prevHabits) =>
       prevHabits.map((prevHabit) => {
         return prevHabit.id === currentHabitId
-          ? { ...prevHabit, counter: prevHabit.counter - 1 }
+          ? {
+              ...prevHabit,
+              timestamps: [
+                ...prevHabit.timestamps.slice(
+                  0,
+                  prevHabit.timestamps.length - 1
+                ),
+              ], // apparently this slice method is a good way of doing this without mutating the original array
+            }
           : prevHabit;
       })
     );
+    console.log(habits[2]);
   }
 
   // this only needs to help with a render now and then we'll call our database again to update our habits
@@ -64,7 +80,7 @@ function HabitTracker() {
     });
   }
 
-  // setHabits initially to be what's in the database
+  // setHabits to pull from our database
   useEffect(() => {
     const getHabits = async () => {
       const data = await fetch("/api/habit-get");
@@ -75,6 +91,7 @@ function HabitTracker() {
     getHabits();
   }, []);
 
+  // add and removes for habits are done in state and then put into respective arrays so that they'll make a database call every 10 seconds
   useEffect(() => {
     async function createManyHabits() {
       const requestOptions = {
@@ -85,7 +102,7 @@ function HabitTracker() {
 
       fetch("/api/habit-create-many", requestOptions).then(
         setHabitsAddArray(() => {
-          return [];
+          return []; // clear the array once we make the call, might need to change this to track errors
         })
       );
       console.log("creating");
@@ -99,16 +116,15 @@ function HabitTracker() {
       };
       fetch("/api/habit-delete-many", requestOptions).then(
         setHabitsDeleteArray(() => {
-          return [];
+          return []; // clear the array once we make the call, might need to change this to track errors
         })
       );
       console.log("deleting");
     }
 
+    // I'm not sure in the current setup whether there will be multiple calls being made
+    // but I think this will work for now using the if statements and then clearing out the arrays once the database call goes through
     function checkAfterFiveMinutes() {
-      console.log("habitAddArray" + habitsAddArray);
-      console.log("habitDeleteArray" + habitsDeleteArray);
-
       if (habitsAddArray.length > 0) {
         createManyHabits();
       }
