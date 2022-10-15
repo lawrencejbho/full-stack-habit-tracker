@@ -7,7 +7,7 @@ const habitSchema = new mongoose.Schema({
   notes: String,
   timezone: String,
   timestamps: [Number],
-  counter: Number,
+  today_timestamps: [Number],
 });
 
 module.exports = habitSchema;

@@ -33,7 +33,8 @@ function Add(props) {
       id: newID,
       notes: "notes",
       timezone: "PST",
-      timestamps: [currentTime()],
+      timestamps: [],
+      today_timestamps: [currentTime()],
       counter: 0,
     });
   }

@@ -17,7 +17,7 @@ function Habit(props) {
       />
 
       <div className="habit">
-        {habit.timestamps.length} {habit.habit_name}
+        {habit.today_timestamps.length} {habit.habit_name}
         <HabitDelete
           mouseOver={() => props.setCurrentHabitId(habit.id)}
           deleteClick={props.deleteHabit}

@@ -19,6 +19,7 @@ const createHabit = (req, res) => {
     notes: req.body.notes,
     timezone: req.body.timezone,
     timestamps: [],
+    today_timestamps: [],
   });
   habit.save();
 };
@@ -62,8 +63,22 @@ const deleteMany = (req, res) => {
     });
 };
 
+const updateTimestamps = (req, res) => {
+  console.log(req.body);
+  const filter = { habit_name: req.body.habit_name };
+  const update = { today_timestamps: req.body.today_timestamps };
+  HabitModel.findOneAndUpdate(filter, update)
+    .then(() => {
+      console.log("updated timestamps");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 exports.createHabit = createHabit;
 exports.getHabit = getHabit;
 exports.deleteHabit = deleteHabit;
 exports.createMany = createMany;
 exports.deleteMany = deleteMany;
+exports.updateTimestamps = updateTimestamps;

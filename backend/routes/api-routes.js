@@ -36,4 +36,6 @@ router.post("/habit-delete", apiHabitController.deleteHabit);
 
 router.post("/habit-delete-many", apiHabitController.deleteMany);
 
+router.post("/habit-update-timestamps", apiHabitController.updateTimestamps);
+
 module.exports = router;

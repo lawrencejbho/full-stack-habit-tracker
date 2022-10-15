@@ -8,51 +8,121 @@ function HabitTracker() {
   const [habitsAddArray, setHabitsAddArray] = useState([]);
   const [habitsDeleteArray, setHabitsDeleteArray] = useState([]);
 
+  // any updates to habits will go into this array to be bulk pushed into the database
+  const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
+
   // our habits array that saves our habits to be displayed later, will use the localStorage if it exists
   const [habits, setHabits] = useState([]);
 
   // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID when we use things like mouseOver
-  const [currentHabitId, setCurrentHabitId] = useState(
-    (habits[0] && habits[0].id) || ""
-  );
+  const [currentHabitId, setCurrentHabitId] = useState("");
+
+  // const [currentHabitId, setCurrentHabitId] = useState(
+  //   (habits[0] && habits[0].id) || ""
+  // );
 
   const currentTime = () => {
     const currentTime = new Date().getTime();
     return Math.floor(currentTime / 1000);
   };
 
-  // checks for the proper ID and will increment it's counter value by 1
+  // modifying both the habits array and update array in one go
+  // checks for the proper ID and will add timestamps
   function plusCounter() {
+    const time = currentTime(); // make sure we have consistent timestamp
+
     setHabits((prevHabits) =>
       prevHabits.map((prevHabit) => {
-        return prevHabit.id === currentHabitId
-          ? {
-              ...prevHabit,
-              timestamps: [...prevHabit.timestamps, currentTime()], // use spread here instead of push works better for state
+        if (prevHabit.id === currentHabitId) {
+          let needsToBeAdded = true;
+
+          // checking if the update exists in our array, if not we'll add it
+          for (const exist of habitsUpdateArray) {
+            if (exist.id === currentHabitId) {
+              needsToBeAdded = false;
             }
-          : prevHabit;
+          }
+          if (needsToBeAdded) {
+            // console.log("adding into updates array");
+            setHabitsUpdateArray((prevValue) => [...prevValue, prevHabit]);
+          }
+          // modify the timestamps of the habit in the update array
+          setHabitsUpdateArray((prevUpdates) =>
+            prevUpdates.map((prevUpdate) => {
+              if (prevUpdate.id === currentHabitId) {
+                return {
+                  ...prevUpdate,
+                  today_timestamps: [...prevHabit.today_timestamps, time],
+                };
+              } else {
+                return prevUpdate;
+              }
+            })
+          );
+          // update the timestamps in the habits array
+          return {
+            ...prevHabit,
+            today_timestamps: [...prevHabit.today_timestamps, time], // use spread here instead of push works better for state
+          };
+        } else {
+          return prevHabit;
+        }
       })
     );
-    console.log(habits[2]);
+    // console.log(habitsUpdateArray);
   }
 
+  // same logic as add except we'll use slice to remove the latest timestamp
   function minusCounter() {
     setHabits((prevHabits) =>
       prevHabits.map((prevHabit) => {
-        return prevHabit.id === currentHabitId
-          ? {
-              ...prevHabit,
-              timestamps: [
-                ...prevHabit.timestamps.slice(
-                  0,
-                  prevHabit.timestamps.length - 1
-                ),
-              ], // apparently this slice method is a good way of doing this without mutating the original array
+        if (prevHabit.id === currentHabitId) {
+          let needsToBeAdded = true;
+
+          // checking if the update exists in our array, if not we'll add it
+          for (const exist of habitsUpdateArray) {
+            if (exist.id === currentHabitId) {
+              needsToBeAdded = false;
             }
-          : prevHabit;
+          }
+          if (needsToBeAdded) {
+            // console.log("adding into updates array");
+            setHabitsUpdateArray((prevValue) => [...prevValue, prevHabit]);
+          }
+          // modify the updates array if the habit already exists
+          setHabitsUpdateArray((prevUpdates) =>
+            prevUpdates.map((prevUpdate) => {
+              if (prevUpdate.id === currentHabitId) {
+                return {
+                  ...prevUpdate,
+                  today_timestamps: [
+                    ...prevUpdate.today_timestamps.slice(
+                      0,
+                      prevUpdate.today_timestamps.length - 1
+                    ),
+                  ], // apparently this slice method is a good way of doing this without mutating the original array, also we can't go negative with this
+                };
+              } else {
+                return prevUpdate;
+              }
+            })
+          );
+          // same logic in the habits array as the update array
+          return {
+            ...prevHabit,
+            today_timestamps: [
+              ...prevHabit.today_timestamps.slice(
+                0,
+                prevHabit.today_timestamps.length - 1
+              ),
+            ], // apparently this slice method is a good way of doing this without mutating the original array, also we can't go negative with this
+          };
+        } else {
+          return prevHabit;
+        }
       })
     );
-    console.log(habits[2]);
+    // console.log(habitsUpdateArray);
   }
 
   // this only needs to help with a render now and then we'll call our database again to update our habits
@@ -124,7 +194,7 @@ function HabitTracker() {
 
     // I'm not sure in the current setup whether there will be multiple calls being made
     // but I think this will work for now using the if statements and then clearing out the arrays once the database call goes through
-    function checkAfterFiveMinutes() {
+    function checkAfterTenSeconds() {
       if (habitsAddArray.length > 0) {
         createManyHabits();
       }
@@ -132,9 +202,39 @@ function HabitTracker() {
         deleteManyHabits();
       }
     }
-    const timer = setInterval(() => checkAfterFiveMinutes(), 10000);
+    const timer = setInterval(() => checkAfterTenSeconds(), 10000);
     return () => clearInterval(timer);
   }, [habitsAddArray, habitsDeleteArray]);
+
+  // timestamps for each habit are updated every 10 seconds but dividing it out into it's own useEffect
+  // I am using the habitsUpdate array so that we're not constantly pushing updates onto the database and we'll only make calls for habits that are getting modified
+  useEffect(() => {
+    async function updateTimestamps() {
+      for (const habit of habitsUpdateArray) {
+        let data = {
+          habit_name: habit.habit_name,
+          today_timestamps: habit.today_timestamps,
+        };
+
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        };
+        fetch("/api/habit-update-timestamps", requestOptions).then(
+          setHabitsUpdateArray(() => {
+            return []; // clear out the array when we're done updating
+          })
+        );
+      }
+    }
+
+    function checkAfterTenSeconds() {
+      updateTimestamps();
+    }
+    const timer = setInterval(() => checkAfterTenSeconds(), 10000);
+    return () => clearInterval(timer);
+  }, [habitsUpdateArray]);
 
   return (
     <>
