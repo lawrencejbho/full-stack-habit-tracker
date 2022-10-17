@@ -38,4 +38,9 @@ router.post("/habit-delete-many", apiHabitController.deleteMany);
 
 router.post("/habit-update-timestamps", apiHabitController.updateTimestamps);
 
+router.post(
+  "/habit-push-today-timestamps",
+  apiHabitController.pushTodayTimestamps
+);
+
 module.exports = router;

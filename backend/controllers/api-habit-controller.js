@@ -76,9 +76,29 @@ const updateTimestamps = (req, res) => {
     });
 };
 
+const pushTodayTimestamps = (req, res) => {
+  HabitModel.find().then((entry) => {
+    let timestamp_array = entry.map((habit) =>
+      habit.timestamps.concat(habit.today_timestamps)
+    );
+    for (let i = 0; i < entry.length; i++) {
+      let filter = { id: entry[i].id };
+      let update = { timestamps: timestamp_array[i] };
+      HabitModel.findOneAndUpdate(filter, update)
+        .then(() => {
+          console.log("pushed today_timestamps into timestamps");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  });
+};
+
 exports.createHabit = createHabit;
 exports.getHabit = getHabit;
 exports.deleteHabit = deleteHabit;
 exports.createMany = createMany;
 exports.deleteMany = deleteMany;
 exports.updateTimestamps = updateTimestamps;
+exports.pushTodayTimestamps = pushTodayTimestamps;
