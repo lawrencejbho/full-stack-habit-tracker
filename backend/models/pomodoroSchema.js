@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const pomodoroSchema = new mongoose.Schema({
   user: String,
   timezone: Number,
-  pomodoros: [Number],
+  timestamps: [Number],
 });
 
 module.exports = pomodoroSchema;

@@ -43,4 +43,9 @@ router.post(
   apiHabitController.pushTodayTimestamps
 );
 
+router.post(
+  "/habit-clear-today-timestamps",
+  apiHabitController.clearTodayTimestamps
+);
+
 module.exports = router;

@@ -76,23 +76,54 @@ const updateTimestamps = (req, res) => {
     });
 };
 
+// find all habit entries, push in today_timestamps into timestamps, and then update each one individually
 const pushTodayTimestamps = (req, res) => {
   HabitModel.find().then((entry) => {
     let timestamp_array = entry.map((habit) =>
       habit.timestamps.concat(habit.today_timestamps)
     );
+
+    for (let i = 0; i < entry.length; i++) {
+      let today_array = entry[i].today_timestamps;
+      if (today_array.length == 0) {
+        console.log("nothing in the array");
+      } else if (today_array[0] - currentTime() > 86400) {
+        let filter = { id: entry[i].id };
+        let update = { timestamps: timestamp_array[i] };
+        HabitModel.findOneAndUpdate(filter, update)
+          .then(() => {
+            console.log("pushed today_timestamps into timestamps");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        console.log("still from today");
+      }
+    }
+  });
+};
+
+// same logic as push, but we just change today timestamps to be an empty array
+const clearTodayTimestamps = (req, res) => {
+  HabitModel.find().then((entry) => {
     for (let i = 0; i < entry.length; i++) {
       let filter = { id: entry[i].id };
-      let update = { timestamps: timestamp_array[i] };
+      let update = { today_timestamps: [] };
       HabitModel.findOneAndUpdate(filter, update)
         .then(() => {
-          console.log("pushed today_timestamps into timestamps");
+          console.log("cleared today_timestamps");
         })
         .catch((error) => {
           console.log(error);
         });
     }
   });
+};
+
+const currentTime = () => {
+  const currentTime = new Date().getTime();
+  return Math.floor(currentTime / 1000);
 };
 
 exports.createHabit = createHabit;
@@ -102,3 +133,4 @@ exports.createMany = createMany;
 exports.deleteMany = deleteMany;
 exports.updateTimestamps = updateTimestamps;
 exports.pushTodayTimestamps = pushTodayTimestamps;
+exports.clearTodayTimestamps = clearTodayTimestamps;

@@ -15,7 +15,7 @@ const createUser = () => {
   const pomodoro = new PomodoroModel({
     date: "test-user",
     timezone: 10,
-    pomodoros: [1664906719, 1664996419],
+    timestamps: [1664906719, 1664996419],
   });
   pomodoro.save();
 };
@@ -32,7 +32,7 @@ const addPomodoros = (req, res, next) => {
 
   PomodoroModel.findOneAndUpdate(
     { user: "test-user" },
-    { $push: { pomodoros: req.body.pomodoro } },
+    { $push: { timestamps: req.body.timestamps } },
     function (error, success) {
       if (error) {
         console.log(error);
