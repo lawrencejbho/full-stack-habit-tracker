@@ -20,7 +20,7 @@ function ContributionGraph(props) {
   useEffect(() => {
     // go through each pomodoro in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
     function determineDateByPomodoro() {
-      props.pomodoros.forEach((value) => {
+      props.timestamps.forEach((value) => {
         const date = new Date(value * 1000).toLocaleDateString("en-us", {
           year: "numeric",
           month: "long",
@@ -39,13 +39,13 @@ function ContributionGraph(props) {
       });
     }
 
-    if (props.pomodoros !== null) {
-      if (props.pomodoros.length !== 0) {
+    if (props.timestamps !== undefined) {
+      if (props.timestamps.length !== 0) {
         determineDateByPomodoro();
         setIsPropsReady((prevValue) => !prevValue); // need to use state here so that we can force a rerender or else the graph won't show anything initially
       }
     }
-  }, [props.pomodoros, pomodoroData]);
+  }, [props.timestamps, pomodoroData]);
 
   // convert our dates in string format back into unix time
   const convertDateToUnixTime = (dateString) => {

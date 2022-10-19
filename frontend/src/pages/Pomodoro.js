@@ -203,7 +203,8 @@ function Pomodoro() {
     const getPomodoros = async () => {
       const data = await fetch("/api/pomodoro-get");
       const posts_data = await data.json();
-      setPomodoroDatabase(posts_data[0].pomodoros);
+      setPomodoroDatabase(posts_data[0].timestamps);
+      // console.log(posts_data[0].timestamps);
     };
     getPomodoros();
   }, []);
@@ -215,7 +216,7 @@ function Pomodoro() {
     const updateCalendar = async () => {
       const data = await fetch("/api/calendar-update");
       const get_data = await data.json();
-      console.log(get_data);
+      // console.log(get_data);
     };
     updateCalendar();
   }, []);
@@ -241,7 +242,7 @@ function Pomodoro() {
               type="text"
               name="pomodoro"
               onChange={handleChangePomodoro}
-              value={pomodoroFormData.pomodoro || ""}
+              value={pomodoroFormData.timestamps || ""}
             />
           </label>
           <input type="submit" value="Submit" />
@@ -271,7 +272,7 @@ function Pomodoro() {
           type="break"
         />
       </div>
-      <ContributionGraph pomodoros={pomodoroDatabase} />
+      <ContributionGraph timestamps={pomodoroDatabase} />
     </div>
   );
 }

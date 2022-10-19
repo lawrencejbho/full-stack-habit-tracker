@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Habit from "../components/Habit.js";
 import HabitAdd from "../components/Habit-Add.js";
 import TodayDate from "../components/TodayDate.js";
-// import ContributionGraph from "../components/ContributionGraph.js";
+import ContributionGraph from "../components/ContributionGraph.js";
 
 function HabitTracker() {
   const [habitsAddArray, setHabitsAddArray] = useState([]);
@@ -11,15 +11,10 @@ function HabitTracker() {
   // any updates to habits will go into this array to be bulk pushed into the database
   const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
 
-  // our habits array that saves our habits to be displayed later, will use the localStorage if it exists
   const [habits, setHabits] = useState([]);
 
   // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID when we use things like mouseOver
   const [currentHabitId, setCurrentHabitId] = useState("");
-
-  // const [currentHabitId, setCurrentHabitId] = useState(
-  //   (habits[0] && habits[0].id) || ""
-  // );
 
   const currentTime = () => {
     const currentTime = new Date().getTime();
@@ -131,7 +126,6 @@ function HabitTracker() {
       return [...prevHabits, newHabit];
     });
     // add the new Habit into the habits Array to be bulk pushed into database
-
     setHabitsAddArray((prevValue) => {
       return [...prevValue, newHabit];
     });

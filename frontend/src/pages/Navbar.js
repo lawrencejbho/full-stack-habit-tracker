@@ -23,6 +23,14 @@ function Navbar() {
               Pomodoro
             </Link>
           </li>
+          <Link className="white-text" to="/productivity/analytics">
+            Analytics
+          </Link>
+          <li>
+            <Link className="white-text" to="/productivity/counters">
+              Counters
+            </Link>
+          </li>
         </ul>
       </nav>
       <hr className="navbar-line"></hr>

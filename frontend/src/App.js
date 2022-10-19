@@ -8,6 +8,8 @@ import HabitTracker from "./pages/HabitTracker.js";
 import Pomodoro from "./pages/Pomodoro.js";
 import Home from "./pages/Home.js";
 import NotFound from "./pages/NotFound.js";
+import Analytics from "./pages/Analytics.js";
+import Counters from "./pages/Counters.js";
 
 function App() {
   // not sure if this is the best way to apply the background image by doing it directly through style
@@ -26,6 +28,8 @@ function App() {
           <Route path="/productivity">
             <Route path="pomodoro" element={<Pomodoro />} />
             <Route path="habit" element={<HabitTracker />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="counters" element={<Counters />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

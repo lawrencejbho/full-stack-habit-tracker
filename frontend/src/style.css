@@ -232,3 +232,10 @@ main {
 .app-line { 
   width: 95%;
 }
+
+
+/* Habit Tracker page */
+
+.contribution-graphs-container _{ 
+  flex-direction: column;
+}
