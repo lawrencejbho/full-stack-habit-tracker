@@ -66,10 +66,23 @@ const deleteMany = (req, res) => {
 const updateTimestamps = (req, res) => {
   console.log(req.body);
   const filter = { habit_name: req.body.habit_name };
-  const update = { today_timestamps: req.body.today_timestamps };
+  const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
       console.log("updated timestamps");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const updateTodayTimestamps = (req, res) => {
+  console.log(req.body);
+  const filter = { habit_name: req.body.habit_name };
+  const update = { today_timestamps: req.body.today_timestamps };
+  HabitModel.findOneAndUpdate(filter, update)
+    .then(() => {
+      console.log("updated today_timestamps");
     })
     .catch((error) => {
       console.log(error);
@@ -132,5 +145,6 @@ exports.deleteHabit = deleteHabit;
 exports.createMany = createMany;
 exports.deleteMany = deleteMany;
 exports.updateTimestamps = updateTimestamps;
+exports.updateTodayTimestamps = updateTodayTimestamps;
 exports.pushTodayTimestamps = pushTodayTimestamps;
 exports.clearTodayTimestamps = clearTodayTimestamps;

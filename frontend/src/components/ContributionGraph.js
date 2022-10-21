@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import Box from "./Box.js";
 
 function ContributionGraph(props) {
-  const [pomodoroData, setPomodoroData] = useState([{}]);
+  const [habitData, setHabitData] = useState([]);
   const [isPropsReady, setIsPropsReady] = useState(false);
   const [timeOffset, setTimeOffset] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -12,14 +12,16 @@ function ContributionGraph(props) {
     fetch("/api/calendar-get")
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
-        setPomodoroData(res);
+        console.log(res);
+        setHabitData(res);
       });
   }, []);
 
   useEffect(() => {
-    // go through each pomodoro in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
-    function determineDateByPomodoro() {
+    // go through each habit in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
+    function determineDateByHabit() {
+      habitData.forEach((value) => (value.count = 0));
+
       props.timestamps.forEach((value) => {
         const date = new Date(value * 1000).toLocaleDateString("en-us", {
           year: "numeric",
@@ -28,24 +30,25 @@ function ContributionGraph(props) {
         });
         // console.log(date);
 
-        // need this because of the async, or it'll sometimes break the app if pomodoroData isn't ready
-        if (pomodoroData.length > 1) {
-          const searchObjectIndex = pomodoroData.findIndex(
+        // need this because of the async, or it'll sometimes break the app if habitData isn't ready
+        if (habitData.length > 1) {
+          const searchObjectIndex = habitData.findIndex(
             (day) => day.date === date
           );
-          // console.log(pomodoroData[searchObjectIndex]);
-          pomodoroData[searchObjectIndex].count++;
+          // console.log(habitData[searchObjectIndex]);
+          habitData[searchObjectIndex].count++;
         }
       });
     }
 
+    // use this because sometimes the async is slow so wait until this gets properly updated
     if (props.timestamps !== undefined) {
       if (props.timestamps.length !== 0) {
-        determineDateByPomodoro();
+        determineDateByHabit();
         setIsPropsReady((prevValue) => !prevValue); // need to use state here so that we can force a rerender or else the graph won't show anything initially
       }
     }
-  }, [props.timestamps, pomodoroData]);
+  }, [props.timestamps, habitData]);
 
   // convert our dates in string format back into unix time
   const convertDateToUnixTime = (dateString) => {
@@ -71,8 +74,8 @@ function ContributionGraph(props) {
   return (
     <div className="contribution-graph-box-container">
       <div className="box2-container">
-        {pomodoroData.length > 1 &&
-          pomodoroData.map((entry, index) => {
+        {habitData.length > 1 &&
+          habitData.map((entry, index) => {
             const date = convertDateToUnixTime(entry.date);
             if (
               currentTime - date > 31536000 + timeOffset ||
@@ -81,7 +84,13 @@ function ContributionGraph(props) {
               return false;
             }
             return (
-              <Box key={index} date={entry.date} contributions={entry.count} />
+              <Box
+                key={index}
+                date={entry.date}
+                contributions={entry.count}
+                add_timestamps={props.add_timestamps}
+                handleClick={() => props.add_timestamps(entry.date)}
+              />
             );
           })}
       </div>

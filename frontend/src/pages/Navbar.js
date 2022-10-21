@@ -26,11 +26,11 @@ function Navbar() {
           <Link className="white-text" to="/productivity/analytics">
             Analytics
           </Link>
-          <li>
+          {/* <li>
             <Link className="white-text" to="/productivity/counters">
               Counters
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <hr className="navbar-line"></hr>

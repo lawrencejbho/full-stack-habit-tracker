@@ -14,10 +14,6 @@ function Box(props) {
     }
   }
 
-  function mouseOver() {
-    console.log("mouseOver");
-  }
-
   const styles = {
     backgroundColor: changeColor(),
   };
@@ -28,7 +24,7 @@ function Box(props) {
         title={`${props.contributions} contributions on ${props.date}`}
         placement="top"
       >
-        <div className="box" style={styles} onClick={mouseOver}></div>
+        <div className="box" style={styles} onClick={props.handleClick}></div>
       </Tooltip>
     </div>
   );

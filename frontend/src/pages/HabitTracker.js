@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Habit from "../components/Habit.js";
 import HabitAdd from "../components/Habit-Add.js";
 import TodayDate from "../components/TodayDate.js";
-import ContributionGraph from "../components/ContributionGraph.js";
 
 function HabitTracker() {
   const [habitsAddArray, setHabitsAddArray] = useState([]);
@@ -215,7 +214,7 @@ function HabitTracker() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         };
-        fetch("/api/habit-update-timestamps", requestOptions).then(
+        fetch("/api/habit-update-today-timestamps", requestOptions).then(
           setHabitsUpdateArray(() => {
             return []; // clear out the array when we're done updating
           })
