@@ -64,7 +64,7 @@ const deleteMany = (req, res) => {
 };
 
 const updateTimestamps = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body.habit_name);
   const filter = { habit_name: req.body.habit_name };
   const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)
@@ -77,7 +77,7 @@ const updateTimestamps = (req, res) => {
 };
 
 const updateTodayTimestamps = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body.habit_name);
   const filter = { habit_name: req.body.habit_name };
   const update = { today_timestamps: req.body.today_timestamps };
   HabitModel.findOneAndUpdate(filter, update)
@@ -95,12 +95,14 @@ const pushTodayTimestamps = (req, res) => {
     let timestamp_array = entry.map((habit) =>
       habit.timestamps.concat(habit.today_timestamps)
     );
+    let statusCode = 404;
 
     for (let i = 0; i < entry.length; i++) {
       let today_array = entry[i].today_timestamps;
       if (today_array.length == 0) {
         console.log("nothing in the array");
-      } else if (today_array[0] - currentTime() > 86400) {
+      } else if (currentTime() - today_array[0] > 86400) {
+        statusCode = 200;
         let filter = { id: entry[i].id };
         let update = { timestamps: timestamp_array[i] };
         HabitModel.findOneAndUpdate(filter, update)
@@ -114,6 +116,7 @@ const pushTodayTimestamps = (req, res) => {
         console.log("still from today");
       }
     }
+    res.sendStatus(statusCode);
   });
 };
 

@@ -14,6 +14,7 @@ function HabitTracker() {
 
   // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID when we use things like mouseOver
   const [currentHabitId, setCurrentHabitId] = useState("");
+  const [renderState, setRenderState] = useState(false);
 
   const currentTime = () => {
     const currentTime = new Date().getTime();
@@ -152,6 +153,22 @@ function HabitTracker() {
       setHabits(get_data);
     };
     getHabits();
+  }, [renderState]);
+
+  // will try to push today timestamps if the first entry is greater than a day.  If we get a success, then we'll also clear the today_timestamps for all habits
+  // the problem with this right now is that it won't rerender habit tracker
+  useEffect(() => {
+    fetch("/api/habit-push-today-timestamps")
+      .then((res) => {
+        if (res.status == 200) {
+          fetch("/api/habit-clear-today-timestamps").then((res) => {
+            setRenderState((prevValue) => !prevValue); // trying to see if this fixes the problem so we'll update our habits
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   // add and removes for habits are done in state and then put into respective arrays so that they'll make a database call every 10 seconds

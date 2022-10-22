@@ -43,12 +43,12 @@ router.post(
   apiHabitController.updateTodayTimestamps
 );
 
-router.post(
+router.get(
   "/habit-push-today-timestamps",
   apiHabitController.pushTodayTimestamps
 );
 
-router.post(
+router.get(
   "/habit-clear-today-timestamps",
   apiHabitController.clearTodayTimestamps
 );

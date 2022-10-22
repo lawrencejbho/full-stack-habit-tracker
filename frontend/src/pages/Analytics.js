@@ -12,7 +12,6 @@ function Analytics() {
   const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
 
   const [renderState, setRenderState] = useState(false);
-  const [rerender, setRerender] = useState(false);
 
   // MUI code for the dropdown menu
 
@@ -88,7 +87,6 @@ function Analytics() {
         }
       })
     );
-    setRerender((prevValue) => !prevValue);
     // console.log(habitsUpdateArray);
   }
 
