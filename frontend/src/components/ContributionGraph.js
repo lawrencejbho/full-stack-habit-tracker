@@ -20,6 +20,7 @@ function ContributionGraph(props) {
   useEffect(() => {
     // go through each habit in the array and convert it into the date, find the index that corresponds to that date and then increment it's count
     function determineDateByHabit() {
+      // use this to zero out all of our counters or else it'll start double counting every time we click on a box
       habitData.forEach((value) => (value.count = 0));
 
       props.timestamps.forEach((value) => {
