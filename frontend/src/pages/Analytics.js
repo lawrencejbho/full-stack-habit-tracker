@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import ContributionGraph from "../components/ContributionGraph.js";
 
 import Button from "@mui/material/Button";
@@ -12,6 +13,8 @@ function Analytics() {
   const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
 
   const [renderState, setRenderState] = useState(false);
+
+  const [randomColor, setRandomColor] = useState("");
 
   // MUI code for the dropdown menu
 
@@ -126,9 +129,18 @@ function Analytics() {
     function checkAfterTenSeconds() {
       updateTimestamps();
     }
+
     const timer = setInterval(() => checkAfterTenSeconds(), 10000);
     return () => clearInterval(timer);
   }, [habitsUpdateArray]);
+
+  // function createRandomColor() {
+  //   return Math.floor(Math.random() * 0xffffff).toString(16);
+  // }
+
+  useEffect(() => {
+    setRandomColor(Math.floor(Math.random() * 0xffffff).toString(16));
+  }, []);
 
   return (
     <div>
@@ -173,6 +185,7 @@ function Analytics() {
                 timestamps={habit.timestamps}
                 id={habit.id}
                 add_timestamps={addTimestamps}
+                randomColor={randomColor}
               />
             );
           }

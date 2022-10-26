@@ -74,6 +74,12 @@ function ContributionGraph(props) {
 
   return (
     <div className="contribution-graph-box-container">
+      <div className="contribution-graph-days">
+        <div>Mon</div>
+        <div>Wed</div>
+        <div>Fri</div>
+      </div>
+
       <div className="box2-container">
         {habitData.length > 1 &&
           habitData.map((entry, index) => {
@@ -91,9 +97,19 @@ function ContributionGraph(props) {
                 contributions={entry.count}
                 add_timestamps={props.add_timestamps}
                 handleClick={() => props.add_timestamps(entry.date)}
+                randomColor={props.randomColor}
               />
             );
           })}
+      </div>
+      <div className="contribution-graph-legend">
+        Less
+        <Box contributions={0} randomColor={props.randomColor} />
+        <Box contributions={1} randomColor={props.randomColor} />
+        <Box contributions={3} randomColor={props.randomColor} />
+        <Box contributions={5} randomColor={props.randomColor} />
+        <Box contributions={7} randomColor={props.randomColor} />
+        More
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 20px;
   overflow:auto;
+  font-family: Arial;
 }
 
 * {
@@ -179,15 +180,42 @@ main {
   width: 11px;
   height: 11px;
   border: 1px solid;
+  border-color: rgba(27, 31, 35, 0.3); /* rgba helps with the opacity on the border making it less thick */
 }
 
 .contribution-graph-box-container { 
   border: 1px solid;
-  width: 845px;
-  height: 150px;
+  width: 900px;
+  height: 160px;
   align-items: center;
-  justify-content: center;
-  background-color: rgba(192, 192, 192, 0.8);
+  justify-content: left;
+  /* background-color: rgba(192, 192, 192, 0.8);  this is grey */ 
+  background-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(0,0,0,0.4);
+  border-radius: 5px;
+  display: flex;
+}
+
+.contribution-graph-legend { 
+  display: flex;
+  font-family: Arial;
+  font-size: 12px;
+  gap: 4px;
+  padding: 0px 50px;
+  /* align-items: baseline; */
+  align-content: flex-end;
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.contribution-graph-days { 
+  display: flex;
+  flex-direction: column;
+  font-family: Arial;
+  font-size: 13px;
+  gap: 15px;
+  padding-left: 20px;
+  padding-top: 6px;
 }
 
 .box-container{ 
@@ -204,10 +232,10 @@ main {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 150px;
+  height: 135px;
   column-gap: 4px;
   row-gap: 4px;
-  padding: 20px 20px;
+  padding: 20px 5px 5px 5px;
 }
 
 
