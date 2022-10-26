@@ -7,6 +7,24 @@ function ContributionGraph(props) {
   const [timeOffset, setTimeOffset] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
+  let currentMonth = "";
+  let count = 0;
+
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   // pull the calendar from database
   useEffect(() => {
     fetch("/api/calendar-get")
@@ -72,6 +90,16 @@ function ContributionGraph(props) {
     }
   }, []);
 
+  const convertDateToMonth = (dateString) => {
+    const date = new Date(dateString);
+    return date.getMonth();
+  };
+
+  /*
+  couldn't find a good way to make the months display all in the same map of the habitData so I just divided it out by two 
+  also had some problems with getting it to render the month, then 7 boxes so I just created them as two separate components
+  from there it's mostly just using css and html to get the proper lineup.  It looks pretty good but the spacing is not uniform to the boxes unfortunately
+  */
   return (
     <div className="contribution-graph-box-container">
       <div className="contribution-graph-days">
@@ -80,36 +108,64 @@ function ContributionGraph(props) {
         <div>Fri</div>
       </div>
 
-      <div className="box2-container">
-        {habitData.length > 1 &&
-          habitData.map((entry, index) => {
-            const date = convertDateToUnixTime(entry.date);
-            if (
-              currentTime - date > 31536000 + timeOffset ||
-              date > currentTime
-            ) {
-              return false;
-            }
-            return (
-              <Box
-                key={index}
-                date={entry.date}
-                contributions={entry.count}
-                add_timestamps={props.add_timestamps}
-                handleClick={() => props.add_timestamps(entry.date)}
-                randomColor={props.randomColor}
-              />
-            );
-          })}
-      </div>
-      <div className="contribution-graph-legend">
-        Less
-        <Box contributions={0} randomColor={props.randomColor} />
-        <Box contributions={1} randomColor={props.randomColor} />
-        <Box contributions={3} randomColor={props.randomColor} />
-        <Box contributions={5} randomColor={props.randomColor} />
-        <Box contributions={7} randomColor={props.randomColor} />
-        More
+      <div className="contribution-graph-parent">
+        <div className="contribution-graph-months">
+          {habitData.length > 1 &&
+            habitData.map((entry, index) => {
+              const date = convertDateToUnixTime(entry.date);
+              if (
+                currentTime - date > 31536000 + timeOffset ||
+                date > currentTime
+              ) {
+                return false;
+              }
+              let newMonth = convertDateToMonth(entry.date);
+              count++;
+              if (count % 7 === 1) {
+                if (currentMonth !== newMonth) {
+                  currentMonth = newMonth;
+                  return <div>{month[newMonth].slice(0, 3)}</div>;
+                } else {
+                  return <div>&emsp;</div>;
+                }
+              }
+            })}
+        </div>
+
+        <div className="box2-container">
+          {habitData.length > 1 &&
+            habitData.map((entry, index) => {
+              const date = convertDateToUnixTime(entry.date);
+              if (
+                currentTime - date > 31536000 + timeOffset ||
+                date > currentTime
+              ) {
+                return false;
+              }
+              return (
+                <div>
+                  <Box
+                    key={index}
+                    date={entry.date}
+                    contributions={entry.count}
+                    add_timestamps={props.add_timestamps}
+                    handleClick={() => props.add_timestamps(entry.date)}
+                    randomColor={props.randomColor}
+                  />
+                </div>
+              );
+            })}
+        </div>
+
+        <div className="contribution-graph-legend">
+          Less
+          <Box contributions={0} randomColor={props.randomColor} />
+          <Box contributions={1} randomColor={props.randomColor} />
+          <Box contributions={3} randomColor={props.randomColor} />
+          <Box contributions={5} randomColor={props.randomColor} />
+          <Box contributions={7} randomColor={props.randomColor} />
+          More
+        </div>
       </div>
     </div>
   );

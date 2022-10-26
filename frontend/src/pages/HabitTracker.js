@@ -160,7 +160,7 @@ function HabitTracker() {
   useEffect(() => {
     fetch("/api/habit-push-today-timestamps")
       .then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           fetch("/api/habit-clear-today-timestamps").then((res) => {
             setRenderState((prevValue) => !prevValue); // trying to see if this fixes the problem so we'll update our habits
           });
