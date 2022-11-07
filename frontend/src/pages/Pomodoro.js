@@ -234,15 +234,15 @@ function Pomodoro() {
 
   // get pomodoros from database and save to state to be passed down
   // probably better to do it here versus within the contribution graph component
-  useEffect(() => {
-    const getPomodoros = async () => {
-      const data = await fetch("/api/pomodoro-get");
-      const posts_data = await data.json();
-      setPomodoroDatabase(posts_data[0].timestamps);
-      // console.log(posts_data[0].timestamps);
-    };
-    getPomodoros();
-  }, []);
+  // useEffect(() => {
+  //   const getPomodoros = async () => {
+  //     const data = await fetch("/api/pomodoro-get");
+  //     const posts_data = await data.json();
+  //     setPomodoroDatabase(posts_data[0].timestamps);
+  //     // console.log(posts_data[0].timestamps);
+  //   };
+  //   getPomodoros();
+  // }, []);
 
   // update the calendar Schema in case it's older than today's date
   // when I put this in ContributionGraph it was double counting pomodoros
@@ -339,6 +339,16 @@ function Pomodoro() {
           );
         })}
       </Menu>
+
+      <div className="contribution-graph-container">
+        {habits.map((habit) => {
+          if (habit.id === currentHabitId) {
+            return (
+              <ContributionGraph timestamps={habit.timestamps} id={habit.id} />
+            );
+          }
+        })}
+      </div>
     </div>
   );
 }
