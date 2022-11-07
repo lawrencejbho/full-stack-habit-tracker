@@ -4,6 +4,10 @@ import "./pomodoro.css";
 import ContributionGraph from "../components/ContributionGraph";
 import mango from "../images/mango.png";
 
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+
 function Pomodoro() {
   const [secondsPomodoro, setSecondsPomodoro] = useState(2);
   const [secondsBreak, setSecondsBreak] = useState(2);
@@ -11,11 +15,31 @@ function Pomodoro() {
   const [isBreakActive, setIsBreakActive] = useState(false);
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
   const breakTimeDisplay = timeConversion(secondsBreak);
+  const [currentHabitId, setCurrentHabitId] = useState("");
+  const [renderState, setRenderState] = useState(false);
+  const [habits, setHabits] = useState([]);
 
   // for submitting pomodoros
   const [pomodoroFormData, setPomodoroFormData] = useState({});
   // for pulling pomodoros from the db
   const [pomodoroDatabase, setPomodoroDatabase] = useState([]);
+
+  // MUI code for the dropdown menu
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // clicking the menu item will set the habit Id and then render the contribution graph
+  const handleClickDisplayGraph = (event) => {
+    setCurrentHabitId(event.target.id);
+  };
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
   function timeConversion(seconds) {
@@ -197,6 +221,17 @@ function Pomodoro() {
     setPomodoroFormData({ ...pomodoroFormData, pomodoro: event.target.value });
   }
 
+  useEffect(() => {
+    const getHabits = async () => {
+      const data = await fetch("/api/habit-get");
+      const get_data = await data.json();
+      // console.log(get_data);
+      setHabits(get_data);
+      setRenderState(true);
+    };
+    getHabits();
+  }, [renderState]);
+
   // get pomodoros from database and save to state to be passed down
   // probably better to do it here versus within the contribution graph component
   useEffect(() => {
@@ -272,7 +307,38 @@ function Pomodoro() {
           type="break"
         />
       </div>
-      <ContributionGraph timestamps={pomodoroDatabase} />
+      {/* <ContributionGraph timestamps={pomodoroDatabase} /> */}
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        Dashboard
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        {habits.map((habit) => {
+          return (
+            <MenuItem
+              onClick={handleClickDisplayGraph}
+              onClose={handleClose}
+              // onBlur={handleClose}
+              id={habit.id}
+            >
+              {habit.habit_name}
+            </MenuItem>
+          );
+        })}
+      </Menu>
     </div>
   );
 }

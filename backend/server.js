@@ -16,6 +16,17 @@ const app = express();
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(
+  session({
+    secret: "Testing.",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.post("/test", (req, res) => {
   console.log(req.body);
   // res.status(error.code || 504);
