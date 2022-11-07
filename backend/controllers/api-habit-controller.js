@@ -9,6 +9,8 @@ mongoose.connect(process.env.MONGOOSE);
 
 const habitSchema = require("../models/habitSchema");
 const HabitModel = mongoose.model("HabitModel", habitSchema);
+const calendarSchema = require("../models/calendarSchema");
+const CalendarModel = mongoose.model("CalendarModel", calendarSchema);
 
 const createHabit = (req, res) => {
   console.log(req.body);
@@ -63,8 +65,21 @@ const deleteMany = (req, res) => {
     });
 };
 
+const addTimestamps = (req, res) => {
+  console.log(req.body);
+  const filter = { habit_name: req.body.habit_name };
+  const update = { $push: { timestamps: req.body.timestamps } };
+  HabitModel.findOneAndUpdate(filter, update)
+    .then(() => {
+      console.log("added timestamps");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 const updateTimestamps = (req, res) => {
-  // console.log(req.body.habit_name);
+  console.log(req.body);
   const filter = { habit_name: req.body.habit_name };
   const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)
@@ -142,12 +157,72 @@ const currentTime = () => {
   return Math.floor(currentTime / 1000);
 };
 
+// create the blank calendar collection with one entry
+const createCalendar = () => {
+  const calendar = new CalendarModel({ date: "October 1, 2021", count: 0 });
+  calendar.save();
+};
+
+// had to copy paste the array in EmptyCalendar into this insertMany function for it to update my collection when first making the 365 day calendar
+// grab the last entry in the collection and then figure out if we need to add additional entries for the missing dates
+const updateCalendar = () => {
+  //   CalendarModel.insertMany();
+  const timeOfLastEntry = CalendarModel.find({})
+    .sort({ _id: -1 })
+    .limit(1)
+    .then((entry) => {
+      calculateOffset(entry[0].date);
+    });
+  timeOfLastEntry;
+};
+
+// calculate the offset and if it's greater than a day, then we'll add the additional days into an array to be added
+const calculateOffset = (timeOfLastEntry) => {
+  console.log("checking calendar");
+  let unixTimeOfLastEntry = convertDateToUnixTime(timeOfLastEntry);
+  let timeOffset = currentTime() - unixTimeOfLastEntry;
+  let dateArray = [];
+  while (timeOffset > 86400) {
+    unixTimeOfLastEntry = unixTimeOfLastEntry + 86400;
+
+    const date = new Date(unixTimeOfLastEntry * 1000).toLocaleDateString(
+      "en-us",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }
+    );
+    // console.log(date);
+    dateArray.push({ date: date, count: 0 });
+    timeOffset -= 86400;
+  }
+  if (dateArray.length !== 0) {
+    console.log("updating calendar");
+    CalendarModel.insertMany(dateArray);
+  }
+};
+
+const getCalendar = (req, res, next) => {
+  CalendarModel.find().then((entry) => res.json(entry));
+};
+
+const convertDateToUnixTime = (dateString) => {
+  const date = new Date(dateString);
+  return date.getTime() / 1000;
+};
+
 exports.createHabit = createHabit;
 exports.getHabit = getHabit;
 exports.deleteHabit = deleteHabit;
 exports.createMany = createMany;
 exports.deleteMany = deleteMany;
+exports.addTimestamps = addTimestamps;
 exports.updateTimestamps = updateTimestamps;
 exports.updateTodayTimestamps = updateTodayTimestamps;
 exports.pushTodayTimestamps = pushTodayTimestamps;
 exports.clearTodayTimestamps = clearTodayTimestamps;
+
+exports.createCalendar = createCalendar;
+exports.updateCalendar = updateCalendar;
+exports.getCalendar = getCalendar;

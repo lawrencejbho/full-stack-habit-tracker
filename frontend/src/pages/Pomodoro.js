@@ -16,11 +16,10 @@ function Pomodoro() {
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
   const breakTimeDisplay = timeConversion(secondsBreak);
   const [currentHabitId, setCurrentHabitId] = useState("");
+  const [currentHabitName, setCurrentHabitName] = useState("");
   const [renderState, setRenderState] = useState(false);
   const [habits, setHabits] = useState([]);
 
-  // for submitting pomodoros
-  const [pomodoroFormData, setPomodoroFormData] = useState({});
   // for pulling pomodoros from the db
   const [pomodoroDatabase, setPomodoroDatabase] = useState([]);
 
@@ -37,8 +36,10 @@ function Pomodoro() {
   };
 
   // clicking the menu item will set the habit Id and then render the contribution graph
+  // name is an attribute
   const handleClickDisplayGraph = (event) => {
     setCurrentHabitId(event.target.id);
+    setCurrentHabitName(event.target.getAttribute("name"));
   };
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
@@ -85,8 +86,8 @@ function Pomodoro() {
     }
 
     // add to the pomodoros array in the database when a pomodoro is complete
-    async function updatePomodorosArray(event) {
-      let data = { username: "test-user", pomodoro: currentTime() };
+    async function updateHabitTimestamps(event) {
+      let data = { habit_name: currentHabitName, timestamps: currentTime() };
       console.log(data);
       const requestOptions = {
         method: "POST",
@@ -94,7 +95,7 @@ function Pomodoro() {
         body: JSON.stringify(data),
       };
 
-      fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
+      fetch("/api/habit-add-timestamps", requestOptions).then((response) => {
         console.log(response);
         return response.json();
       });
@@ -110,7 +111,7 @@ function Pomodoro() {
       // need to check isActive here or you'll get two notifications
       setIsActive(false);
       notificationPermissionPomodoro();
-      updatePomodorosArray();
+      updateHabitTimestamps();
     }
     return () => clearInterval(interval); // return clearInterval for clean up
   }, [isActive, secondsPomodoro]); // need isActive here in the dependency array to start the useEffect or secondsPomodoro will never go down
@@ -198,29 +199,6 @@ function Pomodoro() {
     return Math.floor(currentTime / 1000);
   };
 
-  // add to the pomodoros array on the database
-  async function handleSubmit(event) {
-    console.log(pomodoroFormData);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(pomodoroFormData),
-    };
-
-    fetch("/api/pomodoro-add-pomodoros", requestOptions).then((response) => {
-      console.log(response);
-      return response.json();
-    });
-  }
-
-  function handleChangeUsername(event) {
-    setPomodoroFormData({ ...pomodoroFormData, username: event.target.value });
-  }
-
-  function handleChangePomodoro(event) {
-    setPomodoroFormData({ ...pomodoroFormData, pomodoro: event.target.value });
-  }
-
   useEffect(() => {
     const getHabits = async () => {
       const data = await fetch("/api/habit-get");
@@ -234,6 +212,8 @@ function Pomodoro() {
 
   // get pomodoros from database and save to state to be passed down
   // probably better to do it here versus within the contribution graph component
+  // * replacing this with using habits instead
+
   // useEffect(() => {
   //   const getPomodoros = async () => {
   //     const data = await fetch("/api/pomodoro-get");
@@ -245,7 +225,7 @@ function Pomodoro() {
   // }, []);
 
   // update the calendar Schema in case it's older than today's date
-  // when I put this in ContributionGraph it was double counting pomodoros
+  // when I put this in ContributionGraph it was double counting timestamps
 
   useEffect(() => {
     const updateCalendar = async () => {
@@ -260,29 +240,40 @@ function Pomodoro() {
     <div>
       <h1 className="white-text">Pomodoro</h1>
       <hr className="app-line"></hr>
-      <div>
-        <form className="white-text" onSubmit={handleSubmit}>
-          <label>
-            username
-            <input
-              type="text"
-              name="username"
-              onChange={handleChangeUsername}
-              value={pomodoroFormData.username || ""}
-            />
-          </label>
-          <label>
-            pomodoro
-            <input
-              type="text"
-              name="pomodoro"
-              onChange={handleChangePomodoro}
-              value={pomodoroFormData.timestamps || ""}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        Choose Habit
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        {habits.map((habit) => {
+          return (
+            <MenuItem
+              onClick={handleClickDisplayGraph}
+              onClose={handleClose}
+              // onBlur={handleClose}
+              id={habit.id}
+              name={habit.habit_name}
+            >
+              {habit.habit_name}
+            </MenuItem>
+          );
+        })}
+      </Menu>
+
       <div className="timer-container">
         <PomodoroTimer
           minutes={pomodoroTimeDisplay.minutes}
@@ -307,38 +298,6 @@ function Pomodoro() {
           type="break"
         />
       </div>
-      {/* <ContributionGraph timestamps={pomodoroDatabase} /> */}
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-        Dashboard
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        {habits.map((habit) => {
-          return (
-            <MenuItem
-              onClick={handleClickDisplayGraph}
-              onClose={handleClose}
-              // onBlur={handleClose}
-              id={habit.id}
-            >
-              {habit.habit_name}
-            </MenuItem>
-          );
-        })}
-      </Menu>
 
       <div className="contribution-graph-container">
         {habits.map((habit) => {

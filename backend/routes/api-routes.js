@@ -17,11 +17,11 @@ router.post("/pomodoro-create-user", apiPomodoroController.createUser);
 router.post("/pomodoro-add-pomodoros", apiPomodoroController.addPomodoros);
 
 // calendar
-router.post("/calendar-create", apiPomodoroController.createCalendar);
+router.post("/calendar-create", apiHabitController.createCalendar);
 
-router.get("/calendar-update", apiPomodoroController.updateCalendar);
+router.get("/calendar-update", apiHabitController.updateCalendar);
 
-router.get("/calendar-get", apiPomodoroController.getCalendar);
+router.get("/calendar-get", apiHabitController.getCalendar);
 
 // habit tracker
 router.get("/habit-get", apiHabitController.getHabit);
@@ -35,6 +35,8 @@ router.post("/habit-create-many", apiHabitController.createMany);
 router.post("/habit-delete", apiHabitController.deleteHabit);
 
 router.post("/habit-delete-many", apiHabitController.deleteMany);
+
+router.post("/habit-add-timestamps", apiHabitController.addTimestamps);
 
 router.post("/habit-update-timestamps", apiHabitController.updateTimestamps);
 

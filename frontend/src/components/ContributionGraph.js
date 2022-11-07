@@ -50,7 +50,7 @@ function ContributionGraph(props) {
         // console.log(date);
 
         // need this because of the async, or it'll sometimes break the app if habitData isn't ready
-        if (habitData.length > 1) {
+        if (habitData.length > 0) {
           const searchObjectIndex = habitData.findIndex(
             (day) => day.date === date
           );
