@@ -3,7 +3,13 @@ import shader from "shader";
 import Tooltip from "@mui/material/Tooltip";
 
 function Box(props) {
-  function changeColor() {
+  const colors = {
+    Halloween: ["#ffee4a", "#ffc501", "#fe9600", "#03001c"],
+    Christmas: ["#00FF5D", "#00B341", "#FF231A", "#B30700"],
+    Default: ["#9be9a8", "#40c463", "#30a14e", "#216e39"],
+  };
+
+  function randomColor() {
     if (props.contributions === 1) {
       return shader(props.randomColor, 0.4);
     } else if (1 < props.contributions && props.contributions < 4) {
@@ -15,20 +21,20 @@ function Box(props) {
     }
   }
 
-  function defaultColor() {
+  function selector() {
     if (props.contributions === 1) {
-      return "#9be9a8";
+      return colors[props.color][0];
     } else if (1 < props.contributions && props.contributions < 4) {
-      return "#40c463";
+      return colors[props.color][1];
     } else if (4 <= props.contributions && props.contributions < 7) {
-      return "#30a14e";
+      return colors[props.color][2];
     } else if (props.contributions >= 7) {
-      return "#216e39";
+      return colors[props.color][3];
     }
   }
 
   const styles = {
-    backgroundColor: props.randomColor ? changeColor() : defaultColor(),
+    backgroundColor: props.color == "Random" ? randomColor() : selector(),
   };
 
   return (

@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 function Analytics() {
   const [habits, setHabits] = useState([]);
   const [currentHabitId, setCurrentHabitId] = useState("");
+  const [currentStyle, setCurrentStyle] = useState("Random");
 
   const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
 
@@ -18,20 +19,37 @@ function Analytics() {
 
   // MUI code for the dropdown menu
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElDashboard, setAnchorElDashboard] = useState(null);
+  const [anchorElStyles, setAnchorElStyles] = useState(null);
 
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const openDashboard = Boolean(anchorElDashboard);
+  const openStyles = Boolean(anchorElStyles);
+  const handleClickDashboard = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElDashboard(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClickStyles = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorElStyles(event.currentTarget);
+  };
+  const handleCloseDashboard = () => {
+    setAnchorElDashboard(null);
+  };
+
+  const handleCloseStyles = () => {
+    setAnchorElStyles(null);
   };
 
   // clicking the menu item will set the habit Id and then render the contribution graph
   const handleClickDisplayGraph = (event) => {
     setCurrentHabitId(event.target.id);
   };
+
+  const handleClickGraphStyle = (event) => {
+    setCurrentStyle(event.target.id);
+  };
+
+  // contribution graph styles
+
+  const colorStyles = ["Random", "Default", "Halloween", "Christmas"];
 
   // setHabits to pull from our database
   useEffect(() => {
@@ -134,10 +152,6 @@ function Analytics() {
     return () => clearInterval(timer);
   }, [habitsUpdateArray]);
 
-  // function createRandomColor() {
-  //   return Math.floor(Math.random() * 0xffffff).toString(16);
-  // }
-
   useEffect(() => {
     setRandomColor(Math.floor(Math.random() * 0xffffff).toString(16));
   }, []);
@@ -147,18 +161,18 @@ function Analytics() {
       <h1 className="white-text">Analytics</h1>
       <Button
         id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
+        aria-controls={openDashboard ? "basic-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
+        aria-expanded={openDashboard ? "true" : undefined}
+        onClick={handleClickDashboard}
       >
         Dashboard
       </Button>
       <Menu
         id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
+        anchorEl={anchorElDashboard}
+        open={openDashboard}
+        onClose={handleCloseDashboard}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -167,11 +181,42 @@ function Analytics() {
           return (
             <MenuItem
               onClick={handleClickDisplayGraph}
-              onClose={handleClose}
+              onClose={handleCloseDashboard}
               // onBlur={handleClose}
               id={habit.id}
             >
               {habit.habit_name}
+            </MenuItem>
+          );
+        })}
+      </Menu>
+
+      <Button
+        id="basic-button"
+        aria-controls={openStyles ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={openStyles ? "true" : undefined}
+        onClick={handleClickStyles}
+      >
+        Styles
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorElStyles}
+        open={openStyles}
+        onClose={handleCloseStyles}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        {colorStyles.map((style) => {
+          return (
+            <MenuItem
+              onClick={handleClickGraphStyle}
+              onClose={handleCloseStyles}
+              id={style}
+            >
+              {style}
             </MenuItem>
           );
         })}
@@ -185,6 +230,7 @@ function Analytics() {
                 timestamps={habit.timestamps}
                 id={habit.id}
                 add_timestamps={addTimestamps}
+                color={currentStyle}
                 randomColor={randomColor}
               />
             );

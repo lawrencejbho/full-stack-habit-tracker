@@ -151,6 +151,7 @@ function ContributionGraph(props) {
                     add_timestamps={props.add_timestamps}
                     handleClick={() => props.add_timestamps(entry.date)}
                     randomColor={props.randomColor}
+                    color={props.color}
                   />
                 </div>
               );
@@ -159,11 +160,31 @@ function ContributionGraph(props) {
 
         <div className="contribution-graph-legend">
           Less
-          <Box contributions={0} randomColor={props.randomColor} />
-          <Box contributions={1} randomColor={props.randomColor} />
-          <Box contributions={3} randomColor={props.randomColor} />
-          <Box contributions={5} randomColor={props.randomColor} />
-          <Box contributions={7} randomColor={props.randomColor} />
+          <Box
+            contributions={0}
+            randomColor={props.randomColor}
+            color={props.color}
+          />
+          <Box
+            contributions={1}
+            randomColor={props.randomColor}
+            color={props.color}
+          />
+          <Box
+            contributions={3}
+            randomColor={props.randomColor}
+            color={props.color}
+          />
+          <Box
+            contributions={5}
+            randomColor={props.randomColor}
+            color={props.color}
+          />
+          <Box
+            contributions={7}
+            randomColor={props.randomColor}
+            color={props.color}
+          />
           More
         </div>
       </div>

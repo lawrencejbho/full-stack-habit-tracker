@@ -66,7 +66,7 @@ const deleteMany = (req, res) => {
 };
 
 const addTimestamps = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const filter = { habit_name: req.body.habit_name };
   const update = { $push: { timestamps: req.body.timestamps } };
   HabitModel.findOneAndUpdate(filter, update)
@@ -79,7 +79,7 @@ const addTimestamps = (req, res) => {
 };
 
 const updateTimestamps = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const filter = { habit_name: req.body.habit_name };
   const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)

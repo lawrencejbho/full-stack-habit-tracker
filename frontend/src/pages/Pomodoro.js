@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PomodoroTimer from "./PomodoroTimer.js";
-import "./pomodoro.css";
 import ContributionGraph from "../components/ContributionGraph";
 import mango from "../images/mango.png";
+import "./pomodoro.css";
 
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -15,13 +15,11 @@ function Pomodoro() {
   const [isBreakActive, setIsBreakActive] = useState(false);
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
   const breakTimeDisplay = timeConversion(secondsBreak);
+
+  const [habits, setHabits] = useState([]);
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [currentHabitName, setCurrentHabitName] = useState("");
   const [renderState, setRenderState] = useState(false);
-  const [habits, setHabits] = useState([]);
-
-  // for pulling pomodoros from the db
-  const [pomodoroDatabase, setPomodoroDatabase] = useState([]);
 
   // MUI code for the dropdown menu
 
@@ -97,6 +95,8 @@ function Pomodoro() {
 
       fetch("/api/habit-add-timestamps", requestOptions).then((response) => {
         console.log(response);
+        // I'm not sure if this is actually working.  It's supposed to refetch the entire habit after a change is made but it doesn't seem like the renderState is triggering
+        setRenderState((prevValue) => !prevValue);
         return response.json();
       });
     }
@@ -112,6 +112,20 @@ function Pomodoro() {
       setIsActive(false);
       notificationPermissionPomodoro();
       updateHabitTimestamps();
+      // this is similar code used in Analytics and HabitTracker, we update the frontend first so that the new contribution gets added immediately
+      setHabits((prevHabits) =>
+        prevHabits.map((prevHabit) => {
+          if (prevHabit.id === currentHabitId) {
+            // update the timestamps in the habits array
+            return {
+              ...prevHabit,
+              timestamps: [...prevHabit.timestamps, currentTime()], // use spread here instead of push works better for state
+            };
+          } else {
+            return prevHabit;
+          }
+        })
+      );
     }
     return () => clearInterval(interval); // return clearInterval for clean up
   }, [isActive, secondsPomodoro]); // need isActive here in the dependency array to start the useEffect or secondsPomodoro will never go down
@@ -205,24 +219,11 @@ function Pomodoro() {
       const get_data = await data.json();
       // console.log(get_data);
       setHabits(get_data);
-      setRenderState(true);
+      // setRenderState(true);
     };
     getHabits();
+    return () => {};
   }, [renderState]);
-
-  // get pomodoros from database and save to state to be passed down
-  // probably better to do it here versus within the contribution graph component
-  // * replacing this with using habits instead
-
-  // useEffect(() => {
-  //   const getPomodoros = async () => {
-  //     const data = await fetch("/api/pomodoro-get");
-  //     const posts_data = await data.json();
-  //     setPomodoroDatabase(posts_data[0].timestamps);
-  //     // console.log(posts_data[0].timestamps);
-  //   };
-  //   getPomodoros();
-  // }, []);
 
   // update the calendar Schema in case it's older than today's date
   // when I put this in ContributionGraph it was double counting timestamps
@@ -303,7 +304,11 @@ function Pomodoro() {
         {habits.map((habit) => {
           if (habit.id === currentHabitId) {
             return (
-              <ContributionGraph timestamps={habit.timestamps} id={habit.id} />
+              <ContributionGraph
+                timestamps={habit.timestamps}
+                id={habit.id}
+                color="Default"
+              />
             );
           }
         })}
