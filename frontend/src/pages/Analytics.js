@@ -165,6 +165,11 @@ function Analytics() {
         aria-haspopup="true"
         aria-expanded={openDashboard ? "true" : undefined}
         onClick={handleClickDashboard}
+        sx={{
+          backgroundColor: "#AAA7A7",
+          opacity: 0.8,
+          borderRadius: 1,
+        }}
       >
         Dashboard
       </Button>
@@ -197,6 +202,12 @@ function Analytics() {
         aria-haspopup="true"
         aria-expanded={openStyles ? "true" : undefined}
         onClick={handleClickStyles}
+        sx={{
+          backgroundColor: "#AAA7A7",
+          opacity: 0.8,
+          borderRadius: 1,
+          marginLeft: 1,
+        }}
       >
         Styles
       </Button>
@@ -221,7 +232,6 @@ function Analytics() {
           );
         })}
       </Menu>
-
       <div className="contribution-graph-container">
         {habits.map((habit) => {
           if (habit.id === currentHabitId) {

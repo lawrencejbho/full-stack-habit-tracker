@@ -277,6 +277,12 @@ main {
 
 /* Habit Tracker page */
 
-.contribution-graphs-container _{ 
+.contribution-graphs-container { 
   flex-direction: column;
+}
+
+
+.basic-button { 
+  background-color: grey;
+  color: grey;
 }
