@@ -7,7 +7,7 @@ Habit trackers are valuable tools to increase productivity for any individual an
 ## Project Design
 HaTr was created from scratch over a 6 month period starting in April 2022 to help me learn full stack development.  Planning and development has changed many times as I've gone through obstacles at each phase of the project.  New features are continuously being added to the project as I use this to help track my own learning.  
 
-<img src="https://giphy.com/embed/JnGXFwR4KCBOYnBmJm" width="100%" height="100%" style="position:absolute" frameBorder="0"/>
+![](https://giphy.com/embed/JnGXFwR4KCBOYnBmJm | width=100)
 
 ## Technologies
 HaTr was built using a MongoDB database with Express.js framework for the backend.  API requests were used to communicate with the backend and all responses render JSON back to the frontend which uses React.  React sets up the frontend state such that components are updated in a simple and controlled manner leading to a better UX design.  
