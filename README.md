@@ -2,10 +2,10 @@
 
 ## Background
 
-Habit trackers are valuable tools to increase productivity for any individual and can also be useful for teams.  Currently, most habit trackers require users to follow a specific process that is too cumbersome causing users to feel fatigue when using the tool.  HaTr is full servicing allowing users to have more control of their own habit tracking process while still providing deep insights into their habits.  
+Habit trackers are valuable tools to increase productivity for any individual and can also be useful for teams.  Currently, habit trackers require users to follow a specific process that is too cumbersome causing users to feel fatigue when using the tool.  HaTr is full servicing allowing users to have more control of their own habit tracking process while still providing deep insights into their habits.  
 
 ## Project Design
-HaTr was created from scratch over a 6 month period starting in April 2022 to help me learn full stack development.  Planning and development has changed many times as I've gone through obstacles at each phase of the project.  New features are continuously being added to the project as I use this to help track my own learning.  
+HaTr was created from scratch over a 6 month period starting in April 2022 to help me learn full stack development.  Planning and development has changed many times as I've gone through obstacles at each phase of the project.  New features are continuously added to the project as I use this to help track my own learning and productivity.  
 
 ![](https://media.giphy.com/media/JnGXFwR4KCBOYnBmJm/giphy.gif)
 
@@ -17,8 +17,8 @@ Additional Sources:
 
 ## Key Features
 * Habits 
-* Habit Tracking can be done using a counter, entered in manually, using pomodoro timers, or clicking on a specific date for the habit's contribution graph
-* Github style Contribution Graphs per habit 
+* Habit Tracking can be done using a counter, entered in manually, using pomodoro timers, or clicking on a specific date for the habit's yearly graph
+* Github like habit trakcing graphs per habit 
 * O-Auth, which allows sign in via Google, Facebook, or LinkedIn
 
 ### OAuth
@@ -26,5 +26,5 @@ User Authorization utilizes Google passport to incorporate different methods of 
 
 
 ## Future Plans
-* Users can fully customized any habit's contribution graph - colors, scale, timeframe 
+* Users can fully customized any habit's daily habit tracking graph - colors, scale, timeframe 
 * Frontend redesign to make the website look more modern.  Will most likely use prebuilt React components.  
