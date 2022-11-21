@@ -7,8 +7,18 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: process.env.BACKENDURL,
+      target: "https://habit-tracker-3.herokuapp.com/",
       changeOrigin: true,
     })
   );
 };
+
+// module.exports = function (app) {
+//   app.use(
+//     "/api",
+//     createProxyMiddleware({
+//       target: process.env.BACKENDURL,
+//       changeOrigin: true,
+//     })
+//   );
+// };
