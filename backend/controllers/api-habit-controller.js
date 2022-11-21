@@ -1,11 +1,18 @@
 const HttpError = require("../models/http-error");
 const bodyParser = require("body-parser");
-// const EmptyCalendar = require("./EmptyCalendarData");
 
 require("dotenv").config();
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGOOSE);
+// mongoose.connect(process.env.MONGOOSE);
+// test
+mongoose
+  .connect(process.env.MONGOATLAS, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
 
 const habitSchema = require("../models/habitSchema");
 const HabitModel = mongoose.model("HabitModel", habitSchema);
@@ -157,14 +164,14 @@ const currentTime = () => {
   return Math.floor(currentTime / 1000);
 };
 
-// create the blank calendar collection with one entry
+// create one document in the calendar collection first
 const createCalendar = () => {
   const calendar = new CalendarModel({ date: "October 1, 2021", count: 0 });
   calendar.save();
 };
 
-// had to copy paste the array in EmptyCalendar into this insertMany function for it to update my collection when first making the 365 day calendar
 // grab the last entry in the collection and then figure out if we need to add additional entries for the missing dates
+// this can be used to populate the entire calendar collection when first creating the database after using createCalendar()
 const updateCalendar = () => {
   //   CalendarModel.insertMany();
   const timeOfLastEntry = CalendarModel.find({})
