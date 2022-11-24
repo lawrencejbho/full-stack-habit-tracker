@@ -95,7 +95,7 @@ function Pomodoro() {
 
       fetch("/api/habit-add-timestamps", requestOptions).then((response) => {
         console.log(response);
-        // I'm not sure if this is actually working.  It's supposed to refetch the entire habit after a change is made but it doesn't seem like the renderState is triggering
+        // I'm not sure if this is actually working.  It's supposed to fetch the habit again after a change is made but it doesn't seem like the renderState is triggering
         setRenderState((prevValue) => !prevValue);
         return response.json();
       });
@@ -248,6 +248,11 @@ function Pomodoro() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{
+          backgroundColor: "#AAA7A7",
+          opacity: 0.8,
+          borderRadius: 1,
+        }}
       >
         Choose Habit
       </Button>
@@ -274,6 +279,7 @@ function Pomodoro() {
           );
         })}
       </Menu>
+      <h1 className="white-text">{currentHabitName}</h1>
 
       <div className="timer-container">
         <PomodoroTimer

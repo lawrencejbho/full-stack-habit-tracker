@@ -10,6 +10,7 @@ function Analytics() {
   const [habits, setHabits] = useState([]);
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [currentStyle, setCurrentStyle] = useState("Random");
+  const [currentHabitName, setCurrentHabitName] = useState("");
 
   const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
 
@@ -41,6 +42,7 @@ function Analytics() {
   // clicking the menu item will set the habit Id and then render the contribution graph
   const handleClickDisplayGraph = (event) => {
     setCurrentHabitId(event.target.id);
+    setCurrentHabitName(event.target.getAttribute("name"));
   };
 
   const handleClickGraphStyle = (event) => {
@@ -159,6 +161,8 @@ function Analytics() {
   return (
     <div>
       <h1 className="white-text">Analytics</h1>
+      <hr className="app-line"></hr>
+
       <Button
         id="basic-button"
         aria-controls={openDashboard ? "basic-menu" : undefined}
@@ -189,6 +193,7 @@ function Analytics() {
               onClose={handleCloseDashboard}
               // onBlur={handleClose}
               id={habit.id}
+              name={habit.habit_name}
             >
               {habit.habit_name}
             </MenuItem>
@@ -232,6 +237,9 @@ function Analytics() {
           );
         })}
       </Menu>
+
+      <h1 className="white-text">{currentHabitName}</h1>
+
       <div className="contribution-graph-container">
         {habits.map((habit) => {
           if (habit.id === currentHabitId) {

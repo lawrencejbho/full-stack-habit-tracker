@@ -8,11 +8,11 @@ function Navbar() {
     <>
       <nav>
         <ul>
-          <li>
+          {/* <li>
             <Link className="white-text" to="/">
               Home
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link className="white-text" to="/productivity/habit">
               Habit Tracker
