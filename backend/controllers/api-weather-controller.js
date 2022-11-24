@@ -4,7 +4,6 @@ const axios = require("axios");
 const cron = require("node-cron");
 const mongoose = require("mongoose");
 
-// mongoose.connect(process.env.MONGOOSE);
 mongoose
   .connect(process.env.MONGOATLAS, {
     useUnifiedTopology: true,

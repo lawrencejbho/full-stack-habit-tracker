@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const mongoose = require("mongoose");
 
-// mongoose.connect(process.env.MONGOOSE);
-// test
 mongoose
   .connect(process.env.MONGOATLAS, {
     useUnifiedTopology: true,
