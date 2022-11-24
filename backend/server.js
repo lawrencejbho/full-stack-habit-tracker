@@ -10,6 +10,7 @@ const habitRoutes = require("./routes/habit-routes.js");
 const router = require("./routes/habit-routes.js");
 // const otherRoutes = require("./routes/other-routes.js");
 const apiRoutes = require("./routes/api-routes.js");
+const HttpError = require("./models/http-error.js");
 
 const app = express();
 
@@ -34,11 +35,15 @@ app.post("/test", (req, res) => {
 });
 
 app.use("/habit", habitRoutes);
-// app.use("/other", otherRoutes);
-// app.use("/weather", weatherRoutes);
 
-// react will query the api route
+// api routes for React to query
 app.use("/api", apiRoutes);
+
+// handles any request that doesn't match our routes
+app.use((req, res, next) => {
+  const error = new HttpError("Could not find this route.", 404);
+  throw error;
+});
 
 // error handling middle ware
 app.use((error, req, res, next) => {
