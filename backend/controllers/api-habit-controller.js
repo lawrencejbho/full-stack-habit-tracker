@@ -49,7 +49,7 @@ const getHabit = (req, res) => {
 };
 
 const deleteHabit = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   HabitModel.findOneAndDelete({ id: req.body.id }, (error, success) => {
     if (error) {
       console.log(error);
@@ -60,7 +60,7 @@ const deleteHabit = (req, res) => {
 };
 
 const deleteMany = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   HabitModel.deleteMany({ id: { $in: req.body } })
     .then(() => {
       console.log("deleted habits");
@@ -102,7 +102,8 @@ const updateTodayTimestamps = (req, res) => {
   const update = { today_timestamps: req.body.today_timestamps };
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
-      console.log("updated today_timestamps");
+      console.log("updated today timestamps");
+      res.status(200);
     })
     .catch((error) => {
       console.log(error);
