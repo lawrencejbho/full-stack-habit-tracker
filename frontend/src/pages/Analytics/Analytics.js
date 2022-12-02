@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import ContributionGraph from "../components/ContributionGraph.js";
+import ContributionGraph from "../../components/ContributionGraph.js";
 
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";

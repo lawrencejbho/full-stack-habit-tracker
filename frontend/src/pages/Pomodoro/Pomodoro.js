@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import PomodoroTimer from "../components/PomodoroTimer.js";
-import ContributionGraph from "../components/ContributionGraph";
-import mango from "../images/mango.png";
+import PomodoroTimer from "../../components/PomodoroTimer.js";
+import ContributionGraph from "../../components/ContributionGraph";
+import mango from "../../images/mango.png";
 import "./pomodoro.css";
 
 import Button from "@mui/material/Button";

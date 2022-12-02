@@ -1,6 +1,6 @@
 import React from "react";
-import Weather from "../components/Weather.js";
-import TodayDate from "../components/TodayDate.js";
+import Weather from "../../components/Weather.js";
+import TodayDate from "../../components/TodayDate.js";
 
 // this page may include something like a weather app and it'll tell you to wear sunscreen
 

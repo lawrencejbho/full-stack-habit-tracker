@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Habit from "../components/Habit.js";
-import HabitAdd from "../components/Habit-Add.js";
-import TodayDate from "../components/TodayDate.js";
+import Habit from "../../components/Habit.js";
+import HabitAdd from "../../components/Habit-Add.js";
+import TodayDate from "../../components/TodayDate.js";
 
 function HabitTracker() {
   const [habitsAddArray, setHabitsAddArray] = useState([]);

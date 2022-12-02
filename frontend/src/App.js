@@ -10,12 +10,12 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import HabitTracker from "./pages/HabitTracker.js";
-import Pomodoro from "./pages/Pomodoro.js";
-import Dashboard from "./pages/Dashboard.js";
+import HabitTracker from "./pages/HabitTracker/HabitTracker.js";
+import Pomodoro from "./pages/Pomodoro/Pomodoro.js";
+import Dashboard from "./pages/Home/Dashboard.js";
 import NotFound from "./pages/NotFound.js";
-import Analytics from "./pages/Analytics.js";
-import Counters from "./pages/Counters.js";
+import Analytics from "./pages/Analytics/Analytics.js";
+import Counters from "./pages/Counters/Counters.js";
 
 function App() {
   // not sure if this is the best way to apply the background image by doing it directly through style
