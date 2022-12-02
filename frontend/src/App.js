@@ -1,6 +1,6 @@
 import React from "react";
 // import Cafe from "./images/cafe.jpg";
-import Navbar from "./components/Navbar.js";
+import Sidebar from "./components/Sidebar.js";
 import Header from "./components/Header.js";
 
 // using React for Routing - Pomdoro
@@ -33,8 +33,9 @@ function App() {
     <>
       <Header />
       <Router>
-        <div style={backgroundStyleColor}>
-          <Navbar />
+        <Sidebar />
+
+        <div className="middle-body" style={backgroundStyleColor}>
           <Routes>
             <Route path="/" element={<Navigate to="/productivity/habit" />} />
             <Route path="/dashboard" element={<Dashboard />} />

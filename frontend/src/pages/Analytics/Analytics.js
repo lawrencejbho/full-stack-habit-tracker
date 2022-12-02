@@ -159,7 +159,7 @@ function Analytics() {
   }, []);
 
   return (
-    <div>
+    <div className="main-body">
       <h1 className="white-text">Analytics</h1>
       <hr className="app-line"></hr>
 

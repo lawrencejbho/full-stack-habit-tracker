@@ -238,7 +238,7 @@ function Pomodoro() {
   }, []);
 
   return (
-    <div>
+    <div className="main-body">
       <h1 className="white-text">Pomodoro</h1>
       <hr className="app-line"></hr>
 

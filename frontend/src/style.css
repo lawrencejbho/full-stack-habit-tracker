@@ -2,7 +2,7 @@ body {
   margin: 0;
   overflow:auto;
   font-family: Arial;
-  background-color: #0B0C10;
+  background-color: #557A95;
 }
 
 * {
@@ -18,6 +18,10 @@ main {
   padding: 20px;
   flex-direction: row;
   justify-content: center;
+}
+
+.middle-body { 
+  margin-left: 160px;
 }
 
 .card-container {
@@ -266,7 +270,7 @@ main {
 
 
 header { 
-  background-color: #7395Ae;
+  background-color: #557A95;
   height: 80px;
   width: auto;
   text-align: center;
@@ -283,10 +287,9 @@ nav {
   height: 100%;
   width: 160px;
   position: fixed;
-  z-index: 1; 
-  top: 0;
-  left: 0;
+  /* z-index: 1;  */
   background-color: #557A95;
+  border-radius: 2px;
 }
 
 .navbar-line { 
@@ -308,4 +311,18 @@ nav {
 .basic-button { 
   background-color: grey;
   color: grey;
+}
+
+
+/* Pomodoro page */
+
+.main-body { 
+background-color: rgba(192, 192, 192, 0.4);  /*rgba - much easier to use this versus using opacity because it only affects the specific element */
+height: 600px;
+width: 400px;
+border-radius: 5px;
+/* display: flex; */
+padding: 20px;
+flex-direction: row;
+justify-content: center;
 }

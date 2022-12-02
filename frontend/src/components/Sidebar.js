@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // TODO - probably can make a much nicer navbar in the future or can use something from MUI that maybe pops from the left
 
-function Navbar() {
+function Sidebar() {
   return (
     <>
       <nav>
@@ -33,9 +33,8 @@ function Navbar() {
           </li> */}
         </ul>
       </nav>
-      <hr className="navbar-line"></hr>
     </>
   );
 }
 
-export default Navbar;
+export default Sidebar;
