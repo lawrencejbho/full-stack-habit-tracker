@@ -2,7 +2,7 @@ body {
   margin: 0;
   overflow:auto;
   font-family: Arial;
-  background-color: #557A95;
+  background-color: #E5EFF5;
 }
 
 * {
@@ -268,28 +268,44 @@ main {
 }
 
 
+/* Header */
+
 
 header { 
-  background-color: #557A95;
-  height: 80px;
+  background-color: #D0E1E9;
+  height: 40px;
   width: auto;
   text-align: center;
+  margin-left: 160px;
 }
 
-.mango-icon {
+.header-container{ 
+  padding-top: 10px;
+  display: flex;
+  justify-content: right;
+
+}
+
+.header-settings-icon { 
   width: 20px;
+  height: 20px;
+}
+
+.header-help-icon { 
+  width: 20px;
+  height: 20px;
 }
 
 
-/* NavBar  */
+/* SideBar  */
 
 nav { 
   height: 100%;
   width: 160px;
   position: fixed;
-  /* z-index: 1;  */
-  background-color: #557A95;
+  background-color: white;
   border-radius: 2px;
+  top: 0;
 }
 
 .navbar-line { 
@@ -300,6 +316,44 @@ nav {
   width: 95%;
 }
 
+.sidebar-title { 
+  margin-top: 10px;
+  display: flex;
+  margin-left: 10px;
+  align-content: center;
+}
+
+.sidebar-title { 
+  font-size: 30px; 
+  color: black;
+}
+
+.sidebar-list { 
+  padding-top: 25px;
+  padding-left: 1.2em; 
+  padding-right: 15px;
+}
+
+.sidebar-text { 
+  font-size: 15px; 
+  color: black;
+}
+
+.sidebar-mango-icon { 
+  width: 35px;
+}
+
+.sidebar-habittracker-icon { 
+  width: 30px;
+}
+
+.sidebar-pomodoro-icon { 
+  width: 30px;
+}
+
+.sidebar-analytics-icon { 
+  width: 30px;
+}
 
 /* Habit Tracker page */
 

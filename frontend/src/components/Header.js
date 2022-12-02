@@ -1,12 +1,21 @@
 import React from "react";
-import Mango from "../images/mango.png";
+import settingsIcon from "../images/settings.png";
+import helpIcon from "../images/help.png";
 
 function Header() {
   return (
     <>
       <header>
-        <img className="mango-icon" src={Mango} />
-        <div class="white-text"> HaTr</div>
+        <div className="header-container">
+          <img
+            className="header-settings-icon"
+            src={settingsIcon}
+            alt="settings icon"
+          />
+          <div>Settings</div>
+          <img className="header-help-icon" src={helpIcon} alt="help icon" />
+          <div>Help</div>
+        </div>
       </header>
     </>
   );

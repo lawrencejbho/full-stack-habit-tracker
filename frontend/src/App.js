@@ -34,7 +34,6 @@ function App() {
       <Header />
       <Router>
         <Sidebar />
-
         <div className="middle-body" style={backgroundStyleColor}>
           <Routes>
             <Route path="/" element={<Navigate to="/productivity/habit" />} />
