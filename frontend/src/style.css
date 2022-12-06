@@ -3,6 +3,7 @@ body {
   overflow:auto;
   font-family: Arial;
   background-color: #E5EFF5;
+  text-decoration: none;
 }
 
 * {
@@ -10,7 +11,8 @@ body {
 }
 
 main {
-  background-color: rgba(192, 192, 192, 0.4);  /*rgba - much easier to use this versus using opacity because it only affects the specific element */
+  /* background-color: rgba(192, 192, 192, 0.4);  rgba - much easier to use this versus using opacity because it only affects the specific element  */
+  background-color: #E5EFF5;
   height: 600px;
   width: 400px;
   border-radius: 5px;
@@ -20,8 +22,12 @@ main {
   justify-content: center;
 }
 
+a {
+  text-decoration: none;
+}
+
 .middle-body { 
-  margin-left: 160px;
+  margin-left: 170px;
 }
 
 .card-container {
@@ -263,8 +269,7 @@ main {
 /* General Text */
 
 .white-text { 
-  color: white;
-  text-decoration: none;
+  color: black;
 }
 
 
@@ -276,14 +281,15 @@ header {
   height: 40px;
   width: auto;
   text-align: center;
-  margin-left: 160px;
+  margin-left: 170px;
 }
 
 .header-container{ 
   padding-top: 10px;
   display: flex;
   justify-content: right;
-
+  gap: 5px;
+  margin-right: 5px;
 }
 
 .header-settings-icon { 
@@ -301,11 +307,15 @@ header {
 
 nav { 
   height: 100%;
-  width: 160px;
+  width: 170px;
   position: fixed;
   background-color: white;
   border-radius: 2px;
   top: 0;
+}
+
+ul { 
+  line-height: 40px;
 }
 
 .navbar-line { 
@@ -329,7 +339,7 @@ nav {
 }
 
 .sidebar-list { 
-  padding-top: 25px;
+  padding-top: 5px;
   padding-left: 1.2em; 
   padding-right: 15px;
 }
@@ -344,15 +354,20 @@ nav {
 }
 
 .sidebar-habittracker-icon { 
-  width: 30px;
+  width: 26px;
+  margin-right: 10px;
 }
 
 .sidebar-pomodoro-icon { 
-  width: 30px;
+  width: 26px;
+  margin-right: 10px;
+
 }
 
 .sidebar-analytics-icon { 
-  width: 30px;
+  width: 26px;
+  margin-right: 10px;
+
 }
 
 /* Habit Tracker page */
@@ -371,12 +386,17 @@ nav {
 /* Pomodoro page */
 
 .main-body { 
-background-color: rgba(192, 192, 192, 0.4);  /*rgba - much easier to use this versus using opacity because it only affects the specific element */
-height: 600px;
-width: 400px;
-border-radius: 5px;
-/* display: flex; */
-padding: 20px;
-flex-direction: row;
-justify-content: center;
+  /* background-color: rgba(192, 192, 192, 0.4);  rgba - much easier to use this versus using opacity because it only affects the specific element */
+  background-color: #E5EFF5;
+  height: 600px;
+  width: 400px;
+  border-radius: 5px;
+  /* display: flex; */
+  padding: 20px;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pomodoro-box { 
+  padding-bottom: 20px;
 }

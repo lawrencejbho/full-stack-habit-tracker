@@ -26,7 +26,7 @@ function App() {
   //   minHeight: "150vh", // this makes it so that the background always shows or else it gets truncated by different Route paths where the height is smaller
   // };
   const backgroundStyleColor = {
-    backgroundColor: "#5D5C61",
+    backgroundColor: "#E5EFF5",
   };
 
   return (

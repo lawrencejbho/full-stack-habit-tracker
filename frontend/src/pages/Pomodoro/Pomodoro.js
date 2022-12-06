@@ -9,8 +9,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 function Pomodoro() {
-  const [secondsPomodoro, setSecondsPomodoro] = useState(2);
-  const [secondsBreak, setSecondsBreak] = useState(2);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(1500);
+  const [secondsBreak, setSecondsBreak] = useState(300);
   const [isActive, setIsActive] = useState(false);
   const [isBreakActive, setIsBreakActive] = useState(false);
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
@@ -239,7 +239,7 @@ function Pomodoro() {
 
   return (
     <div className="main-body">
-      <h1 className="white-text">Pomodoro</h1>
+      <h1 className="black-text">Pomodoro</h1>
       <hr className="app-line"></hr>
 
       <Button
@@ -249,7 +249,7 @@ function Pomodoro() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         sx={{
-          backgroundColor: "#AAA7A7",
+          backgroundColor: "white",
           opacity: 0.8,
           borderRadius: 1,
         }}
@@ -279,32 +279,33 @@ function Pomodoro() {
           );
         })}
       </Menu>
-      <h1 className="white-text">{currentHabitName}</h1>
-
-      <div className="timer-container">
-        <PomodoroTimer
-          minutes={pomodoroTimeDisplay.minutes}
-          seconds={pomodoroTimeDisplay.seconds}
-          activePomodoro={isActive}
-          activeBreak={isBreakActive}
-          active={isActive}
-          toggle={togglePomodoro}
-          reset={resetPomodoro}
-          startOrResume={startOrResumePomodoro}
-          type="pomodoro"
-        />
-        <PomodoroTimer
-          minutes={breakTimeDisplay.minutes}
-          seconds={breakTimeDisplay.seconds}
-          activePomodoro={isActive}
-          activeBreak={isBreakActive}
-          active={isBreakActive}
-          toggle={toggleBreak}
-          reset={resetBreak}
-          startOrResume={startOrResumeBreak}
-          type="break"
-        />
-      </div>
+      <h1 className="black-text">{currentHabitName}</h1>
+      {currentHabitId !== "" && (
+        <div className="timer-container">
+          <PomodoroTimer
+            minutes={pomodoroTimeDisplay.minutes}
+            seconds={pomodoroTimeDisplay.seconds}
+            activePomodoro={isActive}
+            activeBreak={isBreakActive}
+            active={isActive}
+            toggle={togglePomodoro}
+            reset={resetPomodoro}
+            startOrResume={startOrResumePomodoro}
+            type="pomodoro"
+          />
+          <PomodoroTimer
+            minutes={breakTimeDisplay.minutes}
+            seconds={breakTimeDisplay.seconds}
+            activePomodoro={isActive}
+            activeBreak={isBreakActive}
+            active={isBreakActive}
+            toggle={toggleBreak}
+            reset={resetBreak}
+            startOrResume={startOrResumeBreak}
+            type="break"
+          />
+        </div>
+      )}
 
       <div className="contribution-graph-container">
         {habits.map((habit) => {

@@ -170,12 +170,12 @@ function Analytics() {
         aria-expanded={openDashboard ? "true" : undefined}
         onClick={handleClickDashboard}
         sx={{
-          backgroundColor: "#AAA7A7",
+          backgroundColor: "white",
           opacity: 0.8,
           borderRadius: 1,
         }}
       >
-        Dashboard
+        Choose Habit
       </Button>
       <Menu
         id="basic-menu"
@@ -208,7 +208,7 @@ function Analytics() {
         aria-expanded={openStyles ? "true" : undefined}
         onClick={handleClickStyles}
         sx={{
-          backgroundColor: "#AAA7A7",
+          backgroundColor: "white",
           opacity: 0.8,
           borderRadius: 1,
           marginLeft: 1,
