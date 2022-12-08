@@ -1,7 +1,8 @@
 body {
   margin: 0;
   overflow:auto;
-  font-family: Arial;
+  font-family: "Rosario";
+  /* font-family: sans-serif; */
   background-color: #E5EFF5;
   text-decoration: none;
 }
@@ -53,6 +54,7 @@ a {
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  font-family: "Arial";
 }
 
 .habit {
@@ -208,7 +210,6 @@ a {
 
 .contribution-graph-legend { 
   display: flex;
-  font-family: Arial;
   font-size: 12px;
   gap: 4px;
   /* align-items: baseline; */
@@ -221,7 +222,6 @@ a {
 .contribution-graph-days { 
   display: flex;
   flex-direction: column;
-  font-family: Arial;
   font-size: 13px;
   gap: 15px;
   padding-left: 20px;
