@@ -76,6 +76,7 @@ function ContributionGraph(props) {
   };
 
   // grab the current time, with useMemo it should only calculate this on the first page load
+  // I think just using useEffect here would be the exact same result
   useMemo(() => {
     setCurrentTime(Math.floor(new Date().getTime() / 1000));
   }, []);
