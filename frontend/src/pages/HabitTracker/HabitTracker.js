@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import Habit from "../../components/Habit.js";
 import HabitAdd from "../../components/Habit-Add.js";
 import TodayDate from "../../components/TodayDate.js";
+import LoadingSpinner from "../../components/LoadingSpinner.js";
+
+/* 
+I need to move the useEffect's into their own custom functions to make it easier to see what is actually happening 
+*/
 
 function HabitTracker() {
   const [habitsAddArray, setHabitsAddArray] = useState([]);
@@ -15,6 +20,8 @@ function HabitTracker() {
   // this help us track the current Habit Id, allows us to very easily track a Habit based on the ID when we use things like mouseOver
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [renderState, setRenderState] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentTime = () => {
     const currentTime = new Date().getTime();
@@ -147,10 +154,12 @@ function HabitTracker() {
   // setHabits to pull from our database
   useEffect(() => {
     const getHabits = async () => {
+      setIsLoading(true);
       const data = await fetch("/api/habit-get");
       const get_data = await data.json();
       // console.log(get_data);
       setHabits(get_data);
+      setIsLoading(false);
     };
     getHabits();
   }, [renderState]);
@@ -250,7 +259,12 @@ function HabitTracker() {
     <>
       <main>
         <div className="card-container">
+          <TodayDate />
+          <div className="break"></div>
           <HabitAdd onAdd={addHabit} setCurrentHabitId={setCurrentHabitId} />
+          <div className="break"></div>
+
+          {isLoading && <LoadingSpinner />}
           <Habit
             habits={habits}
             plusCounter={plusCounter}
@@ -258,7 +272,6 @@ function HabitTracker() {
             deleteHabit={deleteHabit}
             setCurrentHabitId={setCurrentHabitId}
           />
-          <TodayDate />
         </div>
       </main>
     </>
