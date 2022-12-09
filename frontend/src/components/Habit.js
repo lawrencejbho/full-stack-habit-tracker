@@ -32,7 +32,7 @@ function Habit(props) {
     </div>
   ));
 
-  // ? honestly not show what this div habit group does or if I even need it
+  // ? honestly not sure what this div habit group does or if I even need it
   return <div className="habit-group">{habitElements}</div>;
 }
 

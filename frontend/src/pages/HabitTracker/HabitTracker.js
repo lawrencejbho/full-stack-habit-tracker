@@ -3,6 +3,7 @@ import Habit from "../../components/Habit.js";
 import HabitAdd from "../../components/Habit-Add.js";
 import TodayDate from "../../components/TodayDate.js";
 import LoadingSpinner from "../../components/LoadingSpinner.js";
+import LoadingError from "../../components/LoadingError.js";
 
 /* 
 I need to move the useEffect's into their own custom functions to make it easier to see what is actually happening 
@@ -22,6 +23,7 @@ function HabitTracker() {
   const [renderState, setRenderState] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const currentTime = () => {
     const currentTime = new Date().getTime();
@@ -155,11 +157,15 @@ function HabitTracker() {
   useEffect(() => {
     const getHabits = async () => {
       setIsLoading(true);
-      const data = await fetch("/api/habit-get");
-      const get_data = await data.json();
-      // console.log(get_data);
-      setHabits(get_data);
-      setIsLoading(false);
+      try {
+        const data = await fetch("/api/habit-get");
+        const get_data = await data.json();
+        setHabits(get_data);
+        setIsLoading(false);
+      } catch (err) {
+        setErrorMessage(true);
+        setIsLoading(false);
+      }
     };
     getHabits();
   }, [renderState]);
@@ -265,13 +271,17 @@ function HabitTracker() {
           <div className="break"></div>
 
           {isLoading && <LoadingSpinner />}
-          <Habit
-            habits={habits}
-            plusCounter={plusCounter}
-            minusCounter={minusCounter}
-            deleteHabit={deleteHabit}
-            setCurrentHabitId={setCurrentHabitId}
-          />
+          {!errorMessage ? (
+            <Habit
+              habits={habits}
+              plusCounter={plusCounter}
+              minusCounter={minusCounter}
+              deleteHabit={deleteHabit}
+              setCurrentHabitId={setCurrentHabitId}
+            />
+          ) : (
+            <LoadingError />
+          )}
         </div>
       </main>
     </>
