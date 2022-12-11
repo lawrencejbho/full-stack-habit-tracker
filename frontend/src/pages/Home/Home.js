@@ -12,6 +12,8 @@ function Home() {
       <h1 className="white-text"> This is Home</h1>
       <TodayDate />
       <Weather />
+
+      <button> Login</button>
     </>
   );
 }

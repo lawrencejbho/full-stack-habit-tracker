@@ -12,10 +12,10 @@ import {
 } from "react-router-dom";
 import HabitTracker from "./pages/HabitTracker/HabitTracker.js";
 import Pomodoro from "./pages/Pomodoro/Pomodoro.js";
-import Dashboard from "./pages/Home/Dashboard.js";
 import NotFound from "./pages/NotFound.js";
 import Analytics from "./pages/Analytics/Analytics.js";
 import Counters from "./pages/Counters/Counters.js";
+import Home from "./pages/Home/Home.js";
 
 function App() {
   // not sure if this is the best way to apply the background image by doing it directly through style
@@ -37,12 +37,12 @@ function App() {
         <div className="middle-body" style={backgroundStyleColor}>
           <Routes>
             <Route path="/" element={<Navigate to="/productivity/habit" />} />
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/productivity">
               <Route path="pomodoro" element={<Pomodoro />} />
               <Route path="habit" element={<HabitTracker />} />
               <Route path="analytics" element={<Analytics />} />
               <Route path="counters" element={<Counters />} />
+              <Route path="home" element={<Home />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
