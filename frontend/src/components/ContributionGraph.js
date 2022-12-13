@@ -30,7 +30,7 @@ function ContributionGraph(props) {
     fetch("/api/calendar-get")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setHabitData(res);
       });
   }, []);
@@ -130,6 +130,7 @@ function ContributionGraph(props) {
                   return <div>&emsp;</div>;
                 }
               }
+              return null;
             })}
         </div>
 

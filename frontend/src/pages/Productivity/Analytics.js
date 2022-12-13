@@ -25,6 +25,7 @@ function Analytics() {
 
   const openDashboard = Boolean(anchorElDashboard);
   const openStyles = Boolean(anchorElStyles);
+
   const handleClickDashboard = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElDashboard(event.currentTarget);
   };
@@ -253,6 +254,7 @@ function Analytics() {
               />
             );
           }
+          return null;
         })}
       </div>
     </div>
