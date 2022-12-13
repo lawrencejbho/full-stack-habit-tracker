@@ -443,3 +443,11 @@ ul {
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
+
+/* Home Page */
+
+.home-container {
+  margin: auto;
+  text-align: center;
+  padding: 100px;
+}

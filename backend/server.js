@@ -6,9 +6,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
-const habitRoutes = require("./routes/habit-routes.js");
-const router = require("./routes/habit-routes.js");
 const apiRoutes = require("./routes/api-routes.js");
+const authRoutes = require("./routes/auth-routes.js");
 const HttpError = require("./models/http-error.js");
 
 const app = express();
@@ -33,10 +32,10 @@ app.post("/test", (req, res) => {
   res.send("thank you");
 });
 
-app.use("/habit", habitRoutes);
-
 // api routes for React to query
 app.use("/api", apiRoutes);
+
+app.use("/auth", authRoutes);
 
 // handles any request that doesn't match our routes
 app.use((req, res, next) => {

@@ -3,7 +3,17 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+
+mongoose
+  .connect(process.env.MONGOATLAS, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
+
+const userSchema = require("../models/userSchema");
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -18,7 +28,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "http://172.31.246.96:5000/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -43,6 +53,9 @@ passport.deserializeUser(function (user, cb) {
 
 const router = express.Router();
 
-router.get("/login", function (req, res, next) {
-  res.render("login");
-});
+const googleLogin = (req, res) => {
+  console.log("HIt");
+  passport.authenticate("google", { scope: ["profile"] });
+};
+
+exports.googleLogin = googleLogin;
