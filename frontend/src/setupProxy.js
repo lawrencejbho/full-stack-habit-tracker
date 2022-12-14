@@ -21,4 +21,11 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    "/auth",
+    createProxyMiddleware({
+      target: process.env.BACKENDURL,
+      changeOrigin: true,
+    })
+  );
 };

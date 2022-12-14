@@ -1,13 +1,11 @@
-const express = require("express");
+// const express = require("express");
 
-const authController = require("../controllers/auth-controller");
+// const authController = require("../controllers/auth-controller");
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get("/google", authController.googleLogin);
+// router.get("/google", authController.googleLogin);
 
-router.get("/test", (req, res) => {
-  res.send(200);
-});
+// router.get("/google/callback", authController.googleCallBack);
 
-module.exports = router;
+// module.exports = router;
