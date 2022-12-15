@@ -26,27 +26,36 @@ function Home() {
         <h1 className="black-text">HaTr</h1>
       </div>
 
-      <GithubLoginButton style={buttonStyle} />
+      <a href="/auth/github">
+        <GithubLoginButton style={buttonStyle} />
+      </a>
+
       <div className="separator" />
+
       <a href="/auth/google">
         <GoogleLoginButton style={buttonStyle} onClick={handleClick} />
       </a>
-      <div className="separator" />
-
-      <FacebookLoginButton style={buttonStyle} />
 
       <div className="separator" />
 
-      <Button
-        style={{
-          margin: "15px",
-          padding: "5px",
-          fontFamily: "Rosario",
-          fontWeight: "bold",
-        }}
-      >
-        Access Test Environment without Logging In
-      </Button>
+      <a href="/auth/facebook">
+        <FacebookLoginButton style={buttonStyle} />
+      </a>
+
+      <div className="separator" />
+
+      <a href="/productivity/habit">
+        <Button
+          style={{
+            margin: "15px",
+            padding: "5px",
+            fontFamily: "Rosario",
+            fontWeight: "bold",
+          }}
+        >
+          Access Test Environment without Logging In
+        </Button>
+      </a>
     </div>
   );
 }
