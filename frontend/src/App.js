@@ -1,7 +1,5 @@
 import React from "react";
 // import Cafe from "./images/cafe.jpg";
-import Sidebar from "./components/Sidebar.js";
-import Header from "./components/Header.js";
 import Layout from "./components/Layout.js";
 
 // using React for Routing - Pomdoro
@@ -56,7 +54,7 @@ function App() {
             <Route exact path="analytics" element={<Analytics />} />
             <Route exact path="counters" element={<Counters />} />
           </Route>
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

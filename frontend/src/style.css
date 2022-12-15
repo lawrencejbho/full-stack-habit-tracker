@@ -269,7 +269,7 @@ a {
 
 /* General Text */
 
-.white-text { 
+.black-text { 
   color: black;
 }
 
@@ -450,4 +450,23 @@ ul {
   margin: auto;
   text-align: center;
   padding: 100px;
+}
+
+.login-button { 
+  width: 50px;
+}
+
+.separator { 
+  padding: 5px;
+}
+
+.home-heading { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.main-mango-icon { 
+  width: 35px;
 }

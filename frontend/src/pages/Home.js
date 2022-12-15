@@ -1,6 +1,18 @@
 import React from "react";
+import {
+  GoogleLoginButton,
+  GithubLoginButton,
+  FacebookLoginButton,
+} from "react-social-login-buttons";
 
 import Button from "@mui/material/Button";
+
+import Mango from "../images/mango.png";
+
+const buttonStyle = {
+  width: "250px",
+  margin: "auto",
+};
 
 function Home() {
   const handleClick = async () => {
@@ -9,12 +21,32 @@ function Home() {
 
   return (
     <div className="home-container">
-      <h1 className="white-text">Home</h1>
+      <div className="home-heading">
+        <img className="main-mango-icon" src={Mango} alt="mango-icon" />
+        <h1 className="black-text">HaTr</h1>
+      </div>
+
+      <GithubLoginButton style={buttonStyle} />
+      <div className="separator" />
       <a href="/auth/google">
-        <Button variant="contained" onClick={handleClick}>
-          Sign In With Google
-        </Button>
+        <GoogleLoginButton style={buttonStyle} onClick={handleClick} />
       </a>
+      <div className="separator" />
+
+      <FacebookLoginButton style={buttonStyle} />
+
+      <div className="separator" />
+
+      <Button
+        style={{
+          margin: "15px",
+          padding: "5px",
+          fontFamily: "Rosario",
+          fontWeight: "bold",
+        }}
+      >
+        Access Test Environment without Logging In
+      </Button>
     </div>
   );
 }
