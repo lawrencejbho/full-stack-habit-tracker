@@ -1,25 +1,51 @@
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const passport = require("passport");
-// const session = require("express-session");
+const mongoose = require("mongoose");
+const passport = require("passport");
 
-// const app = express();
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
 
-// const router = express.Router();
+const userSchema = require("../models/userSchema.js");
 
-// const googleLogin = (req, res) => {
-//   console.log("Hit");
-//   passport.authenticate("google", { scope: ["profile"] });
-// };
+mongoose
+  .connect(process.env.MONGOATLAS, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
 
-// const googleCallBack = (req, res) => {
-//   console.log("hitt");
-//   passport.authenticate("google", { failureRedirect: "/home" }),
-//     function (req, res) {
-//       // Successful authentication, redirect home.
-//       res.redirect("/api/productivity/habit");
-//     };
-// };
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 
-// exports.googleLogin = googleLogin;
-// exports.googleCallBack = googleCallBack;
+const User = new mongoose.model("User", userSchema);
+
+passport.use(User.createStrategy());
+
+// not sure if this is the right way to serialize and deserialize
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      console.log(profile);
+      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  )
+);

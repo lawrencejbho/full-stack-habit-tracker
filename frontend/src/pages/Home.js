@@ -26,21 +26,16 @@ function Home() {
         <h1 className="black-text">HaTr</h1>
       </div>
 
-      <a href="/auth/github">
-        <GithubLoginButton style={buttonStyle} />
-      </a>
+      <GithubLoginButton style={buttonStyle} />
 
       <div className="separator" />
 
       <a href="/auth/google">
         <GoogleLoginButton style={buttonStyle} onClick={handleClick} />
       </a>
-
       <div className="separator" />
 
-      <a href="/auth/facebook">
-        <FacebookLoginButton style={buttonStyle} />
-      </a>
+      <FacebookLoginButton style={buttonStyle} />
 
       <div className="separator" />
 

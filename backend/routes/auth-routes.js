@@ -1,11 +1,19 @@
-// const express = require("express");
+const express = require("express");
+const passport = require("passport");
 
-// const authController = require("../controllers/auth-controller");
+const router = express.Router();
 
-// const router = express.Router();
+router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
-// router.get("/google", authController.googleLogin);
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/productivity/habit",
+  }),
+  function (req, res) {
+    // Successful authentication
+    res.redirect("/productivity/analytics");
+  }
+);
 
-// router.get("/google/callback", authController.googleCallBack);
-
-// module.exports = router;
+module.exports = router;
