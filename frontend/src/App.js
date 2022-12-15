@@ -54,7 +54,7 @@ function App() {
             <Route exact path="analytics" element={<Analytics />} />
             <Route exact path="counters" element={<Counters />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
     </>

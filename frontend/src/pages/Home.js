@@ -9,16 +9,7 @@ import Button from "@mui/material/Button";
 
 import Mango from "../images/mango.png";
 
-const buttonStyle = {
-  width: "250px",
-  margin: "auto",
-};
-
 function Home() {
-  const handleClick = async () => {
-    fetch("/auth/google");
-  };
-
   return (
     <div className="home-container">
       <div className="home-heading">
@@ -26,23 +17,27 @@ function Home() {
         <h1 className="black-text">HaTr</h1>
       </div>
 
-      <GithubLoginButton style={buttonStyle} />
+      <div className="home-login-button-container">
+        <a href="/auth/github">
+          <GithubLoginButton />
+        </a>
+        <div className="separator" />
 
-      <div className="separator" />
+        <a href="/auth/google">
+          <GoogleLoginButton />
+        </a>
 
-      <a href="/auth/google">
-        <GoogleLoginButton style={buttonStyle} onClick={handleClick} />
-      </a>
-      <div className="separator" />
-
-      <FacebookLoginButton style={buttonStyle} />
-
-      <div className="separator" />
+        <div className="separator" />
+        <a href="/auth/facebook">
+          <FacebookLoginButton />
+        </a>
+        <div className="separator" />
+      </div>
 
       <a href="/productivity/habit">
         <Button
           style={{
-            margin: "15px",
+            margin: "5px",
             padding: "5px",
             fontFamily: "Rosario",
             fontWeight: "bold",

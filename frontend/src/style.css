@@ -470,3 +470,8 @@ ul {
 .main-mango-icon { 
   width: 35px;
 }
+
+.home-login-button-container { 
+  width: 250px;
+  margin: auto;
+}

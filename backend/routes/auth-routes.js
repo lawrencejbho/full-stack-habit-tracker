@@ -8,11 +8,11 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/productivity/habit",
+    failureRedirect: "/productivity/analytics",
   }),
   function (req, res) {
     // Successful authentication
-    res.redirect("/productivity/analytics");
+    res.redirect("/productivity/habit");
   }
 );
 
