@@ -21,6 +21,7 @@ function Home() {
         <a href="/auth/github">
           <GithubLoginButton />
         </a>
+
         <div className="separator" />
 
         <a href="/auth/google">
@@ -28,9 +29,11 @@ function Home() {
         </a>
 
         <div className="separator" />
+
         <a href="/auth/facebook">
           <FacebookLoginButton />
         </a>
+
         <div className="separator" />
       </div>
 
