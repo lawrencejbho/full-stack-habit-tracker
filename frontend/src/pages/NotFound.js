@@ -6,13 +6,13 @@ function NotFound() {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate("/");
+      navigate("/home");
     }, 2000);
   }, []);
 
   return (
     <>
-      <h1>Not Found</h1>
+      <h1 className="not-found-text">Not Found</h1>
     </>
   );
 }

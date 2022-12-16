@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-function Pomodoro() {
+function Pomodoro(props) {
   const [secondsPomodoro, setSecondsPomodoro] = useState(1500);
   const [secondsBreak, setSecondsBreak] = useState(300);
   const [isActive, setIsActive] = useState(false);
@@ -235,6 +235,11 @@ function Pomodoro() {
       // console.log(get_data);
     };
     updateCalendar();
+  }, []);
+
+  // can pass in the title within the loaded element from react router and then change the document title here
+  useEffect(() => {
+    document.title = props.title;
   }, []);
 
   return (

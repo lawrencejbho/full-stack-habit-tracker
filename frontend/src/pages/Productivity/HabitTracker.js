@@ -9,7 +9,7 @@ import LoadingError from "../../components/LoadingError.js";
 I need to move the useEffect's into their own custom functions to make it easier to see what is actually happening 
 */
 
-function HabitTracker() {
+function HabitTracker(props) {
   const [habitsAddArray, setHabitsAddArray] = useState([]);
   const [habitsDeleteArray, setHabitsDeleteArray] = useState([]);
 
@@ -260,6 +260,10 @@ function HabitTracker() {
     const timer = setInterval(() => checkAfterTenSeconds(), 10000);
     return () => clearInterval(timer);
   }, [habitsUpdateArray]);
+
+  useEffect(() => {
+    document.title = props.title;
+  }, []);
 
   return (
     <>

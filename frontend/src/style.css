@@ -448,8 +448,43 @@ ul {
 
 .home-container {
   margin: auto;
-  text-align: center;
-  padding: 100px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  height: 450px;
+}
+
+.home-heading { 
+  box-sizing: border-box;
+  border-bottom: 1px solid;
+}
+
+.home-title { 
+  letter-spacing: 1px;
+  padding-left: 50px;
+}
+
+.headline-container{ 
+  display: flex;
+  padding: 30px;
+  height: 325px;
+  aligin-items: center;
+  justify-content: space-around;
+}
+
+.headline { 
+  font-size: 34px;
+  font-weight: 350;
+  margin-right: 25px;
+  width: 300px;
+  line-height: 1.5em;
+}
+
+.feature-container { 
+  display: flex;
+  margin-right: 30px;
+  width: 300px;
 }
 
 .login-button { 
@@ -460,12 +495,7 @@ ul {
   padding: 5px;
 }
 
-.home-heading { 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-}
+
 
 .main-mango-icon { 
   width: 35px;
@@ -474,4 +504,26 @@ ul {
 .home-login-button-container { 
   width: 250px;
   margin: auto;
+}
+
+
+.github-link {
+  margin-top: 30px;
+  color: #1D2437;
+  background: #ff92e0;
+  padding: 20px 50px 20px 50px;
+  font-family: "Akkurat", "Helvetica Neue", sans-serif;
+  width: 170px;
+  text-align: center;
+  letter-spacing: 1.5px;
+}
+
+.access-container { 
+
+}
+
+/* Not Found */
+
+.not-found-text { 
+  padding-left: 20px;
 }

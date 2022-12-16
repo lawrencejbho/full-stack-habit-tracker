@@ -33,7 +33,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
+          <Route
+            path="/"
+            element={<Navigate to="/home" title="Home / HaTr" />}
+          />
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
 
@@ -49,12 +52,28 @@ function App() {
               </>
             }
           >
-            <Route exact path="pomodoro" element={<Pomodoro />} />
-            <Route exact path="habit" element={<HabitTracker />} />
-            <Route exact path="analytics" element={<Analytics />} />
-            <Route exact path="counters" element={<Counters />} />
+            <Route
+              exact
+              path="pomodoro"
+              element={<Pomodoro title="Pomodoro / HaTr" />}
+            />
+            <Route
+              exact
+              path="habit"
+              element={<HabitTracker title="Habits / HaTr" />}
+            />
+            <Route
+              exact
+              path="analytics"
+              element={<Analytics title="Analytics / HaTr" />}
+            />
+            <Route
+              exact
+              path="counters"
+              element={<Counters title="Counters / HaTr" />}
+            />
           </Route>
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

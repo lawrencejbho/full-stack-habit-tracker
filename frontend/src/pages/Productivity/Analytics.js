@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-function Analytics() {
+function Analytics(props) {
   const [habits, setHabits] = useState([]);
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [currentStyle, setCurrentStyle] = useState("Random");
@@ -157,6 +157,10 @@ function Analytics() {
 
   useEffect(() => {
     setRandomColor(Math.floor(Math.random() * 0xffffff).toString(16));
+  }, []);
+
+  useEffect(() => {
+    document.title = props.title;
   }, []);
 
   return (
