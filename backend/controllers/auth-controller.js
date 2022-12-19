@@ -47,10 +47,15 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "http://localhost:3000/auth/google/callback",
     },
-    function (accessToken, refreshToken, profile, cb) {
+    function (accessToken, refreshToken, profile, done) {
       console.log(profile);
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
+      User.findOne({ profileId: profile.id }).then((existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          const newUser = new User({ profileId: profile.id });
+          newUser.save().then((user) => done(null, user));
+        }
       });
     }
   )
@@ -63,10 +68,15 @@ passport.use(
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       callbackURL: "http://localhost:3000/auth/facebook/callback",
     },
-    function (accessToken, refreshToken, profile, cb) {
+    function (accessToken, refreshToken, profile, done) {
       console.log(profile);
-      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-        return cb(err, user);
+      User.findOne({ profileId: profile.id }).then((existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          const newUser = new User({ profileId: profile.id });
+          newUser.save().then((user) => done(null, user));
+        }
       });
     }
   )
@@ -81,8 +91,13 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
       console.log(profile);
-      User.findOrCreate({ githubId: profile.id }, function (err, user) {
-        return done(err, user);
+      User.findOne({ profileId: profile.id }).then((existingUser) => {
+        if (existingUser) {
+          done(null, existingUser);
+        } else {
+          const newUser = new User({ profileId: profile.id });
+          newUser.save().then((user) => done(null, user));
+        }
       });
     }
   )
