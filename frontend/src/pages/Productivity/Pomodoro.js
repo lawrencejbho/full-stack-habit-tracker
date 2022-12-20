@@ -85,7 +85,11 @@ function Pomodoro(props) {
 
     // add to the pomodoros array in the database when a pomodoro is complete
     async function updateHabitTimestamps(event) {
-      let data = { habit_name: currentHabitName, timestamps: currentTime() };
+      let data = {
+        habit_name: currentHabitName,
+        user_id: props.userID,
+        timestamps: currentTime(),
+      };
       console.log(data);
       const requestOptions = {
         method: "POST",

@@ -171,7 +171,7 @@ function HabitTracker(props) {
   QueryForSessionId();
 
   // setHabits to pull from our database
-  // * currently we are making two api calls and should set a condition to only check if string length
+  // * currently we are making two api calls and should set a condition to only check if string length.  I think this is why the loading spinner isn't correct either.
   useEffect(() => {
     const getHabits = async () => {
       setIsLoading(true);

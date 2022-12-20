@@ -136,6 +136,7 @@ function Analytics(props) {
     async function updateTimestamps() {
       for (const habit of habitsUpdateArray) {
         let data = {
+          user_id: props.userId,
           habit_name: habit.habit_name,
           timestamps: habit.timestamps,
         };

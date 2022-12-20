@@ -117,7 +117,8 @@ const updateTodayTimestamps = (req, res) => {
 };
 
 // find all habit entries, push in today_timestamps into timestamps, and then update each one individually
-// * The logic on this works but is probably not optimal.  This runs anytime someone navigates to Habit Tracker, which probably is good enough but could push timestamps less than 1 day in.
+// The logic on this works but is probably not optimal.  This runs anytime someone navigates to Habit Tracker, which probably is good enough but could push timestamps less than 1 day in.
+// Probably should change it so that this runs at most once an hour versus every time someone goes to Habit Tracker.
 const pushTodayTimestamps = (req, res) => {
   HabitModel.find().then((entry) => {
     let timestamp_array = entry.map((habit) =>
