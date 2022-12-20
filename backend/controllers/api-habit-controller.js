@@ -32,7 +32,7 @@ const createHabit = (req, res) => {
 };
 
 const createMany = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   HabitModel.insertMany(req.body)
     .then(() => {
       console.log("added habits");
@@ -43,7 +43,6 @@ const createMany = (req, res) => {
 };
 
 const getHabit = (req, res) => {
-  console.log(req.body);
   HabitModel.find({ user_id: req.body.user_id }).then((entry) => {
     // console.log(entry);
     res.json(entry);

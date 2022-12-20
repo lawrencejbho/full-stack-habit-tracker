@@ -57,7 +57,6 @@ function Analytics(props) {
   // setHabits to pull from our database
   useEffect(() => {
     const getHabits = async () => {
-      console.log(props.userId);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -70,7 +69,7 @@ function Analytics(props) {
       // setRenderState(true);
     };
     getHabits();
-    return () => {};
+    return () => {}; // fixes an error where useEffect is not returning anything
   }, [renderState]);
 
   // add timestamps to Day, same logic as what we are using in HabitTracker.js
@@ -244,6 +243,7 @@ function Analytics(props) {
               onClick={handleClickGraphStyle}
               onClose={handleCloseStyles}
               id={style}
+              key={style}
             >
               {style}
             </MenuItem>

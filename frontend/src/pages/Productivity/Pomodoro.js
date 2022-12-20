@@ -215,7 +215,6 @@ function Pomodoro(props) {
 
   useEffect(() => {
     const getHabits = async () => {
-      console.log(props.userId);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -273,7 +272,7 @@ function Pomodoro(props) {
           "aria-labelledby": "basic-button",
         }}
       >
-        {habits.map((habit) => {
+        {habits.map((habit, index) => {
           return (
             <MenuItem
               onClick={handleClickDisplayGraph}
@@ -281,6 +280,7 @@ function Pomodoro(props) {
               // onBlur={handleClose}
               id={habit.id}
               name={habit.habit_name}
+              key={index}
             >
               {habit.habit_name}
             </MenuItem>
@@ -316,13 +316,14 @@ function Pomodoro(props) {
       )}
 
       <div className="contribution-graph-container">
-        {habits.map((habit) => {
+        {habits.map((habit, index) => {
           if (habit.id === currentHabitId) {
             return (
               <ContributionGraph
                 timestamps={habit.timestamps}
                 id={habit.id}
                 color="Default"
+                key={index}
               />
             );
           }

@@ -125,9 +125,11 @@ function ContributionGraph(props) {
               if (count % 7 === 1) {
                 if (currentMonth !== newMonth) {
                   currentMonth = newMonth;
-                  return <div>{month[newMonth].slice(0, 3)}</div>;
+                  return (
+                    <div key={entry.date}>{month[newMonth].slice(0, 3)}</div>
+                  );
                 } else {
-                  return <div>&emsp;</div>;
+                  return <div key={entry.date}>&emsp;</div>;
                 }
               }
               return null;
@@ -147,7 +149,7 @@ function ContributionGraph(props) {
               return (
                 <div>
                   <Box
-                    key={index}
+                    key={entry.date}
                     date={entry.date}
                     contributions={entry.count}
                     add_timestamps={props.add_timestamps}
@@ -166,26 +168,31 @@ function ContributionGraph(props) {
             contributions={0}
             randomColor={props.randomColor}
             color={props.color}
+            key={0}
           />
           <Box
             contributions={1}
             randomColor={props.randomColor}
             color={props.color}
+            key={1}
           />
           <Box
             contributions={3}
             randomColor={props.randomColor}
             color={props.color}
+            key={3}
           />
           <Box
             contributions={5}
             randomColor={props.randomColor}
             color={props.color}
+            key={5}
           />
           <Box
             contributions={7}
             randomColor={props.randomColor}
             color={props.color}
+            key={7}
           />
           More
         </div>

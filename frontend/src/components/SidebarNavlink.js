@@ -43,7 +43,7 @@ function SidebarNavlink(props) {
             alt="habittracker-icon"
           />
 
-          <text className="sidebar-text">{props.name}</text>
+          <p className="sidebar-text">{props.name}</p>
         </div>
       </NavLink>
     </>
