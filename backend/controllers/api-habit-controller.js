@@ -17,10 +17,11 @@ const HabitModel = mongoose.model("HabitModel", habitSchema);
 const calendarSchema = require("../models/calendarSchema");
 const CalendarModel = mongoose.model("CalendarModel", calendarSchema);
 
+// this doesn't get used but it's helpful to see what is createMany doing
 const createHabit = (req, res) => {
   console.log(req.body);
   const habit = new HabitModel({
-    username: req.body.username,
+    user_id: req.body.user_id,
     habit_name: req.body.habit_name,
     id: req.body.id,
     notes: req.body.notes,
@@ -43,10 +44,14 @@ const createMany = (req, res) => {
 };
 
 const getHabit = (req, res) => {
-  HabitModel.find({ user_id: req.body.user_id }).then((entry) => {
-    // console.log(entry);
-    res.json(entry);
-  });
+  HabitModel.find({ user_id: req.body.user_id })
+    .then((entry) => {
+      // console.log(entry);
+      res.json(entry);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const deleteHabit = (req, res) => {
@@ -73,7 +78,7 @@ const deleteMany = (req, res) => {
 
 const addTimestamps = (req, res) => {
   // console.log(req.body);
-  const filter = { habit_name: req.body.habit_name };
+  const filter = { habit_name: req.body.habit_name, user_id: req.body.user_id };
   const update = { $push: { timestamps: req.body.timestamps } };
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
@@ -86,7 +91,7 @@ const addTimestamps = (req, res) => {
 
 const updateTimestamps = (req, res) => {
   // console.log(req.body);
-  const filter = { habit_name: req.body.habit_name };
+  const filter = { habit_name: req.body.habit_name, user_id: req.body.user_id };
   const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
@@ -98,8 +103,8 @@ const updateTimestamps = (req, res) => {
 };
 
 const updateTodayTimestamps = (req, res) => {
-  // console.log(req.body.habit_name);
-  const filter = { habit_name: req.body.habit_name };
+  // console.log(req.body);
+  const filter = { habit_name: req.body.habit_name, user_id: req.body.user_id };
   const update = { today_timestamps: req.body.today_timestamps };
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
@@ -112,12 +117,13 @@ const updateTodayTimestamps = (req, res) => {
 };
 
 // find all habit entries, push in today_timestamps into timestamps, and then update each one individually
+// * The logic on this works but is probably not optimal.  This runs anytime someone navigates to Habit Tracker, which probably is good enough but could push timestamps less than 1 day in.
 const pushTodayTimestamps = (req, res) => {
   HabitModel.find().then((entry) => {
     let timestamp_array = entry.map((habit) =>
       habit.timestamps.concat(habit.today_timestamps)
     );
-    let statusCode = 404;
+    let statusCode = 202;
 
     for (let i = 0; i < entry.length; i++) {
       let today_array = entry[i].today_timestamps;
@@ -135,7 +141,7 @@ const pushTodayTimestamps = (req, res) => {
             console.log(error);
           });
       } else {
-        console.log("still from today");
+        console.log("today_timestamps are still from today");
       }
     }
     res.sendStatus(statusCode);

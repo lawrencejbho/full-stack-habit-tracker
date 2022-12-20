@@ -27,8 +27,9 @@ function Add(props) {
 
     event.preventDefault();
     // we need to add the object in this way to make the website more snappy
+    // this gets passed into the parent component HabitTracker
     props.onAdd({
-      username: "test-user",
+      user_id: props.userId,
       habit_name: habit.habit_name,
       id: newID,
       notes: "notes",
