@@ -8,6 +8,7 @@ const habitSchema = new mongoose.Schema({
   timezone: String,
   timestamps: [Number],
   today_timestamps: [Number],
+  user_id: String,
 });
 
 module.exports = habitSchema;

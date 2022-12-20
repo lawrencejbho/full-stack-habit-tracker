@@ -57,13 +57,20 @@ function Analytics(props) {
   // setHabits to pull from our database
   useEffect(() => {
     const getHabits = async () => {
-      const data = await fetch("/api/habit-get");
+      console.log(props.userId);
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: props.userId }),
+      };
+      const data = await fetch("/api/habit-get", requestOptions);
       const get_data = await data.json();
       // console.log(get_data);
       setHabits(get_data);
-      setRenderState(true);
+      // setRenderState(true);
     };
     getHabits();
+    return () => {};
   }, [renderState]);
 
   // add timestamps to Day, same logic as what we are using in HabitTracker.js
@@ -199,6 +206,7 @@ function Analytics(props) {
               // onBlur={handleClose}
               id={habit.id}
               name={habit.habit_name}
+              key={habit.id}
             >
               {habit.habit_name}
             </MenuItem>
@@ -255,6 +263,7 @@ function Analytics(props) {
                 add_timestamps={addTimestamps}
                 color={currentStyle}
                 randomColor={randomColor}
+                key={habit.id}
               />
             );
           }

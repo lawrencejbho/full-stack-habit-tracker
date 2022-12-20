@@ -28,4 +28,18 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    "/logout",
+    createProxyMiddleware({
+      target: process.env.BACKENDURL,
+      changeOrigin: true,
+    })
+  );
+  app.use(
+    "/check-login",
+    createProxyMiddleware({
+      target: process.env.BACKENDURL,
+      changeOrigin: true,
+    })
+  );
 };

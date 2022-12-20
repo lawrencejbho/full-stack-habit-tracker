@@ -43,7 +43,9 @@ const createMany = (req, res) => {
 };
 
 const getHabit = (req, res) => {
-  HabitModel.find().then((entry) => {
+  console.log(req.body);
+  HabitModel.find({ user_id: req.body.user_id }).then((entry) => {
+    // console.log(entry);
     res.json(entry);
   });
 };

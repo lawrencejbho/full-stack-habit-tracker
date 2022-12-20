@@ -29,6 +29,7 @@ function Home() {
           <div className="feature-container">
             <div className="feature-text">
               <h5>Analytics</h5>
+              <h6>View your </h6>
             </div>
           </div>
         </div>

@@ -215,7 +215,13 @@ function Pomodoro(props) {
 
   useEffect(() => {
     const getHabits = async () => {
-      const data = await fetch("/api/habit-get");
+      console.log(props.userId);
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: props.userId }),
+      };
+      const data = await fetch("/api/habit-get", requestOptions);
       const get_data = await data.json();
       // console.log(get_data);
       setHabits(get_data);
@@ -224,9 +230,6 @@ function Pomodoro(props) {
     getHabits();
     return () => {};
   }, [renderState]);
-
-  // update the calendar Schema in case it's older than today's date
-  // when I put this in ContributionGraph it was double counting timestamps
 
   useEffect(() => {
     const updateCalendar = async () => {

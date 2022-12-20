@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import Cafe from "./images/cafe.jpg";
 import Layout from "./components/Layout.js";
 
@@ -29,6 +29,12 @@ function App() {
   //   minHeight: "150vh", // this makes it so that the background always shows or else it gets truncated by different Route paths where the height is smaller
   // };
 
+  const [userId, setUserId] = useState("");
+
+  const sharedUserId = (id) => {
+    setUserId(id);
+  };
+
   return (
     <>
       <Router>
@@ -54,23 +60,29 @@ function App() {
           >
             <Route
               exact
-              path="pomodoro"
-              element={<Pomodoro title="Pomodoro / HaTr" />}
+              path="habit"
+              element={
+                <HabitTracker
+                  title="Habits / HaTr"
+                  sharedUserId={sharedUserId}
+                />
+              }
             />
             <Route
               exact
-              path="habit"
-              element={<HabitTracker title="Habits / HaTr" />}
+              path="pomodoro"
+              element={<Pomodoro title="Pomodoro / HaTr" userId={userId} />}
             />
+
             <Route
               exact
               path="analytics"
-              element={<Analytics title="Analytics / HaTr" />}
+              element={<Analytics title="Analytics / HaTr" userId={userId} />}
             />
             <Route
               exact
               path="counters"
-              element={<Counters title="Counters / HaTr" />}
+              element={<Counters title="Counters / HaTr" userId={userId} />}
             />
           </Route>
           <Route path="*" element={<NotFound />} />

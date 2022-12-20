@@ -25,6 +25,8 @@ function HabitTracker(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
+  const [userId, setUserId] = useState("");
+
   const currentTime = () => {
     const currentTime = new Date().getTime();
     return Math.floor(currentTime / 1000);
@@ -153,13 +155,35 @@ function HabitTracker(props) {
     });
   }
 
+  const QueryForSessionId = () => {
+    useEffect(() => {
+      const getUserId = async () => {
+        const data = await fetch("/auth/get-session-id");
+        const get_data = await data.json();
+        setUserId(get_data);
+        // console.log(get_data);
+        props.sharedUserId(get_data);
+      };
+      getUserId();
+    }, []);
+  };
+
+  QueryForSessionId();
+
   // setHabits to pull from our database
+  // * currently we are making two api calls and should set a condition to only check if string length
   useEffect(() => {
     const getHabits = async () => {
       setIsLoading(true);
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId }),
+      };
       try {
-        const data = await fetch("/api/habit-get");
+        const data = await fetch("/api/habit-get", requestOptions);
         const get_data = await data.json();
+        // console.log(get_data);
         setHabits(get_data);
         setIsLoading(false);
       } catch (err) {
@@ -168,7 +192,7 @@ function HabitTracker(props) {
       }
     };
     getHabits();
-  }, [renderState]);
+  }, [renderState, userId]);
 
   // will try to push today timestamps if the first entry is greater than a day.  If we get a success, then we'll also clear the today_timestamps for all habits
   // the problem with this right now is that it won't rerender habit tracker

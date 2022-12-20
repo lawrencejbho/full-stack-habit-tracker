@@ -28,6 +28,16 @@ app.use("/api", apiRoutes);
 
 app.use("/auth", authRoutes);
 
+app.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    // passport exposes a logout function on req
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 // handles any request that doesn't match our routes
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);

@@ -5,7 +5,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const GitHubStrategy = require("passport-github2").Strategy;
-const findOrCreate = require("mongoose-findorcreate");
 
 const userSchema = require("../models/userSchema.js");
 
@@ -22,9 +21,6 @@ mongoose
   .catch((err) => console.log(err));
 
 userSchema.plugin(passportLocalMongoose);
-
-// this is kind of a little hack but will probably need to come up with something else in the future
-userSchema.plugin(findOrCreate);
 
 const User = new mongoose.model("User", userSchema);
 
@@ -48,7 +44,7 @@ passport.use(
       callbackURL: "http://localhost:3000/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile);
+      // console.log(profile);
       User.findOne({ profileId: profile.id }).then((existingUser) => {
         if (existingUser) {
           done(null, existingUser);
@@ -69,7 +65,7 @@ passport.use(
       callbackURL: "http://localhost:3000/auth/facebook/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile);
+      // console.log(profile);
       User.findOne({ profileId: profile.id }).then((existingUser) => {
         if (existingUser) {
           done(null, existingUser);
@@ -90,7 +86,7 @@ passport.use(
       callbackURL: "http://localhost:3000/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile);
+      // console.log(profile);
       User.findOne({ profileId: profile.id }).then((existingUser) => {
         if (existingUser) {
           done(null, existingUser);

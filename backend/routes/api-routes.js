@@ -16,7 +16,7 @@ router.get("/calendar-update", apiHabitController.updateCalendar);
 router.get("/calendar-get", apiHabitController.getCalendar);
 
 // habit tracker
-router.get("/habit-get", apiHabitController.getHabit);
+router.post("/habit-get", apiHabitController.getHabit);
 
 router.post("/habit-create", apiHabitController.createHabit);
 
