@@ -20,15 +20,6 @@ import Home from "./pages/Home.js";
 import Dashboard from "./pages/Dashboard.js";
 
 function App() {
-  // not sure if this is the best way to apply the background image by doing it directly through style
-  // const backgroundStyleImage = {
-  //   backgroundImage: `url(${Cafe})`,
-  //   backgroundSize: "auto 700px",
-
-  //   backgroundRepeat: "no-repeat",
-  //   minHeight: "150vh", // this makes it so that the background always shows or else it gets truncated by different Route paths where the height is smaller
-  // };
-
   const [userId, setUserId] = useState("");
 
   const sharedUserId = (id) => {
