@@ -44,6 +44,7 @@ const createMany = (req, res) => {
 };
 
 const getHabit = (req, res) => {
+  // console.log(req.body);
   HabitModel.find({ user_id: req.body.user_id })
     .then((entry) => {
       // console.log(entry);
@@ -129,7 +130,7 @@ const pushTodayTimestamps = (req, res) => {
     for (let i = 0; i < entry.length; i++) {
       let today_array = entry[i].today_timestamps;
       if (today_array.length == 0) {
-        console.log("nothing in the array");
+        // console.log("nothing in the array");
       } else if (currentTime() - today_array[0] > 86400) {
         statusCode = 200;
         let filter = { id: entry[i].id };
@@ -192,7 +193,7 @@ const updateCalendar = () => {
 
 // calculate the offset and if it's greater than a day, then we'll add the additional days into an array to be added
 const calculateOffset = (timeOfLastEntry) => {
-  console.log("checking calendar");
+  // console.log("checking calendar");
   let unixTimeOfLastEntry = convertDateToUnixTime(timeOfLastEntry);
   let timeOffset = currentTime() - unixTimeOfLastEntry;
   let dateArray = [];

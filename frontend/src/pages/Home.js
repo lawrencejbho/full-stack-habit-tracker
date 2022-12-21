@@ -5,6 +5,8 @@ import {
   FacebookLoginButton,
 } from "react-social-login-buttons";
 
+import { Link } from "react-router-dom";
+
 import Button from "@mui/material/Button";
 
 import Mango from "../images/mango.png";
@@ -74,6 +76,19 @@ function Home() {
               Access Test Environment without Logging In
             </Button>
           </a>
+
+          <Link to="/productivity/habit">
+            <Button
+              style={{
+                margin: "5px",
+                padding: "5px",
+                fontFamily: "Rosario",
+                fontWeight: "bold",
+              }}
+            >
+              Test
+            </Button>
+          </Link>
         </div>
       </div>
     </>

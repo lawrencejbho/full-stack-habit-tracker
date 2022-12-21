@@ -4,8 +4,12 @@ const passport = require("passport");
 const router = express.Router();
 
 router.get("/get-session-id", (req, res) => {
-  // console.log(req.session);
-  res.json(req.session.passport.user);
+  console.log("req.session" + req.session);
+  if (req.session.passport !== undefined) {
+    res.json(req.session.passport.user);
+  } else {
+    res.json("63a35a5f5a16d796fcb8f326");
+  }
 });
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));

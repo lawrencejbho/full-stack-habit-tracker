@@ -161,7 +161,7 @@ function HabitTracker(props) {
         const data = await fetch("/auth/get-session-id");
         const get_data = await data.json();
         setUserId(get_data);
-        // console.log(get_data);
+        console.log(get_data);
         props.sharedUserId(get_data);
       };
       getUserId();
@@ -191,7 +191,9 @@ function HabitTracker(props) {
         setIsLoading(false);
       }
     };
-    getHabits();
+    if (userId.length > 1) {
+      getHabits();
+    }
   }, [renderState, userId]);
 
   // will try to push today timestamps if the first entry is greater than a day on the backend.  If we get a success, then we'll also clear the today_timestamps for all habits

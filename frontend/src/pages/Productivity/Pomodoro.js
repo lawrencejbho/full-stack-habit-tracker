@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import PomodoroTimer from "../../components/PomodoroTimer.js";
 import ContributionGraph from "../../components/ContributionGraph";
 import mango from "../../images/mango.png";
@@ -87,7 +88,7 @@ function Pomodoro(props) {
     async function updateHabitTimestamps(event) {
       let data = {
         habit_name: currentHabitName,
-        user_id: props.userID,
+        user_id: props.userId,
         timestamps: currentTime(),
       };
       console.log(data);
@@ -252,7 +253,6 @@ function Pomodoro(props) {
     <div className="main-body">
       <h1 className="black-text">Pomodoro</h1>
       <hr className="app-line"></hr>
-
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
