@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound.js";
 import Analytics from "./pages/Productivity/Analytics.js";
 import Counters from "./pages/Productivity/Counters.js";
 import Home from "./pages/Home.js";
+import Login from "./pages/Login.js";
 import Dashboard from "./pages/Dashboard.js";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           />
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
 
           <Route
             path="/productivity"
