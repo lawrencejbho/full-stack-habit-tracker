@@ -49,8 +49,9 @@ function Add(props) {
           placeholder="Add your habit here"
           onChange={handleChange}
           value={habit.body}
+          className="habit-add-input"
         />
-        <button className="new-habit" onClick={createNewHabit}>
+        <button className="habit-new-habit" onClick={createNewHabit}>
           +
         </button>
       </form>

@@ -22,6 +22,7 @@ import Dashboard from "./pages/Dashboard.js";
 function App() {
   const [userId, setUserId] = useState("");
 
+  // userId will be passed from habitTracker, child to parent so that we can maintain it for the rest of the app
   const sharedUserId = (id) => {
     setUserId(id);
   };

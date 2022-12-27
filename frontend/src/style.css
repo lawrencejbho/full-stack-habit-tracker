@@ -93,12 +93,28 @@ a {
   cursor: pointer;
 }
 
+/* Habit Add */
+
+
 .add {
   text-align: left;
   align-items: left;
   justify-content: left;
 }
 
+
+.habit-add-input { 
+  /* color: rgb(0 0 0); */
+  border-radius: 0.375rem;
+  /* flex: 1 1 0%; */
+  outline: none;
+  border: none;
+  padding: 5px;
+}
+
+.habit-add-input:focus { 
+  outline: none;
+}
 
 
 .gutter {
