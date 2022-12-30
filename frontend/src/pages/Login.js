@@ -35,31 +35,11 @@ function Login() {
           <div className="separator" />
         </div>
 
-        <a href="/productivity/habit">
-          <Button
-            style={{
-              margin: "5px",
-              padding: "5px",
-              fontFamily: "Rosario",
-              fontWeight: "bold",
-            }}
-          >
-            Access Test Environment without Logging In
-          </Button>
-        </a>
-
-        <Link to="/productivity/habit">
-          <Button
-            style={{
-              margin: "5px",
-              padding: "5px",
-              fontFamily: "Rosario",
-              fontWeight: "bold",
-            }}
-          >
-            Test
-          </Button>
-        </Link>
+        <div className="tw-flex tw-font-Poppins tw-items-center tw-justify-center">
+          <Link to="/productivity/habit">
+            <Button>Access Test Environment without Logging In</Button>
+          </Link>
+        </div>
       </div>
     </>
   );
