@@ -5,7 +5,7 @@ import Feature3 from "../../images/landingPage/illustration-features-tab-3.png";
 export default function Features() {
   return (
     <>
-      <div className="tw-mt-20 tw-py-20 tw-font-Poppins">
+      <div className="tw-mt-20 tw-py-20 tw-font-Poppins" id="features">
         {/* Heading */}
         <div className="tw-mx-auto tw-px-2 sm:tw-w-3/4 lg:tw-w-5/12">
           <h1 className="tw-text-center tw-text-3xl tw-text-bookmark-blue">

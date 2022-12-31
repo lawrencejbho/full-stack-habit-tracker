@@ -2,7 +2,16 @@ import Mango from "../../images/mango.png";
 
 import { Link } from "react-router-dom";
 
+import { useRef } from "react";
+
 export default function Header() {
+  const ref = useRef(null);
+
+  const handleClick = () => {
+    console.log("test");
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="tw-font-Poppins">
       <div className="tw-container tw-mt-4 tw-flex tw-items-start sm:tw-mt-12 ">
@@ -12,9 +21,16 @@ export default function Header() {
         <h1 className="tw-text-bookmark-blue tw-px-1">HaTr</h1>
 
         <div className="tw-hidden tw-py-5 tw-list-none tw-flex tw-flex-1 tw-items-center tw-justify-end tw-gap-12 tw-text-xs tw-uppercase tw-text-bookmark-blue sm:tw-flex">
-          <li className="tw-cursor-pointer">Features</li>
-          <li className="tw-cursor-pointer">Learn More</li>
-          <li className="tw-cursor-pointer">Contact</li>
+          <li className="tw-cursor-pointer" onClick={handleClick}>
+            Features
+          </li>
+          <a href="#faq" className="tw-text-inherit">
+            <li className="tw-cursor-pointer">Learn More</li>
+          </a>
+          <a href="#contact" className="tw-text-inherit">
+            <li className="tw-cursor-pointer">Contact</li>
+          </a>
+
           <Link to="/login">
             <button
               type="button"

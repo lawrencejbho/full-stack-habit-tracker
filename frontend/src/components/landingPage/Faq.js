@@ -1,7 +1,7 @@
 export default function Faq() {
   return (
     <>
-      <div className="tw-bg-bookmark-white tw-py-20 tw-font-Poppins">
+      <div className="tw-bg-bookmark-white tw-py-20 tw-font-Poppins" id="faq">
         <div className="tw-container">
           <div className="tw-mx-auto tw-px-2 sm:tw-w-3/4 lg:tw-w-5/12">
             <h1 className="tw-text-center tw-text-3xl tw-text-bookmark-blue tw-font-normal">
