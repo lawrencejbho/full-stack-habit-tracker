@@ -2,6 +2,8 @@ import Feature1 from "../../images/landingPage/illustration-features-tab-1.png";
 import Feature2 from "../../images/landingPage/illustration-features-tab-2.png";
 import Feature3 from "../../images/landingPage/illustration-features-tab-3.png";
 
+import { useRef } from "react";
+
 export default function Features() {
   return (
     <>
