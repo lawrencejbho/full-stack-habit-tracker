@@ -1,47 +1,45 @@
 import Dropdown from "./Dropdown.js";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 
 export default function Faq() {
   const [dropdownData, setDropdownData] = useState([
     {
       id: "1",
       question: "sample-text",
-      answer: "sample-text",
+      answer: "sample-answer",
       selected: false,
     },
     {
       id: "2",
       question: "sample-text",
-      answer: "sample-text",
+      answer: "sample-answer",
       selected: false,
     },
     {
       id: "3",
       question: "sample-text",
-      answer: "sample-text",
+      answer: "sample-answer",
       selected: false,
     },
     {
       id: "4",
       question: "sample-text",
-      answer: "sample-text",
+      answer: "sample-answer",
       selected: false,
     },
   ]);
 
   // need to verify that I'm not messing up the rest of the array with the modifications
   function handleClick(id) {
-    setDropdownData((data) => {
+    setDropdownData((data) =>
       data.map((item) => {
-        if (id === item.id) {
-          console.log("hit");
-          return { ...item, question: "test" };
-        } else {
-          console.log("miss");
-          return item;
+        if (item.id === id) {
+          return { ...item, selected: !item.selected };
         }
-      });
-    });
+        return item;
+      })
+    );
   }
 
   return (
@@ -58,16 +56,17 @@ export default function Faq() {
           </div>
           {/* FAQ Items */}
           <div className="tw-mx-auto tw-mt-12 tw-flex tw-flex-col sm:tw-w-3/4 lg:tw-w-5/12">
-            {dropdownData.map((item) => (
-              <Dropdown
-                handleClick={handleClick}
-                question={item.question}
-                answer={item.answer}
-                selected={item.selected}
-                id={item.id}
-                key={item.id}
-              />
-            ))}
+            {dropdownData.map((item) => {
+              return (
+                <Dropdown
+                  handleClick={handleClick}
+                  question={item.question}
+                  answer={item.answer}
+                  selected={item.selected}
+                  id={item.id}
+                />
+              );
+            })}
 
             <button className="tw-text-white tw-mt-8 tw-font-medium tw-text-base tw-self-center tw-bg-gradient-to-r tw-from-indigo-500 tw-via-indigo-600 tw-to-indigo-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
               Get Started

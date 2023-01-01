@@ -8,7 +8,7 @@ export default function Dropdown(props) {
           onClick={() => props.handleClick(props.id)}
         ></i>
       </div>
-      {props.selected && <div>{props.answer}</div>}
+      {props.selected === true && <div>{props.answer}</div>}
     </>
   );
 }
