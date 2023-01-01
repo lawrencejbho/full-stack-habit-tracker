@@ -2,23 +2,47 @@ import Dropdown from "./Dropdown.js";
 import React, { useState } from "react";
 
 export default function Faq() {
-  const [display, setDisplay] = useState(false);
+  const [dropdownData, setDropdownData] = useState([
+    {
+      id: "1",
+      question: "sample-text",
+      answer: "sample-text",
+      selected: false,
+    },
+    {
+      id: "2",
+      question: "sample-text",
+      answer: "sample-text",
+      selected: false,
+    },
+    {
+      id: "3",
+      question: "sample-text",
+      answer: "sample-text",
+      selected: false,
+    },
+    {
+      id: "4",
+      question: "sample-text",
+      answer: "sample-text",
+      selected: false,
+    },
+  ]);
 
-  // not sure if this is the proper way to do this
+  // need to verify that I'm not messing up the rest of the array with the modifications
   function handleClick(id) {
-    dropdownData.filter(() => {
-      if (id == dropdownData.id) {
-        dropdownData.selected = true;
-      }
+    setDropdownData((data) => {
+      data.map((item) => {
+        if (id === item.id) {
+          console.log("hit");
+          return { ...item, question: "test" };
+        } else {
+          console.log("miss");
+          return item;
+        }
+      });
     });
   }
-
-  const dropdownData = [
-    { id: "1", text: "sample-text", selected: false },
-    { id: "2", text: "sample-text", selected: false },
-    { id: "3", text: "sample-text", selected: false },
-    { id: "4", text: "sample-text", selected: false },
-  ];
 
   return (
     <>
@@ -33,43 +57,17 @@ export default function Faq() {
             </p>
           </div>
           {/* FAQ Items */}
-          {/* trying to figure out how to get the border  */}
           <div className="tw-mx-auto tw-mt-12 tw-flex tw-flex-col sm:tw-w-3/4 lg:tw-w-5/12">
-            <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
-              <div className="tw-flex-1">What is a Bookmark</div>
-              <i
-                className="fas fa-chevron-down tw-text-bookmark-purple"
-                onClick={handleClick}
-                id="1"
-              ></i>
-            </div>
-
-            <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
-              <span className="tw-flex-1">What is a Bookmark</span>
-              <i
-                className="fas fa-chevron-down tw-text-bookmark-purple"
-                onClick={handleClick}
-                id="2"
-              ></i>
-            </div>
-            <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
-              <span className="tw-flex-1">What is a Bookmark</span>
-              <i
-                className="fas fa-chevron-down tw-text-bookmark-purple"
-                onClick={handleClick}
-                id="3"
-              ></i>
-            </div>
-            <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
-              <span className="tw-flex-1">What is a Bookmark</span>
-              <i
-                className="fas fa-chevron-down tw-text-bookmark-purple"
-                onClick={handleClick}
-                id="4"
-              >
-                {display && <Dropdown text="sample text" />}
-              </i>
-            </div>
+            {dropdownData.map((item) => (
+              <Dropdown
+                handleClick={handleClick}
+                question={item.question}
+                answer={item.answer}
+                selected={item.selected}
+                id={item.id}
+                key={item.id}
+              />
+            ))}
 
             <button className="tw-text-white tw-mt-8 tw-font-medium tw-text-base tw-self-center tw-bg-gradient-to-r tw-from-indigo-500 tw-via-indigo-600 tw-to-indigo-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
               Get Started
