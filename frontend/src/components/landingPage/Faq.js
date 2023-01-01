@@ -5,7 +5,7 @@ export default function Faq() {
         <div className="tw-container">
           <div className="tw-mx-auto tw-px-2 sm:tw-w-3/4 lg:tw-w-5/12">
             <h1 className="tw-text-center tw-text-3xl tw-text-bookmark-blue tw-font-normal">
-              Frequent;y Asked Questions
+              Frequently Asked Questions
             </h1>
             <p className="tw-mt-4 tw-text-center tw-text-bookmark-grey">
               Here are some of our FAQs.
