@@ -4,9 +4,21 @@ import React, { useState } from "react";
 export default function Faq() {
   const [display, setDisplay] = useState(false);
 
-  function handleClick() {
-    setDisplay((prevValue) => !prevValue);
+  // not sure if this is the proper way to do this
+  function handleClick(id) {
+    dropdownData.filter(() => {
+      if (id == dropdownData.id) {
+        dropdownData.selected = true;
+      }
+    });
   }
+
+  const dropdownData = [
+    { id: "1", text: "sample-text", selected: false },
+    { id: "2", text: "sample-text", selected: false },
+    { id: "3", text: "sample-text", selected: false },
+    { id: "4", text: "sample-text", selected: false },
+  ];
 
   return (
     <>
@@ -25,22 +37,35 @@ export default function Faq() {
           <div className="tw-mx-auto tw-mt-12 tw-flex tw-flex-col sm:tw-w-3/4 lg:tw-w-5/12">
             <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
               <div className="tw-flex-1">What is a Bookmark</div>
-              <i className="fas fa-chevron-down tw-text-bookmark-purple"></i>
+              <i
+                className="fas fa-chevron-down tw-text-bookmark-purple"
+                onClick={handleClick}
+                id="1"
+              ></i>
             </div>
 
             <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
               <span className="tw-flex-1">What is a Bookmark</span>
-              <i className="fas fa-chevron-down tw-text-bookmark-purple"></i>
-            </div>
-            <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
-              <span className="tw-flex-1">What is a Bookmark</span>
-              <i className="fas fa-chevron-down tw-text-bookmark-purple"></i>
+              <i
+                className="fas fa-chevron-down tw-text-bookmark-purple"
+                onClick={handleClick}
+                id="2"
+              ></i>
             </div>
             <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
               <span className="tw-flex-1">What is a Bookmark</span>
               <i
                 className="fas fa-chevron-down tw-text-bookmark-purple"
                 onClick={handleClick}
+                id="3"
+              ></i>
+            </div>
+            <div className="tw-flex tw-items-center tw-py-4 tw-border-slate-200 tw-border-b tw-border-t-0 tw-border-solid tw-border-x-0">
+              <span className="tw-flex-1">What is a Bookmark</span>
+              <i
+                className="fas fa-chevron-down tw-text-bookmark-purple"
+                onClick={handleClick}
+                id="4"
               >
                 {display && <Dropdown text="sample text" />}
               </i>
