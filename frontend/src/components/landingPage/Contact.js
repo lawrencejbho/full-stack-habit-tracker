@@ -21,7 +21,7 @@ export default function Contact() {
               />
               <button
                 type="button"
-                className="tw-btn tw-text-white tw-text-base tw-flex-1 tw-border-none tw-rounded-md tw-bg-bookmark-red hover:tw-bg-bookmark-white hover:tw-text-black"
+                className="tw-btn tw-text-white tw-text-base tw-flex-1 tw-border-none tw-rounded-md tw-bg-bookmark-red hover:tw-bg-red-500"
               >
                 Join our mailing list
               </button>

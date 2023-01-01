@@ -18,14 +18,14 @@ export default function Hero() {
             </p>
             <div className="tw-flex tw-flex-wrap tw-justify-center tw-gap-6">
               <Link to="/login">
-                <button className="tw-text-white tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-purple-500 tw-via-purple-600 tw-to-purple-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-bg-gradient-to-br">
+                <button className="tw-text-white tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-indigo-500 tw-via-indigo-600 tw-to-indigo-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
                   Get Started
                 </button>
               </Link>
               <a href="https://www.github.com/lawrencejbho/habit-tracker">
                 <button
                   type="button"
-                  className="tw-text-white tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-purple-500 tw-via-purple-600 tw-to-purple-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-bg-gradient-to-br"
+                  className="tw-text-black tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-slate-50 tw-via-slate-100 tw-to-slate-200  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-from-indigo-500 hover:tw-via-indigo-600 hover:tw-to-indigo-700 hover:tw-text-white"
                 >
                   Github Repo
                 </button>

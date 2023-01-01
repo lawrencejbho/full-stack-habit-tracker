@@ -11,21 +11,23 @@ export default function Footer() {
               <h1 className="tw-text-bookmark-white">HaTr</h1>
             </div>
             <div className="tw-list-none tw-flex tw-gap-12 tw-text-xs tw-uppercase tw-text-white">
-              <li className="tw-cursor-pointer">Features</li>
-              <li className="tw-cursor-pointer">Learn More</li>
-              <li className="tw-cursor-pointer">Contact</li>
+              <a href="#features" className="tw-text-inherit">
+                <li className="tw-cursor-pointer">Features</li>
+              </a>
+              <a href="#faq" className="tw-text-inherit">
+                <li className="tw-cursor-pointer">Learn More</li>
+              </a>
+              <a href="#contact" className="tw-text-inherit">
+                <li className="tw-cursor-pointer">Contact</li>
+              </a>
             </div>
           </div>
           <div className=" tw-flex tw-mt-0">
             <ul className="tw-flex tw-list-none tw-gap-10">
               <li>
-                <i
-                  className="fab fa-twitter tw-text-2xl tw-text-white"
-                  text-2xl
-                ></i>
-              </li>
-              <li>
-                <i className="fab fa-facebook-square tw-text-2xl tw-text-2xl tw-text-white"></i>
+                <a href="https://www.github.com/lawrencejbho/habit-tracker">
+                  <i className="fa-brands fa-github tw-text-2xl tw-text-2xl tw-text-white"></i>
+                </a>
               </li>
             </ul>
           </div>
