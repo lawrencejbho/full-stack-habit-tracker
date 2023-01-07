@@ -2,6 +2,7 @@ const express = require("express");
 
 const apiWeatherController = require("../controllers/api-weather-controller");
 const apiHabitController = require("../controllers/api-habit-controller");
+const apiLandingController = require("../controllers/api-landing-controller");
 
 const router = express.Router();
 
@@ -46,5 +47,10 @@ router.get(
   "/habit-clear-today-timestamps",
   apiHabitController.clearTodayTimestamps
 );
+
+// landing page
+
+router.post("/create-email-object", apiLandingController.createEmailObject);
+router.post("/add-new-email", apiLandingController.addNewEmail);
 
 module.exports = router;
