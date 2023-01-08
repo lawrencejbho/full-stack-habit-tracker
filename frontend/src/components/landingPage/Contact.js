@@ -28,7 +28,7 @@ export default function Contact() {
   return (
     <>
       <section
-        className="tw-bg-bookmark-purple tw-py-16 tw-text-white tw-font-Poppins"
+        className="tw-bg-sky-600 tw-py-16 tw-text-white tw-font-Poppins"
         id="contact"
       >
         <div className="tw-container ">

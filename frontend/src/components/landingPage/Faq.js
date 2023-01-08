@@ -2,6 +2,8 @@ import Dropdown from "./Dropdown.js";
 
 import React, { useEffect, useState } from "react";
 
+import { Link } from "react-router-dom";
+
 export default function Faq() {
   const [dropdownData, setDropdownData] = useState([
     {
@@ -67,10 +69,11 @@ export default function Faq() {
                 />
               );
             })}
-
-            <button className="tw-text-white tw-mt-8 tw-font-medium tw-text-base tw-self-center tw-bg-gradient-to-r tw-from-indigo-500 tw-via-indigo-600 tw-to-indigo-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
-              Get Started
-            </button>
+            <Link to="/login" className="tw-self-center">
+              <button className="tw-text-white tw-mt-8 tw-font-medium tw-text-base tw-self-center tw-bg-gradient-to-r tw-from-sky-500 tw-via-sky-600 tw-to-sky-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </div>

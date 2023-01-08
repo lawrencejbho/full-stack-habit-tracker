@@ -3,7 +3,7 @@ import Mango from "../../images/mango.png";
 export default function Footer() {
   return (
     <>
-      <div className="tw-bg-bookmark-blue py-8 tw-font-Poppins">
+      <div className="tw-bg-sky-900 py-8 tw-font-Poppins">
         <div className="tw-container tw-flex tw-flex-col tw-items-center md:tw-flex-row">
           <div className="tw-pt-4 tw-flex tw-flex-1 tw-flex-wrap tw-items-center tw-justify-center tw-gap-12 md:tw-justify-start">
             <div className="tw-flex tw-items-center tw-justify-center">

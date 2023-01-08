@@ -9,9 +9,9 @@ function Sidebar() {
   return (
     <>
       <nav>
-        <div className="sidebar-title">
-          <img className="sidebar-mango-icon" src={Mango} alt="mango-icon" />
-          <div>HaTr</div>
+        <div className="sidebar-title tw-font-Poppins tw-font-semibold tw-contents-center">
+          <img className="tw-w-10" src={Mango} alt="mango-icon" />
+          <div className="tw-px-1 tw-mt-1">HaTr</div>
         </div>
 
         <ul className="sidebar-list">
