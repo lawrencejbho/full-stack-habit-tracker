@@ -11,14 +11,12 @@ export default function Features() {
         {/* Heading */}
         <div className="tw-mx-auto tw-px-2 sm:tw-w-3/4 lg:tw-w-5/12">
           <h1 className="tw-text-center tw-text-3xl tw-text-bookmark-blue">
-            Features
+            How It Works?
           </h1>
-          <p className="tw-mt-4 tw-text-center tw-text-bookmark-grey">
-            HaTr is a free habit-building and productivity app that treats your
-            real life like a game. With in-game rewards and punishments to
-            motivate you and a strong social network to inspire you, Habitica
-            can help you achieve your goals to become healthy, hard-working, and
-            happy.
+          <p className="tw-mt-4 tw-text-center tw-text-lg tw-text-bookmark-grey">
+            HaTr is a free habit-building and productivity app designed to help
+            you focus on what truly matters. Build the best version of yourself
+            by mastering your habits.
           </p>
         </div>
         {/* Cards */}
@@ -31,8 +29,8 @@ export default function Features() {
                 alt="feature habit"
                 className="tw-w-2/3 tw-h-5/6 md:tw-w-full"
               />
-              <h3 className="tw-mt-6 tw-mb-2 tw-text-lg tw-font-normal tw-text-bookmark-blue">
-                Track Your Habits and Goals
+              <h3 className="tw-mt-6 tw-mb-2 tw-text-lg tw-font-semibold tw-text-bookmark-blue">
+                Track Your Habits
               </h3>
               <p className=" tw-font-light tw-text-bookmark-grey">
                 Stay accountable by tracking and managing your Habits and Daily
@@ -48,13 +46,12 @@ export default function Features() {
                 alt="feature pomodoro"
                 className="tw-w-2/3 tw-h-5/6 md:tw-w-full"
               />
-              <h3 className="tw-mt-8 tw-mb-2 tw-text-lg tw-font-normal tw-text-bookmark-blue">
-                Earn Rewards for Your Goals
+              <h3 className="tw-mt-8 tw-mb-2 tw-text-lg tw-font-semibold tw-text-bookmark-blue">
+                Focus on Deep Work
               </h3>
               <p className=" tw-font-light tw-text-bookmark-grey">
-                Check off tasks to level up your Avatar and unlock in-game
-                features such as battle armor, mysterious pets, magic skills,
-                and even quests!
+                Utilize the Pomodoro Technique or Time Blocking on any of your
+                habits to increase productivity.
               </p>
             </div>
           </div>
@@ -66,13 +63,12 @@ export default function Features() {
                 alt="feature analytics"
                 className="tw-h-5/6 tw-w-2/3 md:tw-w-full"
               />
-              <h3 className="tw-mt-6 tw-mb-2 tw-text-lg tw-font-normal tw-text-bookmark-blue">
-                Battle Monsters with Friends
+              <h3 className="tw-mt-6 tw-mb-2 tw-text-lg tw-font-semibold tw-text-bookmark-blue">
+                See Your Progress
               </h3>
-              <p className="tw-mx-3 tw-font-light tw-text-bookmark-grey">
-                Fight monsters with other Habiticans! Use the Gold that you earn
-                to buy in-game or custom rewards, like watching an episode of
-                your favorite TV show.
+              <p className="tw-mx-1 tw-ml-3 tw-font-light tw-text-bookmark-grey">
+                View your habit development through the weeks and months with
+                detailed graphs and analytics.
               </p>
             </div>
           </div>

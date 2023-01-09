@@ -26,7 +26,7 @@ export default function Footer() {
             <ul className="tw-flex tw-list-none tw-gap-10">
               <li>
                 <a href="https://www.github.com/lawrencejbho/habit-tracker">
-                  <i className="fa-brands fa-github tw-text-2xl tw-text-2xl tw-text-white"></i>
+                  <i className="fa-brands fa-github tw-text-2xl  tw-text-white"></i>
                 </a>
               </li>
             </ul>

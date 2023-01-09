@@ -8,26 +8,30 @@ export default function Faq() {
   const [dropdownData, setDropdownData] = useState([
     {
       id: "1",
-      question: "sample-text",
-      answer: "sample-answer",
+      question: "How do i setup my tasks?",
+      answer:
+        "From the Habit Tracker tab, give a name to your habit and then click the + sign.  This will automatically create your habit that can be used in all parts of the app.",
       selected: false,
     },
     {
       id: "2",
-      question: "sample-text",
-      answer: "sample-answer",
+      question: "Do I need to sign in to use the HaTr?",
+      answer:
+        "After clicking Get Started or Login, you can click on Access Test Environment Without Logging In.  This will give you access to the creator's environment and allow you full access to all features.",
       selected: false,
     },
     {
       id: "3",
-      question: "sample-text",
-      answer: "sample-answer",
+      question:
+        "How can I make contributions on the graph by clicking on the boxes?",
+      answer:
+        "Making contributions by directly clicking on each box can only be done in the Analytics tab and cannot be done from the Pomodoro section.",
       selected: false,
     },
     {
       id: "4",
-      question: "sample-text",
-      answer: "sample-answer",
+      question: "How do i request a new feature?",
+      answer: "All feature requests can be sent to support@hatr.com",
       selected: false,
     },
   ]);
