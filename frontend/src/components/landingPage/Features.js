@@ -35,8 +35,8 @@ export default function Features() {
                 Track Your Habits and Goals
               </h3>
               <p className=" tw-font-light tw-text-bookmark-grey">
-                Stay accountable by tracking and managing your Habits, Daily
-                goals, and To Do list with HaTr’s easy-to-use web interface.
+                Stay accountable by tracking and managing your Habits and Daily
+                Goals with HaTr's easy-to-use web interface.
               </p>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function Features() {
               <p className=" tw-font-light tw-text-bookmark-grey">
                 Check off tasks to level up your Avatar and unlock in-game
                 features such as battle armor, mysterious pets, magic skills,
-                and even quests!{" "}
+                and even quests!
               </p>
             </div>
           </div>
