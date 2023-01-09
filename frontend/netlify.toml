@@ -4,3 +4,8 @@
   from = "/api/*"
   to = "https://habit-tracker-4.herokuapp.com/api/:splat"
   status = 200
+
+[[redirects]]
+  from = "/auth/*"
+  to = "https://habit-tracker-4.herokuapp.com/auth/:splat"
+  status = 200
