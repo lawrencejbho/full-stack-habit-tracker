@@ -8,10 +8,16 @@ HaTr is a web app that helps you create and maintain good habits, allowing you t
 
 Habit trackers are valuable tools to increase productivity for any individual and can also be useful for teams.  Currently, habit trackers require users to follow a specific process that is too cumbersome causing users to feel fatigue when using the tool.  HaTr is full servicing allowing users to have more control of their own habit tracking process while still providing deep insights into their habits.  
 
+
+
+
 ## Project Design
 HaTr was created from scratch over a 6 month period starting in April 2022 to help me learn full stack development.  Planning and development has changed many times as I've gone through obstacles at each phase of the project.  New features are continuously added to the project as I use this to help track my own learning and productivity.  
 
 ![](https://media.giphy.com/media/JnGXFwR4KCBOYnBmJm/giphy.gif)
+
+https://user-images.githubusercontent.com/59160165/211651942-df448ac0-a852-404f-a649-90bece529bbd.mov
+
 
 ## Technologies
 HaTr was built using a MongoDB database with Express.js framework for the backend.  API requests were used to communicate with the backend and all responses render JSON back to the frontend which uses React.  React sets up the frontend state such that components are updated in a simple and controlled manner leading to a better UX design.  
