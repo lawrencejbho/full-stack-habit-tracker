@@ -4,17 +4,20 @@
 
 HaTr is a web app that helps you create and maintain good habits, allowing you to achieve your long-term goals. Detailed graphs and statistics show you how your habits improved over time. It is completely ad-free and open source.
 
-## Background
+Use HaTr now here: https://www.hatrlive.com
 
-Habit trackers are valuable tools to increase productivity for any individual and can also be useful for teams.  Currently, habit trackers require users to follow a specific process that is too cumbersome causing users to feel fatigue when using the tool.  HaTr is full servicing allowing users to have more control of their own habit tracking process while still providing deep insights into their habits.  
+## Demo
 
 https://user-images.githubusercontent.com/59160165/211652192-209a8159-25cd-464f-ac5d-ae386834a789.mov
 
 
+## Features 
+* <b>Beautiful, minimalistic and lightweight interface.</b> HaTr has an elegant and minimalistic interface that is optimized for speed making it very easy to use, even for first-time users. 
+* <b>No limitations. </b> Track as many habits as you wish. Loop imposes no artificial limits on how many habits you can have. All features are available to all users. There are no in-app purchases.
+* <b>Completely ad-free and open source.</b> There are no advertisements, annoying notifications or intrusive permissions in this app, and there will never be. The app is completely open-source (MIT).
+* <b>Secure Login with O-Auth</b> Sign in using Google, Facebook, or Github.  
 
-## Project Design
-HaTr was created from scratch over a 6 month period starting in April 2022 to help me learn full stack development.  Planning and development has changed many times as I've gone through obstacles at each phase of the project.  New features are continuously added to the project as I use this to help track my own learning and productivity.  
-
+* Habit Tracking can be done using a counter, entered in manually, using pomodoro timers, or clicking on a specific date for the habit's yearly graph
 
 
 
@@ -24,10 +27,3 @@ HaTr was built using a MongoDB database with Express.js framework for the backen
 
 Additional Sources:
 * [MERN Stack](http://mern.io/)
-
-## Features 
-* Habits 
-* Habit Tracking can be done using a counter, entered in manually, using pomodoro timers, or clicking on a specific date for the habit's yearly graph
-* Github like habit trakcing graphs per habit 
-* O-Auth, which allows sign in via Google, Facebook, or LinkedIn
-User Authorization utilizes Google passport to incorporate different methods of logging in. User login is required to use the app and view your own habits.  The user will be redirected to the login page if trying to use the app and they are not currently signed in.
