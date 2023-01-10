@@ -18,6 +18,7 @@ import Analytics from "./pages/Productivity/Analytics.js";
 import Counters from "./pages/Productivity/Counters.js";
 import Home from "./pages/Home.js";
 import Login from "./pages/Login.js";
+import License from "./pages/License.js";
 import Dashboard from "./pages/Dashboard.js";
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/license" element={<License />} />
 
           <Route
             path="/productivity"
