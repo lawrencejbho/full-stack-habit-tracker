@@ -3,6 +3,8 @@ import Mango from "../images/mango.png";
 import HabitTracker from "../images/habittracker.png";
 import Pomodoro from "../images/pomodoro.png";
 import Analytics from "../images/analytics.png";
+import SettingsIcon from "../images/settings.png";
+
 import SidebarNavlink from "./SidebarNavlink.js";
 
 function Sidebar() {
@@ -31,6 +33,11 @@ function Sidebar() {
             name="Analytics"
             image={Analytics}
             path="/productivity/analytics"
+          />
+          <SidebarNavlink
+            name="Settings"
+            image={SettingsIcon}
+            path="/productivity/settings"
           />
         </ul>
       </nav>

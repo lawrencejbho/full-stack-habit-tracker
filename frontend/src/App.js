@@ -16,6 +16,7 @@ import Pomodoro from "./pages/Productivity/Pomodoro.js";
 import NotFound from "./pages/NotFound.js";
 import Analytics from "./pages/Productivity/Analytics.js";
 import Counters from "./pages/Productivity/Counters.js";
+import UserSettings from "./pages/Productivity/UserSettings.js";
 import Home from "./pages/Home.js";
 import Login from "./pages/Login.js";
 import License from "./pages/License.js";
@@ -69,11 +70,15 @@ function App() {
               path="pomodoro"
               element={<Pomodoro title="Pomodoro / HaTr" userId={userId} />}
             />
-
             <Route
               exact
               path="analytics"
               element={<Analytics title="Analytics / HaTr" userId={userId} />}
+            />
+            <Route
+              exact
+              path="settings"
+              element={<UserSettings title="Settings / HaTr" userId={userId} />}
             />
             <Route
               exact
