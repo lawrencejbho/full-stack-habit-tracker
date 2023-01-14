@@ -109,7 +109,8 @@ function ContributionGraph(props) {
   also had some problems with getting it to render the month, then 7 boxes so I just created them as two separate components
   from there it's mostly just using css and html to get the proper lineup.  
 
-  This loads up the first 
+  This loads up the first month immediately then will check if we're close to the next month on each 7th day.  The spacing is done using css
+  and it's not perfect but should be pretty good and unnoticeable.
   */
   return (
     <div className="contribution-graph-box-container">
@@ -149,7 +150,7 @@ function ContributionGraph(props) {
                       {month[newMonth + 1].slice(0, 3)}
                     </div>
                   );
-                } else if (newDay == 1 && currentMonth !== newMonth) {
+                } else if (newDay === 1 && currentMonth !== newMonth) {
                   currentMonth = newMonth;
                   return (
                     <div key={entry.date}>{month[newMonth].slice(0, 3)}</div>
@@ -161,9 +162,6 @@ function ContributionGraph(props) {
                       className="contribution-graph-month-gap"
                     ></div>
                   );
-                  {
-                    /* return <div key={entry.date} >&emsp;</div>; */
-                  }
                 }
               }
               return null;
