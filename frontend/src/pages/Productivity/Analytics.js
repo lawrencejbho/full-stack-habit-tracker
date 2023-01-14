@@ -26,6 +26,8 @@ function Analytics(props) {
   const openDashboard = Boolean(anchorElDashboard);
   const openStyles = Boolean(anchorElStyles);
 
+  // type annotation here, but it's not typescript, should try removing it
+
   const handleClickDashboard = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElDashboard(event.currentTarget);
   };
@@ -72,7 +74,7 @@ function Analytics(props) {
     return () => {}; // fixes an error where useEffect is not returning anything
   }, [renderState]);
 
-  // add timestamps to Day, same logic as what we are using in HabitTracker.js
+  // add timestamps to Day, same logic as what we are using in HabitTracker
   // we'll use the dates in Contribution Graph to be passed upwards to the parent Analytics so that we can help calculate our time offset
   function addTimestamps(date) {
     function calculateOffset() {

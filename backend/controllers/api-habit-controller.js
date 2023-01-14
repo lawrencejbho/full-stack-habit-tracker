@@ -16,6 +16,9 @@ const habitSchema = require("../models/habitSchema");
 const HabitModel = mongoose.model("HabitModel", habitSchema);
 const calendarSchema = require("../models/calendarSchema");
 const CalendarModel = mongoose.model("CalendarModel", calendarSchema);
+const counterSchema = require("../models/counterSchema");
+const { add } = require("../models/habitSchema");
+const CounterModel = mongoose.model("CounterModel", counterSchema);
 
 // this doesn't get used but it's helpful to see what is createMany doing
 const createHabit = (req, res) => {
@@ -233,6 +236,47 @@ const convertDateToUnixTime = (dateString) => {
   return date.getTime() / 1000;
 };
 
+const createCounter = (req, res) => {
+  console.log(req.body);
+  const counter = new CounterModel({
+    user_id: req.body.user_id,
+    counter_name: req.body.counter_name,
+    id: req.body.id,
+    notes: req.body.notes,
+    timezone: req.body.timezone,
+    timestamps: [],
+  });
+  counter.save();
+};
+
+const getCounters = (req, res) => {
+  console.log(req.body);
+  CounterModel.find({ user_id: req.body.user_id })
+    .then((entry) => {
+      // console.log(entry);
+      res.json(entry);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const addCounterTimestamps = (req, res) => {
+  // console.log(req.body);
+  const filter = {
+    habit_name: req.body.counter_name,
+    user_id: req.body.user_id,
+  };
+  const update = { $push: { timestamps: req.body.timestamp } };
+  CounterModel.findOneAndUpdate(filter, update)
+    .then(() => {
+      console.log("added counter timestamp");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 exports.createHabit = createHabit;
 exports.getHabit = getHabit;
 exports.deleteHabit = deleteHabit;
@@ -247,3 +291,7 @@ exports.clearTodayTimestamps = clearTodayTimestamps;
 exports.createCalendar = createCalendar;
 exports.updateCalendar = updateCalendar;
 exports.getCalendar = getCalendar;
+
+exports.createCounter = createCounter;
+exports.getCounters = getCounters;
+exports.addCounterTimestamps = addCounterTimestamps;

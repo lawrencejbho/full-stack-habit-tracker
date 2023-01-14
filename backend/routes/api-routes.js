@@ -48,6 +48,12 @@ router.get(
   apiHabitController.clearTodayTimestamps
 );
 
+// counters
+
+router.get("/counter-get", apiHabitController.getCounters);
+router.post("/counter-create", apiHabitController.createCounter);
+router.post("/counter-add-timestamp", apiHabitController.addCounterTimestamps);
+
 // landing page
 
 router.post("/create-email-object", apiLandingController.createEmailObject);

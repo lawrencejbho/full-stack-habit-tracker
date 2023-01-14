@@ -2,14 +2,74 @@
 import React, { useEffect, useState } from "react";
 
 function Counter(props) {
+  const [newCounterName, setNewCounterName] = useState("");
+  const [userCounters, setUserCounters] = useState({});
+  const [currentCounterName, setCurrentCounterName] = useState("");
+
+  function handleChange(event) {
+    setNewCounterName(event.target.value);
+  }
+
   useEffect(() => {
     document.title = props.title;
   }, []);
 
+  const GetCounters = () => {
+    useEffect(() => {
+      fetch("/api/counter-get")
+        .then((res) => res.json())
+        .then((res) => {
+          setUserCounters(res);
+        });
+    }, []);
+  };
+
+  GetCounters();
+
+  const createCounter = () => {
+    let data = {
+      user_id: props.userId,
+      counter_name: newCounterName,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    fetch("/api/counter-create", requestOptions).then();
+  };
+
+  const addCounterTimestamps = () => {
+    const currentTime = () => {
+      const currentTime = new Date().getTime();
+      return Math.floor(currentTime / 1000);
+    };
+
+    let data = {
+      user_id: props.userId,
+      counter_name: currentCounterName,
+      timestamps: currentTime(),
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    fetch("/api/counter-add-timestamp", requestOptions).then();
+  };
+
   return (
     <div>
-      <h1> test</h1>
-      <input type="search" />
+      <input
+        type="text"
+        placeholder="Enter your counter's name"
+        className=""
+        value={newCounterName}
+        onChange={handleChange}
+      ></input>
+      <button onClick={createCounter}>New Counter</button>
+      <button onClick={addCounterTimestamps}>Add Timestamp </button>
     </div>
   );
 }
