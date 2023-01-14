@@ -33,7 +33,6 @@ function ContributionGraph(props) {
     fetch("/api/calendar-get")
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res);
         setHabitData(res);
       });
   }, []);
@@ -57,8 +56,9 @@ function ContributionGraph(props) {
           const searchObjectIndex = habitData.findIndex(
             (day) => day.date === date
           );
-          // console.log(habitData[searchObjectIndex]);
-          habitData[searchObjectIndex].count++;
+          if (searchObjectIndex >= 0) {
+            habitData[searchObjectIndex].count++;
+          }
         }
       });
     }
