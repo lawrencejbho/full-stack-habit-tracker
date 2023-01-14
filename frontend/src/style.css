@@ -426,7 +426,7 @@ ul {
   /* background-color: rgba(192, 192, 192, 0.4);  rgba - much easier to use this versus using opacity because it only affects the specific element */
   background-color: #E5EFF5;
   height: 100vh;
-  width: 400px;
+  width: auto;
   border-radius: 5px;
   /* display: flex; */
   padding: 20px;

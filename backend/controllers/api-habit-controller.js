@@ -174,7 +174,11 @@ const currentTime = () => {
 
 // create one document in the calendar collection first
 const createCalendar = () => {
-  const calendar = new CalendarModel({ date: "October 1, 2021", count: 0 });
+  const calendar = new CalendarModel({
+    date: "January 1, 2022",
+    count: 0,
+    index: 1,
+  });
   calendar.save();
 };
 
@@ -197,6 +201,7 @@ const calculateOffset = (timeOfLastEntry) => {
   let unixTimeOfLastEntry = convertDateToUnixTime(timeOfLastEntry);
   let timeOffset = currentTime() - unixTimeOfLastEntry;
   let dateArray = [];
+  let current_index = 1;
   while (timeOffset > 86400) {
     unixTimeOfLastEntry = unixTimeOfLastEntry + 86400;
 
@@ -209,8 +214,9 @@ const calculateOffset = (timeOfLastEntry) => {
       }
     );
     // console.log(date);
-    dateArray.push({ date: date, count: 0 });
+    dateArray.push({ date: date, count: 0, index: current_index });
     timeOffset -= 86400;
+    current_index++;
   }
   if (dateArray.length !== 0) {
     console.log("updating calendar");
