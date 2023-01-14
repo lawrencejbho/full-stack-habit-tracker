@@ -263,6 +263,10 @@ a {
 
 }
 
+.contribution-graph-month-gap { 
+  padding-right: .867rem;
+}
+
 .box-container{ 
   width: 100px;
   display: grid;

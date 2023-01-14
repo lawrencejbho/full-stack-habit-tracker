@@ -235,6 +235,7 @@ function Pomodoro(props) {
     return () => {};
   }, [renderState]);
 
+  // this probably could be moved somewhere, also may just have the database update itself on a 24 hour basis
   useEffect(() => {
     const updateCalendar = async () => {
       const data = await fetch("/api/calendar-update");

@@ -9,6 +9,7 @@ function ContributionGraph(props) {
 
   let currentMonth = "";
   let count = 0;
+  let firstMonth = true;
 
   const month = [
     "January",
@@ -24,6 +25,8 @@ function ContributionGraph(props) {
     "November",
     "December",
   ];
+
+  const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   // pull the calendar from database
   useEffect(() => {
@@ -96,10 +99,17 @@ function ContributionGraph(props) {
     return date.getMonth();
   };
 
+  const convertDateToDay = (dateString) => {
+    const date = new Date(dateString);
+    return date.getDate();
+  };
+
   /*
   couldn't find a good way to make the months display all in the same map of the habitData so I just divided it out by two 
   also had some problems with getting it to render the month, then 7 boxes so I just created them as two separate components
-  from there it's mostly just using css and html to get the proper lineup.  It looks pretty good but the spacing is not uniform to the boxes unfortunately
+  from there it's mostly just using css and html to get the proper lineup.  
+
+  This loads up the first 
   */
   return (
     <div className="contribution-graph-box-container">
@@ -121,15 +131,39 @@ function ContributionGraph(props) {
                 return false;
               }
               let newMonth = convertDateToMonth(entry.date);
+              let newDay = convertDateToDay(entry.date);
+
               count++;
+
+              if (firstMonth) {
+                firstMonth = false;
+                currentMonth = newMonth;
+                return (
+                  <div key={entry.date}>{month[newMonth].slice(0, 3)}</div>
+                );
+              }
               if (count % 7 === 1) {
-                if (currentMonth !== newMonth) {
+                if (days[newMonth] - newDay < 6) {
+                  return (
+                    <div key={entry.date}>
+                      {month[newMonth + 1].slice(0, 3)}
+                    </div>
+                  );
+                } else if (newDay == 1 && currentMonth !== newMonth) {
                   currentMonth = newMonth;
                   return (
                     <div key={entry.date}>{month[newMonth].slice(0, 3)}</div>
                   );
                 } else {
-                  return <div key={entry.date}>&emsp;</div>;
+                  return (
+                    <div
+                      key={entry.date}
+                      className="contribution-graph-month-gap"
+                    ></div>
+                  );
+                  {
+                    /* return <div key={entry.date} >&emsp;</div>; */
+                  }
                 }
               }
               return null;
