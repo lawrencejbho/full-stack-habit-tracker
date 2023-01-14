@@ -4,6 +4,7 @@ import HabitTracker from "../images/habittracker.png";
 import Pomodoro from "../images/pomodoro.png";
 import Analytics from "../images/analytics.png";
 import SettingsIcon from "../images/settings.png";
+import Stopwatch from "../images/stopwatch.png";
 
 import SidebarNavlink from "./SidebarNavlink.js";
 
@@ -33,6 +34,11 @@ function Sidebar() {
             name="Analytics"
             image={Analytics}
             path="/productivity/analytics"
+          />
+          <SidebarNavlink
+            name="Counters"
+            image={Stopwatch}
+            path="/productivity/counters"
           />
           <SidebarNavlink
             name="Settings"
