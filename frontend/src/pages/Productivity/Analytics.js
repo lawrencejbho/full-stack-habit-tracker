@@ -28,29 +28,29 @@ function Analytics(props) {
 
   // type annotation here, but it's not typescript, should try removing it
 
-  const handleClickDashboard = (event: React.MouseEvent<HTMLButtonElement>) => {
+  function handleClickDashboard(event: React.MouseEvent<HTMLButtonElement>) {
     setAnchorElDashboard(event.currentTarget);
-  };
-  const handleClickStyles = (event: React.MouseEvent<HTMLButtonElement>) => {
+  }
+  function handleClickStyles(event: React.MouseEvent<HTMLButtonElement>) {
     setAnchorElStyles(event.currentTarget);
-  };
-  const handleCloseDashboard = () => {
+  }
+  function handleCloseDashboard() {
     setAnchorElDashboard(null);
-  };
+  }
 
-  const handleCloseStyles = () => {
+  function handleCloseStyles() {
     setAnchorElStyles(null);
-  };
+  }
 
   // clicking the menu item will set the habit Id and then render the contribution graph
-  const handleClickDisplayGraph = (event) => {
+  function handleClickDisplayGraph(event) {
     setCurrentHabitId(event.target.id);
     setCurrentHabitName(event.target.getAttribute("name"));
-  };
+  }
 
-  const handleClickGraphStyle = (event) => {
+  function handleClickGraphStyle(event) {
     setCurrentStyle(event.target.id);
-  };
+  }
 
   // contribution graph styles
 
@@ -122,15 +122,15 @@ function Analytics(props) {
     // console.log(habitsUpdateArray);
   }
 
-  const convertDateToUnixTime = (dateString) => {
+  function convertDateToUnixTime(dateString) {
     const date = new Date(dateString);
     return date.getTime() / 1000;
-  };
+  }
 
-  const currentTime = () => {
+  function currentTime() {
     const currentTime = new Date().getTime();
     return Math.floor(currentTime / 1000);
-  };
+  }
 
   // timestamps for each habit are updated every 10 seconds but dividing it out into it's own useEffect
   // I am using the habitsUpdate array so that we're not constantly pushing updates onto the database and we'll only make calls for habits that are getting modified

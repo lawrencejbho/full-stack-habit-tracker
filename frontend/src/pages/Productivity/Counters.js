@@ -14,7 +14,7 @@ function Counter(props) {
     document.title = props.title;
   }, []);
 
-  const GetCounters = () => {
+  function GetCounters() {
     useEffect(() => {
       fetch("/api/counter-get")
         .then((res) => res.json())
@@ -22,11 +22,11 @@ function Counter(props) {
           setUserCounters(res);
         });
     }, []);
-  };
+  }
 
   GetCounters();
 
-  const createCounter = () => {
+  function createCounter() {
     let data = {
       user_id: props.userId,
       counter_name: newCounterName,
@@ -37,9 +37,9 @@ function Counter(props) {
       body: JSON.stringify(data),
     };
     fetch("/api/counter-create", requestOptions).then();
-  };
+  }
 
-  const addCounterTimestamps = () => {
+  function addCounterTimestamps() {
     const currentTime = () => {
       const currentTime = new Date().getTime();
       return Math.floor(currentTime / 1000);
@@ -57,7 +57,7 @@ function Counter(props) {
       body: JSON.stringify(data),
     };
     fetch("/api/counter-add-timestamp", requestOptions).then();
-  };
+  }
 
   return (
     <div>
