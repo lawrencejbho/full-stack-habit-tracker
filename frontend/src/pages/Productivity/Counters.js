@@ -1,10 +1,23 @@
 // counter page to help track based on timing since last, should have good and bad counters
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 function Counter(props) {
   const [newCounterName, setNewCounterName] = useState("");
   const [userCounters, setUserCounters] = useState({});
   const [currentCounterName, setCurrentCounterName] = useState("");
+
+  // react query
+
+  const { status, error, data } = useQuery(["counters"], getCounters);
+
+  function getCounters() {
+    return fetch("/api/counter-get")
+      .then((res) => res.json())
+      .then((res) => {
+        setUserCounters(res);
+      });
+  }
 
   function handleChange(event) {
     setNewCounterName(event.target.value);
@@ -13,18 +26,6 @@ function Counter(props) {
   useEffect(() => {
     document.title = props.title;
   }, []);
-
-  function GetCounters() {
-    useEffect(() => {
-      fetch("/api/counter-get")
-        .then((res) => res.json())
-        .then((res) => {
-          setUserCounters(res);
-        });
-    }, []);
-  }
-
-  GetCounters();
 
   function createCounter() {
     let data = {
