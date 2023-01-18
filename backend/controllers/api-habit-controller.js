@@ -17,7 +17,6 @@ const HabitModel = mongoose.model("HabitModel", habitSchema);
 const calendarSchema = require("../models/calendarSchema");
 const CalendarModel = mongoose.model("CalendarModel", calendarSchema);
 const counterSchema = require("../models/counterSchema");
-const { add } = require("../models/habitSchema");
 const CounterModel = mongoose.model("CounterModel", counterSchema);
 
 // this doesn't get used but it's helpful to see what is createMany doing
@@ -237,7 +236,7 @@ const convertDateToUnixTime = (dateString) => {
 };
 
 const createCounter = (req, res) => {
-  console.log(req.body);
+  console.log("created new counter" + req.body);
   const counter = new CounterModel({
     user_id: req.body.user_id,
     counter_name: req.body.counter_name,
@@ -246,7 +245,7 @@ const createCounter = (req, res) => {
     timezone: req.body.timezone,
     timestamps: [],
   });
-  counter.save();
+  counter.save().then(res.sendStatus(200)); // need to send a response so that useMutation will refetch with onSuccess
 };
 
 const getCounters = (req, res) => {

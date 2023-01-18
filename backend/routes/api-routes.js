@@ -50,7 +50,7 @@ router.get(
 
 // counters
 
-router.get("/counter-get", apiHabitController.getCounters);
+router.post("/counter-get", apiHabitController.getCounters);
 router.post("/counter-create", apiHabitController.createCounter);
 router.post("/counter-add-timestamp", apiHabitController.addCounterTimestamps);
 
