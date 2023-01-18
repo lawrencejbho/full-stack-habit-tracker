@@ -1,15 +1,22 @@
 // counter page to help track based on timing since last, should have good and bad counters
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { nanoid } from "nanoid";
+
+import CounterContainer from "../../components/Counters/CounterContainer";
 
 function Counter(props) {
   const [newCounterName, setNewCounterName] = useState("");
   const [userCounters, setUserCounters] = useState({});
-  const [currentCounterName, setCurrentCounterName] = useState("");
+  const [currentCounterId, setCurrentCounterId] = useState("");
 
   useEffect(() => {
     document.title = props.title;
   }, []);
+
+  useEffect(() => {
+    console.log(currentCounterId);
+  }, [currentCounterId]);
 
   // react query
   const queryClient = useQueryClient();
@@ -48,13 +55,14 @@ function Counter(props) {
     let data = {
       user_id: props.userId,
       counter_name: newCounterName,
+      id: nanoid(),
     };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
-    fetch("/api/counter-create", requestOptions).then((res) => res);
+    return fetch("/api/counter-create", requestOptions).then();
   }
 
   const newCounterTimestamp = useMutation({
@@ -72,7 +80,7 @@ function Counter(props) {
 
     let data = {
       user_id: props.userId,
-      counter_name: currentCounterName,
+      id: currentCounterId,
       timestamps: currentTime(),
     };
 
@@ -81,7 +89,7 @@ function Counter(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
-    fetch("/api/counter-add-timestamp", requestOptions).then();
+    return fetch("/api/counter-add-timestamp", requestOptions).then();
   }
 
   function handleChange(event) {
@@ -91,12 +99,12 @@ function Counter(props) {
   if (getCountersQuery.isLoading) {
     return <h1>Loading....</h1>;
   }
-  if (getCountersQuery.error) {
-    return <pre>{JSON.stringify(getCountersQuery.error)}</pre>;
-  }
-  if (newCounterMutation.isLoading) {
-    console.log("loading");
-  }
+  // if (getCountersQuery.error) {
+  //   return <pre>{JSON.stringify(getCountersQuery.error)}</pre>;
+  // }
+  // if (newCounterMutation.isLoading) {
+  //   console.log("loading");
+  // }
 
   return (
     <div className="tw-h-screen">
@@ -108,23 +116,17 @@ function Counter(props) {
         onChange={handleChange}
       ></input>
       <button
-        disabled={newCounterMutation.isLoading}
+        // disabled={newCounterMutation.isLoading}
         onClick={() => newCounterMutation.mutate()}
       >
         New Counter
       </button>
 
-      <div className="tw-mt-20 tw-flex tw-justify-center tw-items-center">
-        {getCountersQuery.data.map((item) => (
-          <div className="tw-bg-blue-500 tw-h-20 tw-rounded-md  tw-container tw-mb-10 tw-m-10 ">
-            <div>{item.counter_name}</div>
-            <div>{item.timestamp ? item.timestamp : null}</div>
-            <button onClick={() => newCounterTimestamp.mutate()}>
-              Add Timestamp
-            </button>
-          </div>
-        ))}
-      </div>
+      <CounterContainer
+        currentCounterId={setCurrentCounterId}
+        counters={getCountersQuery.data}
+        newCounterTimestamp={newCounterTimestamp}
+      />
     </div>
   );
 }

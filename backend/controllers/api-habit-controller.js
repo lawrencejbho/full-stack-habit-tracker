@@ -31,7 +31,7 @@ const createHabit = (req, res) => {
     timestamps: [],
     today_timestamps: [],
   });
-  habit.save();
+  habit.save().then(() => res.sendStatus(200));
 };
 
 const createMany = (req, res) => {
@@ -39,9 +39,11 @@ const createMany = (req, res) => {
   HabitModel.insertMany(req.body)
     .then(() => {
       console.log("added habits");
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log(error);
+      res.json(error);
     });
 };
 
@@ -54,6 +56,7 @@ const getHabit = (req, res) => {
     })
     .catch((error) => {
       console.log(error);
+      res.json(error);
     });
 };
 
@@ -62,8 +65,10 @@ const deleteHabit = (req, res) => {
   HabitModel.findOneAndDelete({ id: req.body.id }, (error, success) => {
     if (error) {
       console.log(error);
+      res.json(error);
     } else {
       console.log("deleted: " + success);
+      res.sendStatus(200);
     }
   });
 };
@@ -73,9 +78,11 @@ const deleteMany = (req, res) => {
   HabitModel.deleteMany({ id: { $in: req.body } })
     .then(() => {
       console.log("deleted habits");
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log(error);
+      res.json(error);
     });
 };
 
@@ -86,9 +93,11 @@ const addTimestamps = (req, res) => {
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
       console.log("added timestamps");
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log(error);
+      res.json(error);
     });
 };
 
@@ -99,9 +108,11 @@ const updateTimestamps = (req, res) => {
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
       console.log("updated timestamps");
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log(error);
+      res.json(error);
     });
 };
 
@@ -161,9 +172,11 @@ const clearTodayTimestamps = (req, res) => {
       HabitModel.findOneAndUpdate(filter, update)
         .then(() => {
           console.log("cleared today_timestamps");
+          res.sendStatus(200);
         })
         .catch((error) => {
           console.log(error);
+          res.json(200);
         });
     }
   });
@@ -181,7 +194,7 @@ const createCalendar = () => {
     count: 0,
     index: 1,
   });
-  calendar.save();
+  calendar.save().then(() => res.sendStatus(200));
 };
 
 // grab the last entry in the collection and then figure out if we need to add additional entries for the missing dates
@@ -245,34 +258,37 @@ const createCounter = (req, res) => {
     timezone: req.body.timezone,
     timestamps: [],
   });
-  counter.save().then(res.sendStatus(200)); // need to send a response so that useMutation will refetch with onSuccess
+  counter.save().then(() => res.sendStatus(200)); // need to send a response so that useMutation will refetch with onSuccess, also make sure to return it inside the then
 };
 
 const getCounters = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   CounterModel.find({ user_id: req.body.user_id })
     .then((entry) => {
       // console.log(entry);
       res.json(entry);
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
+      res.json(error);
     });
 };
 
 const addCounterTimestamps = (req, res) => {
   // console.log(req.body);
   const filter = {
-    habit_name: req.body.counter_name,
     user_id: req.body.user_id,
+    id: req.body.id,
   };
-  const update = { $push: { timestamps: req.body.timestamp } };
+  const update = { $push: { timestamps: req.body.timestamps } };
   CounterModel.findOneAndUpdate(filter, update)
     .then(() => {
-      console.log("added counter timestamp");
+      // console.log("added counter timestamp");
+      res.sendStatus(200);
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
+      res.sendStatus(504);
     });
 };
 
