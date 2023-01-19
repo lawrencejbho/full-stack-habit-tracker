@@ -21,7 +21,7 @@ const CounterModel = mongoose.model("CounterModel", counterSchema);
 
 // this doesn't get used but it's helpful to see what is createMany doing
 const createHabit = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const habit = new HabitModel({
     user_id: req.body.user_id,
     habit_name: req.body.habit_name,
@@ -249,7 +249,7 @@ const convertDateToUnixTime = (dateString) => {
 };
 
 const createCounter = (req, res) => {
-  console.log("created new counter" + req.body);
+  // console.log("created new counter" + req.body);
   const counter = new CounterModel({
     user_id: req.body.user_id,
     counter_name: req.body.counter_name,
