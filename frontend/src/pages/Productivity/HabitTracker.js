@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Habit from "../../components/Habit.js";
 import HabitAdd from "../../components/Habit-Add.js";
-import TodayDate from "../../components/TodayDate.js";
+import TodayDate from "../../utils/TodayDate.js";
 import LoadingSpinner from "../../components/LoadingSpinner.js";
 import LoadingError from "../../components/LoadingError.js";
 
@@ -161,7 +161,7 @@ function HabitTracker(props) {
         const data = await fetch("/auth/get-session-id");
         const get_data = await data.json();
         setUserId(get_data);
-        console.log(get_data);
+        // console.log(get_data);
         props.sharedUserId(get_data);
       };
       getUserId();

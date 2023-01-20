@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+
 import PomodoroTimer from "../../components/PomodoroTimer.js";
 import ContributionGraph from "../../components/ContributionGraph";
 import mango from "../../images/mango.png";
 import "./pomodoro.css";
+
+import LoadingSpinner from "../../components/LoadingSpinner.js";
+import LoadingError from "../../components/LoadingError.js";
 
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 function Pomodoro(props) {
-  const [secondsPomodoro, setSecondsPomodoro] = useState(1500);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(2);
   const [secondsBreak, setSecondsBreak] = useState(300);
   const [isActive, setIsActive] = useState(false);
   const [isBreakActive, setIsBreakActive] = useState(false);
@@ -21,6 +26,8 @@ function Pomodoro(props) {
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [currentHabitName, setCurrentHabitName] = useState("");
   const [renderState, setRenderState] = useState(false);
+
+  const queryClient = useQueryClient();
 
   // MUI code for the dropdown menu
 
@@ -40,6 +47,51 @@ function Pomodoro(props) {
     setCurrentHabitId(event.target.id);
     setCurrentHabitName(event.target.getAttribute("name"));
   };
+
+  // react query
+
+  function wait(duration) {
+    return new Promise((resolve) => setTimeout(resolve, duration));
+  }
+
+  const getHabitsQuery = useQuery({
+    queryKey: ["habits"],
+    queryFn: getHabits,
+  });
+
+  function getHabits() {
+    return axios
+      .post("/api/habit-get", {
+        user_id: props.userId,
+      })
+      .then(function (response) {
+        setHabits(response.data);
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  const updateHabitTimestampsQuery = useMutation({
+    mutationFn: updateHabitTimestamps,
+    onSuccess: () => queryClient.invalidateQueries(["habits"]),
+  });
+
+  function updateHabitTimestamps() {
+    return axios
+      .post("/api/habit-add-timestamps", {
+        habit_name: currentHabitName,
+        user_id: props.userId,
+        timestamps: currentTime(),
+      })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   // not sure if this is the proper way to do this but I leave seconds as the state variable and use a normal variable that uses seconds with derived state
   function timeConversion(seconds) {
@@ -84,28 +136,6 @@ function Pomodoro(props) {
       });
     }
 
-    // add to the pomodoros array in the database when a pomodoro is complete
-    async function updateHabitTimestamps(event) {
-      let data = {
-        habit_name: currentHabitName,
-        user_id: props.userId,
-        timestamps: currentTime(),
-      };
-      console.log(data);
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      };
-
-      fetch("/api/habit-add-timestamps", requestOptions).then((response) => {
-        console.log(response);
-        // I'm not sure if this is actually working.  It's supposed to fetch the habit again after a change is made but it doesn't seem like the renderState is triggering
-        setRenderState((prevValue) => !prevValue);
-        return response.json();
-      });
-    }
-
     if (isActive && secondsPomodoro !== 0) {
       interval = setInterval(() => {
         setSecondsPomodoro((seconds) => seconds - 1);
@@ -116,7 +146,7 @@ function Pomodoro(props) {
       // need to check isActive here or you'll get two notifications
       setIsActive(false);
       notificationPermissionPomodoro();
-      updateHabitTimestamps();
+      updateHabitTimestampsQuery.mutate();
       // this is similar code used in Analytics and HabitTracker, we update the frontend first so that the new contribution gets added immediately
       setHabits((prevHabits) =>
         prevHabits.map((prevHabit) => {
@@ -218,24 +248,7 @@ function Pomodoro(props) {
     return Math.floor(currentTime / 1000);
   };
 
-  useEffect(() => {
-    const getHabits = async () => {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: props.userId }),
-      };
-      const data = await fetch("/api/habit-get", requestOptions);
-      const get_data = await data.json();
-      // console.log(get_data);
-      setHabits(get_data);
-      // setRenderState(true);
-    };
-    getHabits();
-    return () => {};
-  }, [renderState]);
-
-  // this probably could be moved somewhere, also may just have the database update itself on a 24 hour basis
+  //* this probably could be moved somewhere, also may just have the database update itself on a 24 hour basis
   useEffect(() => {
     const updateCalendar = async () => {
       const data = await fetch("/api/calendar-update");
@@ -249,6 +262,23 @@ function Pomodoro(props) {
   useEffect(() => {
     document.title = props.title;
   }, []);
+
+  if (getHabitsQuery.isLoading) {
+    return (
+      <div className="tw-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (getHabitsQuery.isError) {
+    console.log("error");
+    return (
+      <div className="tw-h-screen">
+        <LoadingError />
+      </div>
+    );
+  }
 
   return (
     <div className="main-body">

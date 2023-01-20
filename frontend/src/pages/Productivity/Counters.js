@@ -16,6 +16,10 @@ function Counter(props) {
     document.title = props.title;
   }, []);
 
+  function handleChange(event) {
+    setNewCounterName(event.target.value);
+  }
+
   // helps log the counterID for troubleshooting
   // useEffect(() => {
   //   console.log(currentCounterId);
@@ -31,7 +35,7 @@ function Counter(props) {
 
   const getCountersQuery = useQuery({
     queryKey: ["counters"],
-    queryFn: () => wait(1000).then(getCounters),
+    queryFn: () => wait(1).then(getCounters),
   });
 
   function getCounters() {
@@ -48,7 +52,7 @@ function Counter(props) {
   }
 
   const newCounterMutation = useMutation({
-    mutationFn: () => wait(1000).then(createCounter),
+    mutationFn: () => wait(1).then(createCounter),
     onSuccess: () => {
       queryClient.invalidateQueries(["counters"]);
     },
@@ -69,7 +73,7 @@ function Counter(props) {
   }
 
   const newCounterTimestamp = useMutation({
-    mutationFn: () => wait(1000).then(addCounterTimestamps),
+    mutationFn: () => wait(1).then(addCounterTimestamps),
     onSuccess: () => {
       queryClient.invalidateQueries(["counters"]);
     },
@@ -93,10 +97,6 @@ function Counter(props) {
       body: JSON.stringify(data),
     };
     return fetch("/api/counter-add-timestamp", requestOptions).then();
-  }
-
-  function handleChange(event) {
-    setNewCounterName(event.target.value);
   }
 
   if (getCountersQuery.isLoading) {

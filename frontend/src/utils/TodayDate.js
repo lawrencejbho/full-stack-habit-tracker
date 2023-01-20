@@ -1,9 +1,7 @@
 import React from "react";
 
 function TodayDate() {
-  //code to get the date, use an array of months, and display the date as a string
-  // TODO in the future you'll probably need to initialize this in state
-  // TODO will also need a way to store this into an object so that we can store for analytics
+  // code to get the date, use an array of months, and display the date as a string
 
   let date = new Date();
   const month = [
@@ -26,7 +24,7 @@ function TodayDate() {
 
   return (
     <div>
-      <h4 className="white-text"> {todayDateString}</h4>
+      <h4 className="tw-text-lg"> {todayDateString}</h4>
     </div>
   );
 }

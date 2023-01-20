@@ -27,7 +27,7 @@ function PomodoroTimer(props) {
 
   return (
     <div className="pomodoro-box">
-      <h1 className="white-text">{`${props.minutes}:${props.seconds}`}</h1>
+      <h1 className="tw-font-Roboto">{`${props.minutes}:${props.seconds}`}</h1>
       <button
         className={`timer-button-status-${
           separateLogic() ? "active" : "inactive"
