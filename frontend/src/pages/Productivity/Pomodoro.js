@@ -25,7 +25,6 @@ function Pomodoro(props) {
   const [habits, setHabits] = useState([]);
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [currentHabitName, setCurrentHabitName] = useState("");
-  const [renderState, setRenderState] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -50,13 +49,14 @@ function Pomodoro(props) {
 
   // react query
 
-  function wait(duration) {
-    return new Promise((resolve) => setTimeout(resolve, duration));
-  }
+  // function wait(duration) {
+  //   return new Promise((resolve) => setTimeout(resolve, duration));
+  // }
 
   const getHabitsQuery = useQuery({
     queryKey: ["habits"],
     queryFn: getHabits,
+    refetchOnWindowFocus: false,
   });
 
   function getHabits() {
@@ -261,7 +261,7 @@ function Pomodoro(props) {
   // can pass in the title within the loaded element from react router and then change the document title here
   useEffect(() => {
     document.title = props.title;
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (getHabitsQuery.isLoading) {
     return (

@@ -102,7 +102,7 @@ const addTimestamps = (req, res) => {
 };
 
 const updateTimestamps = (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   const filter = { habit_name: req.body.habit_name, user_id: req.body.user_id };
   const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)

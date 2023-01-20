@@ -36,6 +36,7 @@ function Counter(props) {
   const getCountersQuery = useQuery({
     queryKey: ["counters"],
     queryFn: () => wait(1).then(getCounters),
+    refetchOnWindowFocus: false,
   });
 
   function getCounters() {

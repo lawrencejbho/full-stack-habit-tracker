@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import ContributionGraph from "../../components/ContributionGraph.js";
-
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+
+import LoadingSpinner from "../../components/LoadingSpinner.js";
+import LoadingError from "../../components/LoadingError.js";
 
 function Analytics(props) {
   const [habits, setHabits] = useState([]);
@@ -14,9 +18,9 @@ function Analytics(props) {
 
   const [habitsUpdateArray, setHabitsUpdateArray] = useState([]);
 
-  const [renderState, setRenderState] = useState(false);
-
   const [randomColor, setRandomColor] = useState("");
+
+  const queryClient = useQueryClient();
 
   // MUI code for the dropdown menu
 
@@ -55,24 +59,6 @@ function Analytics(props) {
   // contribution graph styles
 
   const colorStyles = ["Random", "Default", "Halloween", "Christmas"];
-
-  // setHabits to pull from our database
-  useEffect(() => {
-    const getHabits = async () => {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: props.userId }),
-      };
-      const data = await fetch("/api/habit-get", requestOptions);
-      const get_data = await data.json();
-      // console.log(get_data);
-      setHabits(get_data);
-      // setRenderState(true);
-    };
-    getHabits();
-    return () => {}; // fixes an error where useEffect is not returning anything
-  }, [renderState]);
 
   // add timestamps to Day, same logic as what we are using in HabitTracker
   // we'll use the dates in Contribution Graph to be passed upwards to the parent Analytics so that we can help calculate our time offset
@@ -132,37 +118,105 @@ function Analytics(props) {
     return Math.floor(currentTime / 1000);
   }
 
+  // React Queries
+
+  const getHabitsQuery = useQuery({
+    queryKey: ["habits"],
+    queryFn: getHabits,
+    refetchOnWindowFocus: false,
+  });
+
+  function getHabits() {
+    return axios
+      .post("/api/habit-get", {
+        user_id: props.userId,
+      })
+      .then(function (response) {
+        setHabits(response.data);
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   // timestamps for each habit are updated every 10 seconds but dividing it out into it's own useEffect
   // I am using the habitsUpdate array so that we're not constantly pushing updates onto the database and we'll only make calls for habits that are getting modified
-  useEffect(() => {
-    async function updateTimestamps() {
-      for (const habit of habitsUpdateArray) {
-        let data = {
-          user_id: props.userId,
-          habit_name: habit.habit_name,
-          timestamps: habit.timestamps,
-        };
+  //
+  // useEffect(() => {
+  //   async function updateTimestamps() {
+  //     for (const habit of habitsUpdateArray) {
+  //       let data = {
+  //         user_id: props.userId,
+  //         habit_name: habit.habit_name,
+  //         timestamps: habit.timestamps,
+  //       };
 
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        };
-        fetch("/api/habit-update-timestamps", requestOptions).then(
-          setHabitsUpdateArray(() => {
-            return []; // clear out the array when we're done updating
-          })
-        );
+  //       const requestOptions = {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(data),
+  //       };
+  //       fetch("/api/habit-update-timestamps", requestOptions).then(
+  //         setHabitsUpdateArray(() => {
+  //           return []; // clear out the array when we're done updating
+  //         })
+  //       );
+  //     }
+  //   }
+
+  //   function checkAfterTenSeconds() {
+  //     updateTimestamps();
+  //   }
+
+  //   const timer = setInterval(() => checkAfterTenSeconds(), 10000);
+  //   return () => clearInterval(timer);
+  // }, [habitsUpdateArray]);
+
+  // I think this is working with react query using a loop. Will leave the above code for now in case I need to troubleshoot
+
+  useEffect(() => {
+    function updateMultiple() {
+      for (const habit of habitsUpdateArray) {
+        updateHabitTimestampsQuery.mutate(habit, {
+          onSuccess: () =>
+            queryClient.invalidateQueries(["habits"]).then(
+              // this promise will only happen after the last mutation is finished
+              setHabitsUpdateArray(() => {
+                return []; // clear out the array when we're done updating
+              })
+            ),
+        });
       }
     }
-
+    console.log("test");
     function checkAfterTenSeconds() {
-      updateTimestamps();
+      updateMultiple();
     }
 
     const timer = setInterval(() => checkAfterTenSeconds(), 10000);
     return () => clearInterval(timer);
   }, [habitsUpdateArray]);
+
+  const updateHabitTimestampsQuery = useMutation({
+    mutationFn: (update_habit) => updateHabitTimestamps(update_habit),
+    onSuccess: () => queryClient.invalidateQueries(["habits"]),
+  });
+
+  function updateHabitTimestamps(update_habit) {
+    return axios
+      .post("/api/habit-update-timestamps", {
+        habit_name: update_habit.habit_name,
+        user_id: props.userId,
+        timestamps: update_habit.timestamps,
+      })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     setRandomColor(Math.floor(Math.random() * 0xffffff).toString(16));
@@ -171,6 +225,23 @@ function Analytics(props) {
   useEffect(() => {
     document.title = props.title;
   }, []);
+
+  if (getHabitsQuery.isLoading) {
+    return (
+      <div className="tw-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (getHabitsQuery.isError) {
+    console.log("error");
+    return (
+      <div className="tw-h-screen">
+        <LoadingError />
+      </div>
+    );
+  }
 
   return (
     <div className="main-body">

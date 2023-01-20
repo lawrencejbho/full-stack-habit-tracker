@@ -34,7 +34,7 @@ function Box(props) {
   }
 
   const styles = {
-    backgroundColor: props.color == "Random" ? randomColor() : selector(),
+    backgroundColor: props.color === "Random" ? randomColor() : selector(),
   };
 
   return (
@@ -42,6 +42,7 @@ function Box(props) {
       <Tooltip
         title={`${props.contributions} contributions on ${props.date}`}
         placement="top"
+        key={props.date}
       >
         <div className="box" style={styles} onClick={props.handleClick}></div>
       </Tooltip>
