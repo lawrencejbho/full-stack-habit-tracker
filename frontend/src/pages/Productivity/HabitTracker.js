@@ -144,6 +144,28 @@ function HabitTracker(props) {
 
   // Use filter to keep everything but the currentHabitId which comes when we mouseOver
   function deleteHabit() {
+    // this is to prevent people from randomly deleting my habits
+    const personal_habits = [
+      "Jj1cbuUei5O4vFWJYcinA",
+      "yG0fmUKfLkxcYiWZmzzxP",
+      "Vrn7Vx6tn4LmaswvyXYzm",
+      "nK52HzHw1xiWo0rdbIlYr",
+    ];
+
+    let return_function = false;
+
+    personal_habits.forEach((item) => {
+      if (item === currentHabitId) {
+        console.log(item);
+        return_function = true;
+        return;
+      }
+    });
+
+    if (return_function) {
+      return;
+    }
+
     // remove the habit in state first then remove in database, this will make the website look a lot more snappy
     setHabits((prevHabits) =>
       prevHabits.filter((habit) => habit.id !== currentHabitId)

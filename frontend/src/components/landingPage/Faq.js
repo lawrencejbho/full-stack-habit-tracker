@@ -70,6 +70,7 @@ export default function Faq() {
                   answer={item.answer}
                   selected={item.selected}
                   id={item.id}
+                  key={item.id}
                 />
               );
             })}

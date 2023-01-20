@@ -16,7 +16,7 @@ export default function CounterContainer(props) {
     <div className=" tw-flex tw-justify-center tw-items-center tw-flex-wrap tw-flex-1 tw-gap-5 tw-mt-10">
       {props.counters.map((item, index) => (
         <div
-          className="tw-bg-sky-500  tw-rounded-xl  tw-p-10  hover:tw-bg-sky-700 tw-basis-11/12  md:tw-basis-5/12  lg:tw-basis-1/4"
+          className="tw-bg-sky-500  tw-rounded-xl  tw-p-10  hover:tw-bg-sky-700 tw-basis-[85%]  md:tw-basis-[45%]  lg:tw-basis-[30%]"
           onMouseOver={
             props.newCounterTimestamp.isLoading
               ? null
