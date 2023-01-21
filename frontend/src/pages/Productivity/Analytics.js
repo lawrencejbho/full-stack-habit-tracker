@@ -140,67 +140,12 @@ function Analytics(props) {
       });
   }
 
-  // timestamps for each habit are updated every 10 seconds but dividing it out into it's own useEffect
+  // added timestamps for each habit are updated every 10 seconds
   // I am using the habitsUpdate array so that we're not constantly pushing updates onto the database and we'll only make calls for habits that are getting modified
-  //
-  // useEffect(() => {
-  //   async function updateTimestamps() {
-  //     for (const habit of habitsUpdateArray) {
-  //       let data = {
-  //         user_id: props.userId,
-  //         habit_name: habit.habit_name,
-  //         timestamps: habit.timestamps,
-  //       };
-
-  //       const requestOptions = {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify(data),
-  //       };
-  //       fetch("/api/habit-update-timestamps", requestOptions).then(
-  //         setHabitsUpdateArray(() => {
-  //           return []; // clear out the array when we're done updating
-  //         })
-  //       );
-  //     }
-  //   }
-
-  //   function checkAfterTenSeconds() {
-  //     updateTimestamps();
-  //   }
-
-  //   const timer = setInterval(() => checkAfterTenSeconds(), 10000);
-  //   return () => clearInterval(timer);
-  // }, [habitsUpdateArray]);
-
-  // I think this is working with react query using a loop. Will leave the above code for now in case I need to troubleshoot
-
-  useEffect(() => {
-    function updateMultiple() {
-      for (const habit of habitsUpdateArray) {
-        updateHabitTimestampsQuery.mutate(habit, {
-          onSuccess: () =>
-            queryClient.invalidateQueries(["habits"]).then(
-              // this promise will only happen after the last mutation is finished
-              setHabitsUpdateArray(() => {
-                return []; // clear out the array when we're done updating
-              })
-            ),
-        });
-      }
-    }
-    console.log("test");
-    function checkAfterTenSeconds() {
-      updateMultiple();
-    }
-
-    const timer = setInterval(() => checkAfterTenSeconds(), 10000);
-    return () => clearInterval(timer);
-  }, [habitsUpdateArray]);
 
   const updateHabitTimestampsQuery = useMutation({
     mutationFn: (update_habit) => updateHabitTimestamps(update_habit),
-    onSuccess: () => queryClient.invalidateQueries(["habits"]),
+    // onSuccess: () => queryClient.invalidateQueries(["habits"]), This isn't needed as the onSuccess in mutate() will bunch the queries together.
   });
 
   function updateHabitTimestamps(update_habit) {
@@ -217,6 +162,28 @@ function Analytics(props) {
         console.log(error);
       });
   }
+
+  useEffect(() => {
+    function updateMultiple() {
+      for (const habit of habitsUpdateArray) {
+        updateHabitTimestampsQuery.mutate(habit, {
+          onSuccess: () =>
+            queryClient.invalidateQueries(["habits"]).then(
+              // queryClient is pretty smart so this single promise will only happen after the very last mutation is finished
+              setHabitsUpdateArray(() => {
+                return []; // make sure we clear out the array when we're done updating
+              })
+            ),
+        });
+      }
+    }
+    function checkAfterTenSeconds() {
+      updateMultiple();
+    }
+
+    const timer = setInterval(() => checkAfterTenSeconds(), 3000);
+    return () => clearInterval(timer);
+  }, [habitsUpdateArray]);
 
   useEffect(() => {
     setRandomColor(Math.floor(Math.random() * 0xffffff).toString(16));

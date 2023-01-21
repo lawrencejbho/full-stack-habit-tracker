@@ -15,7 +15,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 function Pomodoro(props) {
-  const [secondsPomodoro, setSecondsPomodoro] = useState(2);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(1500);
   const [secondsBreak, setSecondsBreak] = useState(300);
   const [isActive, setIsActive] = useState(false);
   const [isBreakActive, setIsBreakActive] = useState(false);
@@ -323,7 +323,7 @@ function Pomodoro(props) {
         })}
       </Menu>
       <h1 className="black-text">{currentHabitName}</h1>
-      {currentHabitId !== "" && (
+      {currentHabitId !== "" ? (
         <div className="timer-container">
           <PomodoroTimer
             minutes={pomodoroTimeDisplay.minutes}
@@ -348,7 +348,7 @@ function Pomodoro(props) {
             type="break"
           />
         </div>
-      )}
+      ) : null}
 
       <div className="contribution-graph-container">
         {habits.map((habit, index) => {

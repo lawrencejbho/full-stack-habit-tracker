@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
-import axios from "axios"; // axios is better with react query than fetch because fetch doesn't treat 4xx errors as failed promises
+import axios from "axios";
 
 import CounterContainer from "../../components/Counters/CounterContainer";
 import LoadingSpinner from "../../components/LoadingSpinner.js";
@@ -29,13 +29,13 @@ function Counter(props) {
   const queryClient = useQueryClient();
 
   // use this to test out if loading is working
-  function wait(duration) {
-    return new Promise((resolve) => setTimeout(resolve, duration));
-  }
+  // function wait(duration) {
+  //   return new Promise((resolve) => setTimeout(resolve, duration));
+  // }
 
   const getCountersQuery = useQuery({
     queryKey: ["counters"],
-    queryFn: () => wait(1).then(getCounters),
+    queryFn: getCounters,
     refetchOnWindowFocus: false,
   });
 
@@ -53,28 +53,29 @@ function Counter(props) {
   }
 
   const newCounterMutation = useMutation({
-    mutationFn: () => wait(1).then(createCounter),
+    mutationFn: createCounter,
     onSuccess: () => {
       queryClient.invalidateQueries(["counters"]);
     },
   });
 
   function createCounter() {
-    let data = {
-      user_id: props.userId,
-      counter_name: newCounterName,
-      id: nanoid(),
-    };
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-    return fetch("/api/counter-create", requestOptions).then();
+    return axios
+      .post("/api/counter-create", {
+        user_id: props.userId,
+        counter_name: newCounterName,
+        id: nanoid(),
+      })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const newCounterTimestamp = useMutation({
-    mutationFn: () => wait(1).then(addCounterTimestamps),
+    mutationFn: addCounterTimestamps,
     onSuccess: () => {
       queryClient.invalidateQueries(["counters"]);
     },
@@ -86,18 +87,18 @@ function Counter(props) {
       return Math.floor(currentTime / 1000);
     };
 
-    let data = {
-      user_id: props.userId,
-      id: currentCounterId,
-      timestamps: currentTime(),
-    };
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-    return fetch("/api/counter-add-timestamp", requestOptions).then();
+    return axios
+      .post("/api/counter-add-timestamp", {
+        user_id: props.userId,
+        id: currentCounterId,
+        timestamps: currentTime(),
+      })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   if (getCountersQuery.isLoading) {
