@@ -15,8 +15,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 function Pomodoro(props) {
-  const [secondsPomodoro, setSecondsPomodoro] = useState(1500);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(2);
   const [secondsBreak, setSecondsBreak] = useState(300);
+
+  const [endPomodoro, setEndPomodoro] = useState(0);
+  const [endBreak, setEndBreak] = useState(0);
+
   const [isActive, setIsActive] = useState(false);
   const [isBreakActive, setIsBreakActive] = useState(false);
   const pomodoroTimeDisplay = timeConversion(secondsPomodoro);
@@ -113,7 +117,14 @@ function Pomodoro(props) {
     return time;
   }
 
-  // first useEffect for the Pomodoro timer
+  // this makes it so that we hold the ending time and change the value whenever the timer is active
+  useEffect(() => {
+    if (isActive) {
+      setEndPomodoro(currentTime() + secondsPomodoro);
+    }
+  }, [isActive]);
+
+  // decrements our timer and checks against our end time, sends notification when timer hits 0, creates a timestamp
   useEffect(() => {
     let interval = null;
 
@@ -140,8 +151,16 @@ function Pomodoro(props) {
       interval = setInterval(() => {
         setSecondsPomodoro((seconds) => seconds - 1);
       }, 1000);
+      // this is kind of a hacky way to get the real time.  If this isn't used, the timer will decrement slower when the app is in background.
+      if (endPomodoro !== 0) {
+        let realTime = endPomodoro - currentTime();
+        if (secondsPomodoro > realTime + 1) {
+          setSecondsPomodoro(realTime);
+        }
+      }
     } else if (!isActive && secondsPomodoro !== 0) {
       clearInterval(interval);
+      setEndPomodoro(0);
     } else if (isActive && secondsPomodoro === 0) {
       // need to check isActive here or you'll get two notifications
       setIsActive(false);
@@ -164,6 +183,12 @@ function Pomodoro(props) {
     }
     return () => clearInterval(interval); // return clearInterval for clean up
   }, [isActive, secondsPomodoro]); // need isActive here in the dependency array to start the useEffect or secondsPomodoro will never go down
+
+  useEffect(() => {
+    if (isBreakActive) {
+      setEndBreak(currentTime() + secondsBreak);
+    }
+  }, [isBreakActive]);
 
   // second useEffect for the Break timer, almost exactly the same
   useEffect(() => {
@@ -193,8 +218,16 @@ function Pomodoro(props) {
       interval = setInterval(() => {
         setSecondsBreak((seconds) => seconds - 1);
       }, 1000);
+      if (endBreak !== 0) {
+        let realTime = endBreak - currentTime();
+        if (secondsBreak > realTime + 1) {
+          console.log("hit");
+          setSecondsBreak(realTime);
+        }
+      }
     } else if (!isBreakActive && secondsBreak !== 0) {
       clearInterval(interval);
+      setEndBreak(0);
     } else if (isBreakActive && secondsBreak === 0) {
       setIsBreakActive(false);
       notificationPermissionBreak();
@@ -212,6 +245,7 @@ function Pomodoro(props) {
 
   function resetPomodoro() {
     setSecondsPomodoro(1500);
+    setEndPomodoro(0);
     if (!isBreakActive) setSecondsBreak(300);
     setIsActive(false);
     // isPomodoro = false;
