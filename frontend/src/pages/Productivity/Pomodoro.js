@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 function Pomodoro(props) {
   const [secondsPomodoro, setSecondsPomodoro] = useState(2);
-  const [secondsBreak, setSecondsBreak] = useState(300);
+  const [secondsBreak, setSecondsBreak] = useState(2);
 
   const [endPomodoro, setEndPomodoro] = useState(0);
   const [endBreak, setEndBreak] = useState(0);
@@ -156,6 +156,8 @@ function Pomodoro(props) {
         let realTime = endPomodoro - currentTime();
         if (secondsPomodoro > realTime + 1) {
           setSecondsPomodoro(realTime);
+        } else if (realTime == 0) {
+          setSecondsPomodoro(0);
         }
       }
     } else if (!isActive && secondsPomodoro !== 0) {
