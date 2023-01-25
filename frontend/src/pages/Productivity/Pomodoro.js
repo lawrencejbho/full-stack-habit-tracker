@@ -15,8 +15,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 function Pomodoro(props) {
-  const [secondsPomodoro, setSecondsPomodoro] = useState(2);
-  const [secondsBreak, setSecondsBreak] = useState(2);
+  const [secondsPomodoro, setSecondsPomodoro] = useState(1500);
+  const [secondsBreak, setSecondsBreak] = useState(300);
 
   const [endPomodoro, setEndPomodoro] = useState(0);
   const [endBreak, setEndBreak] = useState(0);
@@ -223,7 +223,6 @@ function Pomodoro(props) {
       if (endBreak !== 0) {
         let realTime = endBreak - currentTime();
         if (secondsBreak > realTime + 1) {
-          console.log("hit");
           setSecondsBreak(realTime);
         }
       }
@@ -308,7 +307,6 @@ function Pomodoro(props) {
   }
 
   if (getHabitsQuery.isError) {
-    console.log("error");
     return (
       <div className="tw-h-screen">
         <LoadingError />
