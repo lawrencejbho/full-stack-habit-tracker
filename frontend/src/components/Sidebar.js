@@ -16,7 +16,7 @@ function Sidebar() {
           <img className="tw-top-0 tw-w-32" src={Habby} alt="habby-icon" />
         </div>
 
-        <div className="sidebar-list ">
+        <div className="sidebar-list tw-line- ">
           <SidebarNavlink
             name="Habit Tracker"
             image={HabitTracker}
