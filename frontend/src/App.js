@@ -88,7 +88,7 @@ function App() {
               element={<Counters title="Counters / Habby" userId={userId} />}
             />
           </Route>
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </Router>
     </>
