@@ -345,7 +345,6 @@ ul {
 }
 
 .sidebar-title { 
-  margin-top: 10px;
   display: flex;
   margin-left: 10px;
   align-items: center;
@@ -357,8 +356,8 @@ ul {
 }
 
 .sidebar-list { 
-  padding-top: 5px;
   text-indent: 15px; /* use this instead of padding/margin to make the div the entire block */
+  line-height: 40px;
 }
 
 .sidebar-list-block { 

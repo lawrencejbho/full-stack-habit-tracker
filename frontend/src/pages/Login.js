@@ -9,17 +9,16 @@ import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
-import Mango from "../images/mango.png";
+import Habby from "../images/habby.svg";
 
 function Login() {
   return (
     <>
       <div className="tw-font-Poppins">
-        <div className="tw-container tw-mt-4 tw-flex tw-items-start sm:tw-mt-12 ">
+        <div className="tw-container tw-mt-4 tw-flex tw-items-center sm:tw-mt-12 ">
           <div className="tw-py-3">
-            <img src={Mango} className="tw-w-12" />
+            <img src={Habby} className="tw-w-32" />
           </div>
-          <h1 className="tw-text-bookmark-blue tw-px-1">HaTr</h1>
         </div>
       </div>
       <div className="access-container tw-mt-10">

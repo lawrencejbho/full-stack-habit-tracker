@@ -2,8 +2,6 @@ import Feature1 from "../../images/landingPage/features-habit.png";
 import Feature2 from "../../images/landingPage/features-pomodoro.png";
 import Feature3 from "../../images/landingPage/features-contribution.png";
 
-import { useRef } from "react";
-
 export default function Features() {
   return (
     <>
@@ -11,10 +9,10 @@ export default function Features() {
         {/* Heading */}
         <div className="tw-mx-auto tw-px-2 sm:tw-w-3/4 lg:tw-w-5/12">
           <h1 className="tw-text-center tw-text-3xl tw-text-bookmark-blue">
-            How It Works?
+            Consistency is key
           </h1>
           <p className="tw-mt-4 tw-text-center tw-text-lg tw-text-bookmark-grey">
-            HaTr is a free habit-building and productivity app designed to help
+            Habby is a free habit-building and productivity app designed to help
             you focus on what truly matters. Build the best version of yourself
             by mastering your habits.
           </p>
@@ -34,7 +32,7 @@ export default function Features() {
               </h3>
               <p className=" tw-font-light tw-text-bookmark-grey">
                 Stay accountable by tracking and managing your Habits and Daily
-                Goals with HaTr's easy-to-use web interface.
+                Goals with Habby's easy-to-use web interface.
               </p>
             </div>
           </div>

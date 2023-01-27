@@ -36,7 +36,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Navigate to="/home" title="Home / HaTr" />}
+            element={<Navigate to="/home" title="Home / Habby" />}
           />
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -60,7 +60,7 @@ function App() {
               path="habit"
               element={
                 <HabitTracker
-                  title="Habits / HaTr"
+                  title="Habits / Habby"
                   sharedUserId={sharedUserId}
                 />
               }
@@ -68,22 +68,24 @@ function App() {
             <Route
               exact
               path="pomodoro"
-              element={<Pomodoro title="Pomodoro / HaTr" userId={userId} />}
+              element={<Pomodoro title="Pomodoro / Habby" userId={userId} />}
             />
             <Route
               exact
               path="analytics"
-              element={<Analytics title="Analytics / HaTr" userId={userId} />}
+              element={<Analytics title="Analytics / Habby" userId={userId} />}
             />
             <Route
               exact
               path="settings"
-              element={<UserSettings title="Settings / HaTr" userId={userId} />}
+              element={
+                <UserSettings title="Settings / Habby" userId={userId} />
+              }
             />
             <Route
               exact
               path="counters"
-              element={<Counters title="Counters / HaTr" userId={userId} />}
+              element={<Counters title="Counters / Habby" userId={userId} />}
             />
           </Route>
           <Route path="*" element={<NotFound />} />

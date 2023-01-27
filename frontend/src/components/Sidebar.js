@@ -1,5 +1,5 @@
 import React from "react";
-import Mango from "../images/mango.png";
+import Habby from "../images/habby.svg";
 import HabitTracker from "../images/habittracker.png";
 import Pomodoro from "../images/pomodoro.png";
 import Analytics from "../images/analytics.png";
@@ -13,11 +13,10 @@ function Sidebar() {
     <>
       <nav>
         <div className="sidebar-title tw-font-Poppins tw-font-semibold tw-contents-center">
-          <img className="tw-w-10" src={Mango} alt="mango-icon" />
-          <div className="tw-px-1 tw-mt-1">HaTr</div>
+          <img className="tw-top-0 tw-w-32" src={Habby} alt="habby-icon" />
         </div>
 
-        <ul className="sidebar-list">
+        <div className="sidebar-list ">
           <SidebarNavlink
             name="Habit Tracker"
             image={HabitTracker}
@@ -45,7 +44,7 @@ function Sidebar() {
             image={SettingsIcon}
             path="/productivity/settings"
           />
-        </ul>
+        </div>
       </nav>
     </>
   );

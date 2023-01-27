@@ -1,16 +1,15 @@
 import Mango from "../../images/mango.png";
+import Habby from "../../images/habby.svg";
 
 import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <div className="tw-font-Poppins">
-      <div className="tw-container tw-mt-4 tw-flex tw-items-start sm:tw-mt-12 ">
-        <div className="tw-py-3">
-          <img src={Mango} className="tw-w-12" />
+      <div className="tw-container tw-flex tw-mt-4 sm:tw-mt-12 tw-items-center ">
+        <div className="tw-py-3 ">
+          <img src={Habby} className="tw-w-32" />
         </div>
-        <h1 className="tw-text-bookmark-blue tw-px-1">HaTr</h1>
-
         <div className="tw-hidden tw-py-5 tw-list-none tw-flex tw-flex-1 tw-items-center tw-justify-end tw-gap-12 tw-text-xs tw-uppercase tw-text-bookmark-blue sm:tw-flex">
           <a href="#features" className="tw-text-inherit">
             <li className="tw-cursor-pointer">Features</li>

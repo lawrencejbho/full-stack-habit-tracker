@@ -15,7 +15,7 @@ export default function Faq() {
     },
     {
       id: "2",
-      question: "Do I need to sign in to use the HaTr?",
+      question: "Do I need to sign in to use the Habby?",
       answer:
         "After clicking Get Started or Login, you can click on Access Test Environment Without Logging In.  This will give you access to the creator's environment and allow you full access to all features.",
       selected: false,
@@ -31,7 +31,7 @@ export default function Faq() {
     {
       id: "4",
       question: "How do i request a new feature?",
-      answer: "All feature requests can be sent to support@hatr.com",
+      answer: "All feature requests can be sent to support@Habby.com",
       selected: false,
     },
   ]);
