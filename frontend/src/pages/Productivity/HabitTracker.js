@@ -221,24 +221,21 @@ function HabitTracker(props) {
   // will try to push today timestamps if the first entry is greater than a day on the backend.  If we get a success, then we'll also clear the today_timestamps for all habits
   // the problem with this right now is that it won't rerender habit tracker
 
-  const CheckTodayTimestamps = () => {
-    useEffect(() => {
-      fetch("/api/habit-push-today-timestamps")
-        .then((res) => {
-          if (res.status === 200) {
-            fetch("/api/habit-clear-today-timestamps").then((res) => {
-              setRenderState((prevValue) => !prevValue); // trying to see if this fixes the problem so we'll update our habits
-              console.log("pushed today timestamps to timestamps");
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }, []);
-  };
-
-  CheckTodayTimestamps();
+  useEffect(() => {
+    fetch("/api/habit-push-today-timestamps")
+      .then((res) => {
+        console.log(res.status);
+        if (res.status === 200) {
+          fetch("/api/habit-clear-today-timestamps").then((res) => {
+            setRenderState((prevValue) => !prevValue); // trying to see if this fixes the problem so we'll update our habits
+            console.log("pushed today timestamps to timestamps");
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   // add and removes for habits are done in state and then put into respective arrays so that they'll make a database call every 10 seconds
   useEffect(() => {

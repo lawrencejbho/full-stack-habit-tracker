@@ -1,4 +1,3 @@
-import HeroImg from "../../images/landingPage/hero-bg.png";
 import HeroImg2 from "../../images/landingPage/main-app2.PNG";
 
 import { Link } from "react-router-dom";
@@ -19,14 +18,14 @@ export default function Hero() {
             </p>
             <div className="tw-flex tw-flex-wrap tw-justify-center tw-gap-6">
               <Link to="/login">
-                <button className="tw-text-white tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-sky-500 tw-via-sky-600 tw-to-sky-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
+                <button className="tw-text-white tw-cursor-pointer tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-sky-500 tw-via-sky-600 tw-to-sky-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
                   Get Started
                 </button>
               </Link>
               <a href="https://www.github.com/lawrencejbho/habit-tracker">
                 <button
                   type="button"
-                  className="tw-text-black tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-slate-50 tw-via-slate-100 tw-to-slate-200  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-from-sky-500 hover:tw-via-sky-600 hover:tw-to-sky-700 hover:tw-text-white"
+                  className="tw-text-black tw-cursor-pointer tw-font-medium tw-text-base tw-bg-gradient-to-r tw-from-slate-50 tw-via-slate-100 tw-to-slate-200  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-from-sky-500 hover:tw-via-sky-600 hover:tw-to-sky-700 hover:tw-text-white"
                 >
                   Github Repo
                 </button>
@@ -36,7 +35,7 @@ export default function Hero() {
           {/* Image */}
           <div className="tw-z-10 tw-mb-2 tw-flex tw-flex-1 tw-justify-center md:tw-mb-16 lg:tw-mb-0">
             <img
-              className="tw-rounded-xl tw-h-full tw-w-full tw-shadow-2xl tw-shadow-sky-900"
+              className="tw-rounded-xl tw-h-[90%] tw-w-[90%] tw-shadow-2xl tw-shadow-sky-900"
               src={HeroImg2}
               alt=""
             />

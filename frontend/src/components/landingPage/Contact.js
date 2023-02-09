@@ -49,7 +49,7 @@ export default function Contact() {
               />
               <button
                 type="button"
-                className="tw-btn tw-text-white tw-text-base tw-flex-1 tw-border-none tw-rounded-md tw-bg-bookmark-red hover:tw-bg-red-500"
+                className="tw-btn tw-text-white tw-text-base tw-flex-1 tw-border-none tw-rounded-md tw-bg-bookmark-red hover:tw-bg-red-500 tw-cursor-pointer"
                 onClick={submitEmail}
               >
                 Join our mailing list

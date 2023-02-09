@@ -61,7 +61,7 @@ export default function Faq() {
             </p>
           </div>
           {/* FAQ Items */}
-          <div className="tw-mx-auto tw-mt-12 tw-flex tw-flex-col sm:tw-w-3/4 lg:tw-w-5/12">
+          <div className="tw-mx-auto tw-mt-12 tw-flex tw-flex-col sm:tw-w-3/4 lg:tw-w-5/12 tw-cursor-pointer">
             {dropdownData.map((item) => {
               return (
                 <Dropdown
@@ -75,7 +75,7 @@ export default function Faq() {
               );
             })}
             <Link to="/login" className="tw-self-center">
-              <button className="tw-text-white tw-mt-8 tw-font-medium tw-text-base tw-self-center tw-bg-gradient-to-r tw-from-sky-500 tw-via-sky-600 tw-to-sky-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
+              <button className="tw-text-white tw-cursor-pointer tw-mt-8 tw-font-medium tw-text-base tw-self-center tw-bg-gradient-to-r tw-from-sky-500 tw-via-sky-600 tw-to-sky-700  tw-shadow-md tw-border-none tw-py-3 tw-px-7 tw-rounded-md hover:tw-text-black hover:tw-from-slate-50 hover:tw-via-slate-100 hover:tw-to-slate-200 ">
                 Get Started
               </button>
             </Link>

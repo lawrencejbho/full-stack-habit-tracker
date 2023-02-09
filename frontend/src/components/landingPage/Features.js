@@ -8,8 +8,8 @@ export default function Features() {
       <div className="tw-mt-20 tw-py-20 tw-font-Poppins" id="features">
         {/* Heading */}
         <div className="tw-mx-auto tw-px-2 sm:tw-w-3/4 lg:tw-w-5/12">
-          <h1 className="tw-text-center tw-text-3xl tw-text-bookmark-blue">
-            Consistency is key
+          <h1 className="tw-text-center tw-font-medium tw-text-3xl tw-text-bookmark-blue">
+            Achieve your goals faster
           </h1>
           <p className="tw-mt-4 tw-text-center tw-text-lg tw-text-bookmark-grey">
             Habby is a free habit-building and productivity app designed to help

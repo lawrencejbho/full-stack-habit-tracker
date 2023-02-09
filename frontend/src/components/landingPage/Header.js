@@ -1,4 +1,3 @@
-import Mango from "../../images/mango.png";
 import Habby from "../../images/habby.svg";
 
 import { Link } from "react-router-dom";
@@ -25,7 +24,7 @@ export default function Header() {
             <button
               type="button"
               className="tw-rounded-md tw-bg-gradient-to-r tw-bg-red-500
- tw-px-7 tw-py-3 tw-uppercase tw-text-white tw-border-none tw-font-light hover:tw-bg-red-600"
+ tw-px-7 tw-py-3 tw-uppercase tw-text-white tw-border-none tw-font-light hover:tw-bg-red-600 tw-cursor-pointer"
             >
               Login
             </button>

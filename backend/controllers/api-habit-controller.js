@@ -153,7 +153,7 @@ const pushTodayTimestamps = (req, res) => {
             console.log("pushed today_timestamps into timestamps");
           })
           .catch((error) => {
-            console.log(error);
+            res.json(error);
           });
       } else {
         console.log("today_timestamps are still from today");
@@ -172,7 +172,6 @@ const clearTodayTimestamps = (req, res) => {
       HabitModel.findOneAndUpdate(filter, update)
         .then(() => {
           console.log("cleared today_timestamps");
-          res.sendStatus(200);
         })
         .catch((error) => {
           console.log(error);
@@ -190,7 +189,7 @@ const currentTime = () => {
 // create one document in the calendar collection first
 const createCalendar = () => {
   const calendar = new CalendarModel({
-    date: "January 1, 2022",
+    date: "February 7, 2022",
     count: 0,
     index: 1,
   });

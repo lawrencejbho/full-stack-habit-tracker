@@ -51,7 +51,10 @@ function Add(props) {
           value={habit.body}
           className="habit-add-input"
         />
-        <button className="habit-new-habit" onClick={createNewHabit}>
+        <button
+          className="habit-new-habit tw-cursor-pointer"
+          onClick={createNewHabit}
+        >
           +
         </button>
       </form>
