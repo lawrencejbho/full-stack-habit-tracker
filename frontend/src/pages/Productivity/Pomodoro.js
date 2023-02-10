@@ -58,7 +58,7 @@ function Pomodoro(props) {
   // }
 
   const getHabitsQuery = useQuery({
-    queryKey: ["habits"],
+    queryKey: ["habits1"],
     queryFn: getHabits,
     refetchOnWindowFocus: false,
   });
@@ -298,7 +298,7 @@ function Pomodoro(props) {
     document.title = props.title;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (getHabitsQuery.isLoading) {
+  if (getHabitsQuery.isLoading || getHabitsQuery.status == "loading") {
     return (
       <div className="tw-h-screen">
         <LoadingSpinner />

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
 import Habit from "../../components/Habit.js";
 import HabitAdd from "../../components/Habit-Add.js";
 import TodayDate from "../../utils/TodayDate.js";
@@ -22,10 +25,9 @@ function HabitTracker(props) {
   const [currentHabitId, setCurrentHabitId] = useState("");
   const [renderState, setRenderState] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
-
   const [userId, setUserId] = useState("");
+
+  const queryClient = useQueryClient();
 
   const currentTime = () => {
     const currentTime = new Date().getTime();
@@ -177,65 +179,88 @@ function HabitTracker(props) {
     });
   }
 
-  const QueryForSessionId = () => {
-    useEffect(() => {
-      const getUserId = async () => {
-        const data = await fetch("/auth/get-session-id");
-        const get_data = await data.json();
-        setUserId(get_data);
-        // console.log(get_data);
-        props.sharedUserId(get_data);
-      };
-      getUserId();
-    }, []);
-  };
+  // React Queries
 
-  QueryForSessionId();
+  const getSessionIdQuery = useQuery({
+    queryKey: ["sessionID"],
+    queryFn: getSessionId,
+    refetchOnWindowFocus: false,
+  });
 
-  // setHabits to pull from our database
-  // * currently we are making two api calls and should set a condition to only check if string length.  I think this is why the loading spinner isn't correct either.
-  useEffect(() => {
-    const getHabits = async () => {
-      setIsLoading(true);
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId }),
-      };
-      try {
-        const data = await fetch("/api/habit-get", requestOptions);
-        const get_data = await data.json();
-        // console.log(get_data);
-        setHabits(get_data);
-        setIsLoading(false);
-      } catch (err) {
-        setErrorMessage(true);
-        setIsLoading(false);
-      }
-    };
-    if (userId.length > 1) {
-      getHabits();
-    }
-  }, [renderState, userId]);
+  function getSessionId() {
+    return axios
+      .get("/auth/get-session-id")
+      .then((response) => {
+        setUserId(response.data);
+        props.sharedUserId(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  }
+
+  // this will send after the sessionId is updated
+  const getHabitsQuery = useQuery({
+    queryKey: ["habits"],
+    queryFn: getHabits,
+    enabled: userId != "",
+    refetchOnWindowFocus: false,
+  });
+
+  function getHabits() {
+    return axios
+      .post("/api/habit-get", {
+        user_id: userId,
+      })
+      .then(function (response) {
+        setHabits(response.data);
+        return response.data;
+      })
+      .catch(function (error) {
+        // console.log(error);
+      });
+  }
 
   // will try to push today timestamps if the first entry is greater than a day on the backend.  If we get a success, then we'll also clear the today_timestamps for all habits
   // the problem with this right now is that it won't rerender habit tracker
 
-  useEffect(() => {
-    fetch("/api/habit-push-today-timestamps")
+  const pushTodayTimestampsQuery = useQuery({
+    queryKey: ["push-today-timestamps"],
+    queryFn: pushTodayTimestamps,
+    refetchOnWindowFocus: false,
+  });
+
+  function pushTodayTimestamps() {
+    return axios
+      .get("/api/habit-push-today-timestamps")
       .then((res) => {
-        console.log(res.status);
-        if (res.status === 200) {
-          fetch("/api/habit-clear-today-timestamps").then((res) => {
-            setRenderState((prevValue) => !prevValue); // trying to see if this fixes the problem so we'll update our habits
-            console.log("pushed today timestamps to timestamps");
-          });
-        }
+        // console.log(res);
+        return res;
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }
+
+  const clearTodayTimestampsQuery = useQuery({
+    queryKey: ["clear-today-timestamps"],
+    queryFn: clearTodayTimestamps,
+    enabled: pushTodayTimestampsQuery?.data?.status == 200,
+    refetchOnWindowFocus: false,
+  });
+
+  function clearTodayTimestamps() {
+    return axios
+      .get("/api/habit-clear-today-timestamps")
+      .then((res) => {
+        // console.log(res);
+        return res;
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  }
 
   // add and removes for habits are done in state and then put into respective arrays so that they'll make a database call every 10 seconds
   useEffect(() => {
@@ -251,7 +276,7 @@ function HabitTracker(props) {
           return []; // clear the array once we make the call, might need to change this to track errors
         })
       );
-      console.log("creating");
+      // console.log("creating");
     }
 
     async function deleteManyHabits() {
@@ -265,7 +290,7 @@ function HabitTracker(props) {
           return []; // clear the array once we make the call, might need to change this to track errors
         })
       );
-      console.log("deleting");
+      // console.log("deleting");
     }
 
     // I'm not sure in the current setup whether there will be multiple calls being made
@@ -317,6 +342,28 @@ function HabitTracker(props) {
     document.title = props.title;
   }, []);
 
+  if (
+    getSessionIdQuery.isLoading ||
+    getHabitsQuery.isLoading ||
+    getSessionIdQuery.isFetching ||
+    getHabitsQuery.isFetching
+  ) {
+    return (
+      <div className="tw-h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (getSessionIdQuery.isError || getHabitsQuery.isError) {
+    console.log("error");
+    return (
+      <div className="tw-h-screen">
+        <LoadingError />
+      </div>
+    );
+  }
+
   return (
     <>
       <main>
@@ -330,18 +377,13 @@ function HabitTracker(props) {
           />
           <div className="break"></div>
 
-          {isLoading && <LoadingSpinner />}
-          {!errorMessage ? (
-            <Habit
-              habits={habits}
-              plusCounter={plusCounter}
-              minusCounter={minusCounter}
-              deleteHabit={deleteHabit}
-              setCurrentHabitId={setCurrentHabitId}
-            />
-          ) : (
-            <LoadingError />
-          )}
+          <Habit
+            habits={habits}
+            plusCounter={plusCounter}
+            minusCounter={minusCounter}
+            deleteHabit={deleteHabit}
+            setCurrentHabitId={setCurrentHabitId}
+          />
         </div>
       </main>
     </>

@@ -10,7 +10,7 @@ export default function Hero() {
           {/* Content */}
           <div className="tw-flex tw-flex-1 tw-flex-col tw-items-center tw-lg:items-start">
             <h2 className="md:tw-text-4 tw-mb-6 tw-text-center tw-text-3xl tw-font-medium tw-text-bookmark-blue lg:tw-text-left lg:tw-text-5xl">
-              Achieve your goals
+              Consistency is key
             </h2>
 
             <p className="tw-mb-6 tw-text-center tw-text-lg tw-text-bookmark-grey lg:tw-text-left">

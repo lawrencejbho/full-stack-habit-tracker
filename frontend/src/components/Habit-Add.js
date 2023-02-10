@@ -38,6 +38,7 @@ function Add(props) {
       today_timestamps: [],
       counter: 0,
     });
+    document.querySelector("input").value = "";
   }
 
   return (

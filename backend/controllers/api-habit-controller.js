@@ -48,7 +48,7 @@ const createMany = (req, res) => {
 };
 
 const getHabit = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   HabitModel.find({ user_id: req.body.user_id })
     .then((entry) => {
       // console.log(entry);
@@ -102,7 +102,7 @@ const addTimestamps = (req, res) => {
 };
 
 const updateTimestamps = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const filter = { habit_name: req.body.habit_name, user_id: req.body.user_id };
   const update = { timestamps: req.body.timestamps };
   HabitModel.findOneAndUpdate(filter, update)
@@ -165,6 +165,7 @@ const pushTodayTimestamps = (req, res) => {
 
 // same logic as push, but we just change today timestamps to be an empty array
 const clearTodayTimestamps = (req, res) => {
+  // console.log(req.body);
   HabitModel.find().then((entry) => {
     for (let i = 0; i < entry.length; i++) {
       let filter = { id: entry[i].id };
@@ -178,6 +179,7 @@ const clearTodayTimestamps = (req, res) => {
           res.json(200);
         });
     }
+    res.sendStatus(200);
   });
 };
 

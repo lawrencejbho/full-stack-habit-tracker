@@ -121,7 +121,7 @@ function Analytics(props) {
   // React Queries
 
   const getHabitsQuery = useQuery({
-    queryKey: ["habits"],
+    queryKey: ["habits2"],
     queryFn: getHabits,
     refetchOnWindowFocus: false,
   });
@@ -193,7 +193,7 @@ function Analytics(props) {
     document.title = props.title;
   }, []);
 
-  if (getHabitsQuery.isLoading) {
+  if (getHabitsQuery.isLoading || getHabitsQuery.status == "loading") {
     return (
       <div className="tw-h-screen">
         <LoadingSpinner />
@@ -202,7 +202,7 @@ function Analytics(props) {
   }
 
   if (getHabitsQuery.isError) {
-    console.log("error");
+    // console.log("error");
     return (
       <div className="tw-h-screen">
         <LoadingError />
