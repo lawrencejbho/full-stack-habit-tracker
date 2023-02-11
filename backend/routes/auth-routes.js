@@ -4,7 +4,7 @@ const passport = require("passport");
 const router = express.Router();
 
 router.get("/get-session-id", (req, res) => {
-  console.log("req.session" + req.session);
+  // console.log("req.session" + req.session);
   if (req.session.passport !== undefined) {
     res.json(req.session.passport.user);
   } else {

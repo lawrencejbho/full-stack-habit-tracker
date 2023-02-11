@@ -37,7 +37,7 @@ function Pomodoro(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -79,7 +79,7 @@ function Pomodoro(props) {
 
   const updateHabitTimestampsQuery = useMutation({
     mutationFn: updateHabitTimestamps,
-    onSuccess: () => queryClient.invalidateQueries(["habits"]),
+    onSuccess: () => queryClient.invalidateQueries(["habits1"]),
   });
 
   function updateHabitTimestamps() {
@@ -283,7 +283,7 @@ function Pomodoro(props) {
     return Math.floor(currentTime / 1000);
   };
 
-  //* this probably could be moved somewhere, also may just have the database update itself on a 24 hour basis
+  //* need to make the backend update the database on a 24 hour basis versus triggering on frontend
   useEffect(() => {
     const updateCalendar = async () => {
       const data = await fetch("/api/calendar-update");

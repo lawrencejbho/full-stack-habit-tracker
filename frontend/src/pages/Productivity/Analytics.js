@@ -32,10 +32,10 @@ function Analytics(props) {
 
   // type annotation here, but it's not typescript, should try removing it
 
-  function handleClickDashboard(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleClickDashboard(event) {
     setAnchorElDashboard(event.currentTarget);
   }
-  function handleClickStyles(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleClickStyles(event) {
     setAnchorElStyles(event.currentTarget);
   }
   function handleCloseDashboard() {
@@ -168,7 +168,7 @@ function Analytics(props) {
       for (const habit of habitsUpdateArray) {
         updateHabitTimestampsQuery.mutate(habit, {
           onSuccess: () =>
-            queryClient.invalidateQueries(["habits"]).then(
+            queryClient.invalidateQueries(["habits2"]).then(
               // queryClient is pretty smart so this single promise will only happen after the very last mutation is finished
               setHabitsUpdateArray(() => {
                 return []; // make sure we clear out the array when we're done updating

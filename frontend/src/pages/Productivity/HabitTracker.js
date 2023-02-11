@@ -263,44 +263,52 @@ function HabitTracker(props) {
   }
 
   // add and removes for habits are done in state and then put into respective arrays so that they'll make a database call every 10 seconds
+
+  // might not need the onSuccess because the display will stay snappy from react and won't show loading
+  const createManyHabitsQuery = useMutation({
+    mutationFn: createManyHabits,
+    // onSuccess: () => queryClient.invalidateQueries(["habits"]),
+  });
+
+  function createManyHabits() {
+    return axios
+      .post("/api/habit-create-many", habitsAddArray)
+      .then((res) => {
+        console.log(res);
+        setHabitsAddArray([]); // clear out the arrays after making the call
+        return res;
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  }
+
+  // might not need the onSuccess because the display will stay snappy from react
+
+  const deleteManyHabitsQuery = useMutation({
+    mutationFn: deleteManyHabits,
+    // onSuccess: () => queryClient.invalidateQueries(["habits"]),
+  });
+
+  function deleteManyHabits() {
+    return axios
+      .post("/api/habit-delete-many", habitsDeleteArray)
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  }
+
   useEffect(() => {
-    async function createManyHabits() {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(habitsAddArray),
-      };
-
-      fetch("/api/habit-create-many", requestOptions).then(
-        setHabitsAddArray(() => {
-          return []; // clear the array once we make the call, might need to change this to track errors
-        })
-      );
-      // console.log("creating");
-    }
-
-    async function deleteManyHabits() {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(habitsDeleteArray),
-      };
-      fetch("/api/habit-delete-many", requestOptions).then(
-        setHabitsDeleteArray(() => {
-          return []; // clear the array once we make the call, might need to change this to track errors
-        })
-      );
-      // console.log("deleting");
-    }
-
-    // I'm not sure in the current setup whether there will be multiple calls being made
-    // but I think this will work for now using the if statements and then clearing out the arrays once the database call goes through
     function checkAfterTenSeconds() {
       if (habitsAddArray.length > 0) {
-        createManyHabits();
+        createManyHabitsQuery.mutate();
       }
       if (habitsDeleteArray.length > 0) {
-        deleteManyHabits();
+        deleteManyHabitsQuery.mutate();
       }
     }
     const timer = setInterval(() => checkAfterTenSeconds(), 10000);
@@ -309,32 +317,41 @@ function HabitTracker(props) {
 
   // timestamps for each habit are updated every 10 seconds but dividing it out into it's own useEffect
   // I am using the habitsUpdate array so that we're not constantly pushing updates onto the database and we'll only make calls for habits that are getting modified
-  useEffect(() => {
-    async function updateTodayTimestamps() {
-      for (const habit of habitsUpdateArray) {
-        let data = {
-          user_id: userId,
-          habit_name: habit.habit_name,
-          today_timestamps: habit.today_timestamps,
-        };
 
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        };
-        fetch("/api/habit-update-today-timestamps", requestOptions).then(
-          setHabitsUpdateArray(() => {
-            return []; // clear out the array when we're done updating
-          })
-        );
+  const updateTodayTimestampsQuery = useMutation({
+    mutationFn: (update_habit) => updateTodayTimestamps(update_habit),
+  });
+
+  function updateTodayTimestamps(update_habit) {
+    return axios
+      .post("/api/habit-update-today-timestamps", {
+        user_id: userId,
+        habit_name: update_habit.habit_name,
+        today_timestamps: update_habit.today_timestamps,
+      })
+      .then((res) => {
+        // console.log(res);
+        return res;
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  }
+
+  // the backend response seems to be very important with how useMutation works. I modified it to sendStatus(200) for each request and then started working perfectly
+  useEffect(() => {
+    function updateTodayTimestamps() {
+      for (const habit of habitsUpdateArray) {
+        updateTodayTimestampsQuery.mutateAsync(habit);
       }
+      setHabitsUpdateArray([]);
     }
 
     function checkAfterTenSeconds() {
       updateTodayTimestamps();
     }
-    const timer = setInterval(() => checkAfterTenSeconds(), 10000);
+
+    const timer = setInterval(() => checkAfterTenSeconds(), 5000);
     return () => clearInterval(timer);
   }, [habitsUpdateArray]);
 

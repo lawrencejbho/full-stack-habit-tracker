@@ -35,7 +35,7 @@ const createHabit = (req, res) => {
 };
 
 const createMany = (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   HabitModel.insertMany(req.body)
     .then(() => {
       console.log("added habits");
@@ -74,7 +74,7 @@ const deleteHabit = (req, res) => {
 };
 
 const deleteMany = (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   HabitModel.deleteMany({ id: { $in: req.body } })
     .then(() => {
       console.log("deleted habits");
@@ -117,13 +117,13 @@ const updateTimestamps = (req, res) => {
 };
 
 const updateTodayTimestamps = (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   const filter = { habit_name: req.body.habit_name, user_id: req.body.user_id };
   const update = { today_timestamps: req.body.today_timestamps };
   HabitModel.findOneAndUpdate(filter, update)
     .then(() => {
       console.log("updated today timestamps");
-      res.status(200);
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.log(error);
@@ -156,7 +156,7 @@ const pushTodayTimestamps = (req, res) => {
             res.json(error);
           });
       } else {
-        console.log("today_timestamps are still from today");
+        // console.log("today_timestamps are still from today");
       }
     }
     res.sendStatus(statusCode);
@@ -165,7 +165,7 @@ const pushTodayTimestamps = (req, res) => {
 
 // same logic as push, but we just change today timestamps to be an empty array
 const clearTodayTimestamps = (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   HabitModel.find().then((entry) => {
     for (let i = 0; i < entry.length; i++) {
       let filter = { id: entry[i].id };
@@ -201,6 +201,7 @@ const createCalendar = () => {
 // grab the last entry in the collection and then figure out if we need to add additional entries for the missing dates
 // this can be used to populate the entire calendar collection when first creating the database after using createCalendar()
 const updateCalendar = () => {
+  // console.log("update");
   //   CalendarModel.insertMany();
   const timeOfLastEntry = CalendarModel.find({})
     .sort({ _id: -1 })
