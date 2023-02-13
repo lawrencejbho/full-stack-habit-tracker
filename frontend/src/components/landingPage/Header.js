@@ -1,5 +1,7 @@
 import Habby from "../../images/habby.svg";
 
+import { Menu } from "@headlessui/react";
+
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -30,8 +32,35 @@ export default function Header() {
             </button>
           </Link>
         </div>
-        <div className="tw-py-6 tw-flex tw-flex-1 tw-justify-end sm:tw-hidden">
-          <i className="fas fa-bars tw-text-2xl tw-pr-2"></i>
+
+        <div className="tw-py-6 tw-flex tw-flex-1 tw-justify-end sm:tw-hidden ">
+          <Menu>
+            <Menu.Button className="tw-border-0 tw-bg-transparent">
+              <i className=" fas fa-bars  tw-text-2xl tw-pr-2"></i>
+            </Menu.Button>
+            <Menu.Items>
+              <Menu.Item>
+                {({ active }) => (
+                  <a
+                    className={`${active && "bg-blue-500"}`}
+                    href="/account-settings"
+                  >
+                    Features
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <a
+                    className={`${active && "bg-blue-500"}`}
+                    href="/account-settings"
+                  >
+                    Documentation
+                  </a>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
         </div>
       </div>
     </div>
