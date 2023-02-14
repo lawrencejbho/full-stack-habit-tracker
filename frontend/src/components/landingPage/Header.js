@@ -33,32 +33,46 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="tw-py-6 tw-flex tw-flex-1 tw-justify-end sm:tw-hidden ">
+        <div className="tw-py-6 tw-flex tw-flex-1 tw-justify-end sm:tw-hidden tw-z-20">
           <Menu>
             <Menu.Button className="tw-border-0 tw-bg-transparent">
               <i className=" fas fa-bars  tw-text-2xl tw-pr-2"></i>
             </Menu.Button>
-            <Menu.Items>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    className={`${active && "bg-blue-500"}`}
-                    href="/account-settings"
-                  >
+            <Menu.Items className="tw-absolute tw-right-0 tw-mt-8  tw-w-28 tw-origin-top-right tw-divide-y tw-divide-gray-100 tw-rounded-md tw-bg-white tw-shadow-lg tw-ring-1 tw-ring-black tw-ring-opacity-5 focus:tw-outline-none">
+              <div className="tw-m-1 tw-p-1 tw-pl-2 tw-rounded-md hover:tw-bg-sky-500 ">
+                <Menu.Item className="">
+                  <a className="tw-text-inherit " href="#features">
                     Features
                   </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    className={`${active && "bg-blue-500"}`}
-                    href="/account-settings"
-                  >
-                    Documentation
-                  </a>
-                )}
-              </Menu.Item>
+                </Menu.Item>
+              </div>
+              <div className="tw-m-1 tw-p-1 tw-pl-2 tw-rounded-md hover:tw-bg-sky-500 ">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a className="tw-text-inherit " href="#faq">
+                      Learn More
+                    </a>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className="tw-m-1 tw-p-1 tw-pl-2 tw-rounded-md hover:tw-bg-sky-500 ">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a className="tw-text-inherit " href="#contact">
+                      Contact
+                    </a>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className="tw-m-1 tw-p-1 tw-pl-2 tw-rounded-md hover:tw-bg-sky-500 ">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a className="tw-text-inherit" href="/login">
+                      Login
+                    </a>
+                  )}
+                </Menu.Item>
+              </div>
             </Menu.Items>
           </Menu>
         </div>
