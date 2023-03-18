@@ -18,7 +18,7 @@ import Analytics from "./pages/Productivity/Analytics.js";
 import Counters from "./pages/Productivity/Counters.js";
 import UserSettings from "./pages/Productivity/UserSettings.js";
 import Home from "./pages/Home.js";
-import Home2 from "./pages/Home3.js";
+// import Home2 from "./pages/Home3.js";
 import Login from "./pages/Login.js";
 import License from "./pages/License.js";
 import Dashboard from "./pages/Dashboard.js";

@@ -5,7 +5,7 @@ import HeroSmall from "../images/hero-small.png";
 import Logo from "../images/logo.svg";
 import LogoHeading from "../images/logo-heading.png";
 
-export default function Home2() {
+export default function Home() {
   return (
     <div className="tw-bg-[#f4ede3] tw-overflow-x-hidden tw-overflow-y-hidden">
       <img
@@ -38,14 +38,6 @@ export default function Home2() {
             Sign In
           </button>
         </a>
-        <a href="/login">
-          <button className="tw-text-xl tw-cursor-pointer tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
-            Sign In
-          </button>
-        </a>
-        <button className="tw-text-xl tw-cursor-pointer tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
-          <a href="/login">Sign In</a>
-        </button>
         <span className="tw-absolute tw-underline tw-bottom-16 tw-font-Popppins tw-font-bold">
           What is this?
         </span>
