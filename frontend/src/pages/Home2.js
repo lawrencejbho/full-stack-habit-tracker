@@ -32,12 +32,11 @@ export default function Home2() {
           src={Hero}
           alt="hero"
         />
-
-        <button className="tw-absolute tw-text-xl tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
-          <a className="tw-text-inherit" href="/login">
+        <a className="tw-text-inherit" href="/login">
+          <button className="tw-absolute tw-text-xl tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
             Sign In
-          </a>
-        </button>
+          </button>
+        </a>
 
         <span className="tw-absolute tw-underline tw-bottom-16 tw-font-Popppins tw-font-bold">
           What is this?
