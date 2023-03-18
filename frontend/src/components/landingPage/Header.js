@@ -80,5 +80,3 @@ export default function Header() {
     </div>
   );
 }
-
-//               className="tw-rounded-md tw-bg-bookmark-red  tw-px-7 tw-py-3 tw-uppercase tw-text-white tw-border-none tw-font-light hover:tw-bg-red-500"
