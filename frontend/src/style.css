@@ -15,6 +15,11 @@ html {
   box-sizing: border-box
 }
 
+
+a {
+  text-decoration: none;
+}
+
 main {
   /* background-color: rgba(192, 192, 192, 0.4);  rgba - much easier to use this versus using opacity because it only affects the specific element  */
   background-color: #E5EFF5;
@@ -27,9 +32,6 @@ main {
   justify-content: center;
 }
 
-a {
-  text-decoration: none;
-}
 
 .middle-body { 
   margin-left: 170px;
@@ -38,6 +40,7 @@ a {
 
 .card-container {
   display: flex;
+  width: 400px;
   flex-direction: row;
   justify-content: space-evenly;
   gap: 5px;
@@ -76,7 +79,7 @@ a {
 .plus {
   width: 50px;
   height: 100px;
-  background-color: aquamarine;
+  background-color: #7fffd4;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   display: flex;
   justify-content: center;
@@ -330,6 +333,13 @@ header {
 
 /* SideBar  */
 
+
+
+ul { 
+  line-height: 40px;
+  padding-left: 0px;
+}
+
 nav { 
   height: 100%;
   width: 170px;
@@ -337,11 +347,6 @@ nav {
   background-color: white;
   border-radius: 2px;
   top: 0;
-}
-
-ul { 
-  line-height: 40px;
-  padding-left: 0px;
 }
 
 .sidebar-title { 

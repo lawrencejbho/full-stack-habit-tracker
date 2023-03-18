@@ -8,6 +8,8 @@ import TodayDate from "../../utils/TodayDate.js";
 import LoadingSpinner from "../../components/LoadingSpinner.js";
 import LoadingError from "../../components/LoadingError.js";
 
+import { PulseLoader } from "react-spinners";
+
 /* 
 I need to move the useEffect's into their own custom functions to make it easier to see what is actually happening 
 */
@@ -366,8 +368,14 @@ function HabitTracker(props) {
     getHabitsQuery.isFetching
   ) {
     return (
-      <div className="tw-h-screen">
-        <LoadingSpinner />
+      <div className="tw-h-screen tw-w-1/3 tw-flex tw-items-center tw-justify-center">
+        <PulseLoader
+          color="#36d7b7"
+          loading="true"
+          size="30"
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       </div>
     );
   }
@@ -383,7 +391,7 @@ function HabitTracker(props) {
 
   return (
     <>
-      <main>
+      <div className="main-body">
         <div className="card-container">
           <TodayDate />
           <div className="break"></div>
@@ -402,7 +410,7 @@ function HabitTracker(props) {
             setCurrentHabitId={setCurrentHabitId}
           />
         </div>
-      </main>
+      </div>
     </>
   );
 }
