@@ -368,7 +368,7 @@ function HabitTracker(props) {
     getHabitsQuery.isFetching
   ) {
     return (
-      <div className="tw-h-screen tw-w-1/3 tw-flex tw-items-center tw-justify-center">
+      <div className="tw-h-screen tw-pt-36 tw-w-1/3 tw-flex tw-justify-center">
         <PulseLoader
           color="#36d7b7"
           loading="true"

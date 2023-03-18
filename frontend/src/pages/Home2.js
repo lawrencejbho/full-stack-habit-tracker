@@ -32,8 +32,8 @@ export default function Home2() {
           src={Hero}
           alt="hero"
         />
-        <a className="tw-text-inherit" href="/login">
-          <button className="tw-absolute tw-text-xl tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
+        <a className="tw-absolute tw-bottom-28 " href="/login">
+          <button className="tw-text-xl tw-cursor-pointer tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
             Sign In
           </button>
         </a>
