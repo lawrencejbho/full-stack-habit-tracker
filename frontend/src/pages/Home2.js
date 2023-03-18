@@ -43,6 +43,9 @@ export default function Home2() {
             Sign In
           </button>
         </a>
+        <button className="tw-text-xl tw-cursor-pointer tw-font-semibold tw-bottom-28 tw-border-transparent tw-rounded-full tw-w-48 tw-h-16 tw-font-Poppins hover:tw-drop-shadow-lg  tw-text-[#e69653] tw-bg-white">
+          <a href="/login">Sign In</a>
+        </button>
         <span className="tw-absolute tw-underline tw-bottom-16 tw-font-Popppins tw-font-bold">
           What is this?
         </span>
