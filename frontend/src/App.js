@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound.js";
 import Analytics from "./pages/Productivity/Analytics.js";
 import Counters from "./pages/Productivity/Counters.js";
 import UserSettings from "./pages/Productivity/UserSettings.js";
+import Home from "./pages/Home.js";
 import Home2 from "./pages/Home2.js";
 import Login from "./pages/Login.js";
 import License from "./pages/License.js";
@@ -38,7 +39,7 @@ function App() {
             path="/"
             element={<Navigate to="/home" title="Home / Habby" />}
           />
-          <Route path="/home" element={<Home2 />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/license" element={<License />} />
@@ -88,7 +89,7 @@ function App() {
               element={<Counters title="Counters / Habby" userId={userId} />}
             />
           </Route>
-          <Route path="*" element={<Home2 />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </Router>
     </>
