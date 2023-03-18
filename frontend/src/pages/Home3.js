@@ -7,7 +7,7 @@ import Faq from "../components/landingPage/Faq.js";
 import Contact from "../components/landingPage/Contact.js";
 import Footer from "../components/landingPage/Footer.js";
 
-function Home() {
+function Home3() {
   return (
     <>
       <Header />
@@ -20,4 +20,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Home3;
