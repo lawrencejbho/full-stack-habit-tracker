@@ -39,7 +39,7 @@ function App() {
             path="/"
             element={<Navigate to="/home" title="Home / Habby" />}
           />
-          <Route path="/home" element={<Home2 />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/license" element={<License />} />
@@ -89,7 +89,7 @@ function App() {
               element={<Counters title="Counters / Habby" userId={userId} />}
             />
           </Route>
-          <Route path="*" element={<Home2 />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </Router>
     </>
