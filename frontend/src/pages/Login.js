@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
-import Habby from "../images/habby.svg";
+import Logo from "../images/logo.svg";
 
 function Login() {
   return (
-    <>
+    <div className="tw-bg-[#f4ede3] tw-h-screen tw-w-screen tw-inline-block">
       <div className="tw-font-Poppins">
-        <div className="tw-container tw-mt-4 tw-flex tw-items-center sm:tw-mt-12 ">
-          <div className="tw-py-3">
-            <img src={Habby} className="tw-w-32" />
+        <div className="tw-container tw-mt-4 tw-flex tw-items-center sm:tw-mt-8 ">
+          <div className="tw-pt-2">
+            <img src={Logo} className="tw-w-20" />
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@ function Login() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

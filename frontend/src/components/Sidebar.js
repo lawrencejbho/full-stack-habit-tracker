@@ -1,5 +1,6 @@
 import React from "react";
 import Habby from "../images/habby.svg";
+import Logo from "../images/logo.svg";
 import HabitTracker from "../images/habittracker.png";
 import Pomodoro from "../images/pomodoro.png";
 import Analytics from "../images/analytics.png";
@@ -12,11 +13,11 @@ function Sidebar() {
   return (
     <>
       <nav>
-        <div className="sidebar-title tw-font-Poppins tw-font-semibold tw-contents-center">
-          <img className="tw-top-0 tw-w-32" src={Habby} alt="habby-icon" />
+        <div className=" tw-font-Poppins tw-flex tw-items-center tw-justify-center">
+          <img className="tw-top-0 tw-w-20" src={Logo} alt="habby-icon" />
         </div>
 
-        <div className="sidebar-list tw-line- ">
+        <div className="sidebar-list ">
           <SidebarNavlink
             name="Habit Tracker"
             image={HabitTracker}
