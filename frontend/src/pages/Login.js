@@ -17,7 +17,7 @@ function Login() {
       <div className="tw-font-Poppins">
         <div className="tw-container tw-mt-4 tw-flex tw-items-center sm:tw-mt-8 ">
           <div className="tw-pt-2">
-            <img src={Logo} className="tw-w-20" />
+            <img src={Logo} className="tw-w-20" alt="logo" />
           </div>
         </div>
       </div>
