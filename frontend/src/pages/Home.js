@@ -5,6 +5,8 @@ import HeroSmall from "../images/hero-small.png";
 import Logo from "../images/logo.svg";
 import LogoHeading from "../images/logo-heading.png";
 
+import AboutModal from "../components/AboutModal";
+
 export default function Home() {
   return (
     <div className="tw-bg-[#f4ede3] tw-h-screen tw-overflow-x-hidden tw-overflow-y-hidden ">
@@ -43,9 +45,10 @@ export default function Home() {
             Sign In
           </button>
         </a>
-        <span className="tw-absolute tw-underline tw-bottom-16 tw-font-Popppins tw-font-bold">
+        {/* <span className="tw-absolute tw-underline tw-bottom-16 tw-font-Popppins tw-font-bold tw-z-20">
           What is this?
-        </span>
+        </span> */}
+        <AboutModal className="tw-z-40" />
       </div>
     </div>
   );
