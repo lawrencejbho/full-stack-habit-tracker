@@ -18,7 +18,7 @@ export default function AboutModal() {
         <button
           type="button"
           onClick={openModal}
-          className="tw-rounded-md tw-font-Rubik tw-bg-black tw-bg-opacity-20 tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-text-white hover:tw-bg-opacity-30 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-white focus-visible:tw-ring-opacity-75"
+          className="tw-rounded-md tw-border-0 tw-font-Rubik tw-bg-black tw-bg-opacity-20 tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-text-white hover:tw-bg-opacity-30 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-white focus-visible:tw-ring-opacity-75"
         >
           About
         </button>
@@ -52,16 +52,32 @@ export default function AboutModal() {
                 <Dialog.Panel className="tw-w-full tw-max-w-md tw-transform tw-overflow-hidden tw-rounded-2xl tw-bg-white tw-p-6 tw-text-left tw-align-middle tw-shadow-xl tw-transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="tw-text-lg tw-font-medium tw-leading-6 tw-text-gray-900 tw-font-Rubik"
+                    className="tw-text-lg tw-flex sm:tw-justify-start tw-justify-center tw-font-medium tw-leading-6 tw-text-gray-900 tw-font-Rubik"
                   >
                     About
                   </Dialog.Title>
                   <div className="tw-mt-2">
                     <p className="tw-text-sm tw-text-gray-500 tw-font-Rubik">
-                      Wrapped Plus allows you to sign in with your Spotify
-                      account to view your top Artists, Songs, and Genres. You
-                      can search for new songs or play your favorites directly
-                      in the built in web player that will also show the lyrics.
+                      Habby provides a full suite of productivity tools
+                      including
+                      <br />
+                      Habit Tracker
+                      <br />
+                      Pomodoro Timers
+                      <br />
+                      Web Notifications
+                      <br />
+                      Counters
+                      <br />
+                      Analytics
+                      <br />
+                      Contribution Graphs
+                      <br />
+                      <br />
+                      Users can secure sign in through Github, Linkedin, or
+                      Google. There is a demo environment available if you do
+                      not wish to sign in. The demo environment is read only
+                      (changes cannot be made such as adding or deleting).
                       <br />
                       <br />
                       Made by{" "}
@@ -81,7 +97,7 @@ export default function AboutModal() {
                       className="tw-inline-flex tw-font-Rubik tw-justify-center tw-rounded-md tw-border tw-border-transparent tw-bg-blue-100 tw-px-4 tw-py-2 tw-text-sm tw-font-medium tw-text-blue-900 hover:tw-bg-blue-200 focus:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-blue-500 focus-visible:tw-ring-offset-2"
                       onClick={closeModal}
                     >
-                      Ok!
+                      Thanks!
                     </button>
                   </div>
                 </Dialog.Panel>
